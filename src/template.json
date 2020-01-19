@@ -1,0 +1,276 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "input": {
+            "type": "object"
+        },
+        "hobo": {
+            "type": "object",
+            "defaultValue": {
+                "ExtensionResourceType": null,
+                "ResourceType": null,
+                "type": null,
+                "identity": null
+            }
+        },
+        "secret": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "variables": {
+        "debug": true,
+        "apiversion": {
+            "Microsoft.Resources/resourceGroups": "2019-05-10",
+            "Microsoft.Network/virtualNetworks" : "2017-10-01",
+            "Microsoft.Network/azureFirewalls"  : "2019-04-01",
+            "Microsoft.Authorization/policyAssignments" :"2018-05-01",
+            "Microsoft.Authorization/policyDefinitions" :"2018-05-01",
+            "Microsoft.ContainerService/ManagedClusters" :"2019-10-01",
+            "Microsoft.KeyVault/vaults" : "2018-02-14"
+            
+        },
+        "input": "[union(parameters('hobo'),parameters('input'))]",
+        "resourceType": "[coalesce(variables('input').ExtensionResourceType,variables('input').ResourceType, variables('input').type)]",
+        "virtualNetworkslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "virtualNetworkslookup",
+                "tags": null,
+                "type": null,
+                "properties": {
+                    "addressSpace": null,
+                    "dhcpOptions": null,
+                    "enableDdosProtection": null,
+                    "enableVmProtection": null,
+                    "subnets": [
+                        {
+                            "name": null,
+                            "properties": null
+                        }
+                    ],
+                    "virtualNetworkPeerings": []
+                }
+            }
+        },
+        "virtualNetworks": "[variables('virtualNetworkslookup')[string(equals(variables('resourceType'),'Microsoft.Network/virtualNetworks'))]]",
+        "virtualNetworkPeeringslookup": {
+            "true": "[variables('virtualNetworks').properties.virtualNetworkPeerings]",
+            "false": [
+                {
+                    "id": null,
+                    "name": "virtualNetworksPeeringslookup",
+                    "tags": null,
+                    "type": null,
+                    "properties": {
+                        "remoteVirtualNetwork": {
+                            "id": "none"
+                        }
+                    }
+                }
+            ]
+        },
+        "virtualNetworkPeerings": "[variables('virtualNetworkPeeringslookup')[if(greaterOrEquals(length(variables('virtualNetworks').properties.virtualNetworkPeerings),1),'true','false')]]",
+        "managedClusterslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "managedClusterslookup",
+                "tags": null,
+                "type": null,
+                "properties": {
+                    "servicePrincipalProfile": {
+                        "clientId": "null",
+                        "secret": "null"
+                    }
+                }
+            }
+        },
+        "managedClusters": "[variables('managedClusterslookup')[string(equals(variables('resourceType'),'Microsoft.ContainerService/ManagedClusters'))]]",
+        "policyAssignmentslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "policyAssignmentslookup",
+                "tags": null,
+                "type": null,
+                "properties": null,
+                "Identity": null
+            }
+        },
+        "policyAssignments": "[variables('policyAssignmentslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policyAssignments'))]]",        
+        "policyDefinitionslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "policyDefinitionslookup",
+                "tags": null,
+                "type": null,
+                "properties": null,
+                "Identity": null
+            }
+        },
+        "policyDefinitions": "[variables('policyDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policyDefinitions'))]]",        
+        "resourceGroupLookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "resourceGroupLookup",
+                "properties": null,
+                "tags": null,
+                "location" : "northeurope",
+                "type": "Microsoft.Resources/resourceGroups"
+            }
+        },
+        "resourceGroup": "[variables('resourceGroupLookup')[string(equals(variables('resourceType'),'Microsoft.Resources/resourceGroups'))]]"
+    },
+    "resources": [
+        {
+            "condition": "[equals(variables('resourceType'),'Microsoft.Resources/resourceGroups')]",
+            "type": "Microsoft.Resources/resourceGroups",
+            "name": "[variables('resourceGroup').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceGroup').type]]",
+            "location": "[variables('resourceGroup').location]",
+            "tags": "[variables('resourceGroup').tags]"
+        },
+        {
+            "condition": "[equals(variables('resourceType'),'Microsoft.Network/virtualNetworks')]",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[variables('virtualNetworks').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
+            "location": "[variables('resourceGroup').location]",
+            "properties": {
+                "addressSpace": "[variables('virtualNetworks').properties.addressSpace]",
+                "dhcpOptions": "[variables('virtualNetworks').properties.dhcpOptions]",
+                "enableDdosProtection": "[variables('virtualNetworks').properties.enableDdosProtection]",
+                "enableVmProtection": "[variables('virtualNetworks').properties.enableVmProtection]",
+                "copy": [
+                    {
+                        "name": "subnets",
+                        "count": "[length(variables('virtualNetworks').properties.subnets)]",
+                        "input": {
+                            "name": "[variables('virtualNetworks').properties.subnets[copyIndex('subnets')].name]",
+                            "properties": "[variables('virtualNetworks').properties.subnets[copyIndex('subnets')].properties]"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "condition": "[greaterOrEquals(length(variables('virtualNetworks').properties.virtualNetworkPeerings),1)]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2018-05-01",
+            "dependsOn": [
+                "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworks').name)]"
+            ],
+            "name": "[concat('vnp-', last(split(variables('virtualNetworkPeerings')[copyIndex()].properties.remoteVirtualNetwork.id,'/')))]",
+            "copy": {
+                "name": "iterator",
+                "count": "[length(variables('virtualNetworkPeerings'))]",
+                "mode": "Parallel"
+            },
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+                            "apiVersion": "2016-06-01",
+                            "location": "[resourceGroup().location]",
+                            "name": "[concat(variables('virtualNetworks').name, '/', last(split(variables('virtualNetworkPeerings')[copyIndex()].properties.remoteVirtualNetwork.id,'/')))]",
+                            "properties": "[variables('virtualNetworkPeerings')[copyIndex()].properties]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "condition": "[equals(variables('resourceType'),'Microsoft.Network/azureFirewalls')]",
+            "type": "Microsoft.Network/azureFirewalls",
+            "name": "[variables('input').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
+            "location": "[variables('resourceGroup').location]",
+            "properties": "[variables('input').properties]"
+        },
+        {
+            "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/policyAssignments'))]",
+            "type": "Microsoft.Authorization/policyAssignments",
+            "name": "[variables('policyAssignments').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
+            "identity": "[variables('policyAssignments').identity]",
+            "location": "northeurope",
+            "properties": "[variables('policyAssignments').Properties]"
+        },
+        {
+            "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/policyDefinitions'))]",
+            "type": "Microsoft.Authorization/policyDefinitions",
+            "name": "[variables('policyDefinitions').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",     
+            "location": "northeurope",
+            "properties": "[variables('policyDefinitions').Properties]"
+        },
+        {
+            "condition": "[equals(variables('resourceType'),'Microsoft.ContainerService/ManagedClusters')]",
+            "type": "Microsoft.ContainerService/ManagedClusters",
+            "name": "[variables('managedClusters').name]",
+            "apiVersion": "2019-10-01",
+            "location": "[variables('resourceGroup').location]",
+            "properties": "[variables('managedClusters').Properties]"
+        },
+        {
+            "condition": "[equals(variables('resourceType'),'Microsoft.KeyVault/vaults')]",
+            "type": "Microsoft.KeyVault/vaults",
+            "name": "[variables('input').name]",
+            "apiVersion": "2018-02-14",
+            "location": "[variables('resourceGroup').location]",
+            "properties": "[variables('input').Properties]"
+        }
+    ],
+    "outputs": {
+        "hobo": {
+            "condition": "[variables('debug')]",
+            "type": "object",
+            "value": "[variables('input')]"
+        },
+        "resourceGroup": {
+            "condition": "[and(equals(variables('ResourceType'), 'Microsoft.Resources/resourceGroups'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('input').properties]"
+        },
+        "network": {
+            "condition": "[and(equals(variables('ResourceType'), 'Microsoft.Network/virtualNetworks'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('input').properties]"
+        },
+        "policyAssignments": {
+            "condition": "[and(equals(variables('ResourceType'), 'Microsoft.Authorization/policyAssignments'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('input').Properties]"
+        },
+        "policyDefinitions": {
+            "condition": "[and(equals(variables('ResourceType'), 'Microsoft.Authorization/policyDefinitions'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('input').Properties]"
+        },
+        "managedClusters": {
+            "condition": "[and(equals(variables('resourceType'),'Microsoft.ContainerService/ManagedClusters'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('managedClusters').Properties]"
+        },
+        "kubeconfig": {
+            "condition": "[and(equals(variables('resourceType'),'Microsoft.ContainerService/ManagedClusters'),variables('debug'))]",
+            "type": "string",
+            "value": "[Base64ToString(ListCredential(resourceId('Microsoft.ContainerService/managedClusters/accessProfiles', variables('managedClusters').name,'clusterAdmin'), '2019-06-01').properties.kubeConfig)]"
+        },
+        "KeyVault": {
+            "condition": "[and(equals(variables('ResourceType'), 'Microsoft.KeyVault/vaults'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('input').Properties]"
+        },
+        "ResourceType": {
+            "type": "string",
+            "value": "[variables('ResourceType')]"
+        }
+    }
+}
