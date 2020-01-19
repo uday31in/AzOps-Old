@@ -28,8 +28,9 @@
             "Microsoft.Authorization/policyAssignments" :"2018-05-01",
             "Microsoft.Authorization/policyDefinitions" :"2018-05-01",
             "Microsoft.ContainerService/ManagedClusters" :"2019-10-01",
-            "Microsoft.KeyVault/vaults" : "2018-02-14"
-            
+            "Microsoft.KeyVault/vaults" : "2018-02-14",
+            "Microsoft.Authorization/roleDefinitions": "2018-01-01-preview"
+
         },
         "input": "[union(parameters('hobo'),parameters('input'))]",
         "resourceType": "[coalesce(variables('input').ExtensionResourceType,variables('input').ResourceType, variables('input').type)]",
@@ -108,7 +109,18 @@
                 "Identity": null
             }
         },
-        "policyDefinitions": "[variables('policyDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policyDefinitions'))]]",        
+        "policyDefinitions": "[variables('policyDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policyDefinitions'))]]",
+        "roleDefinitionslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "roleDefinitionslookup",
+                "tags": null,
+                "type": null,
+                "properties": null,
+                "Identity": null
+            }
+        },
+        "roleDefinitions": "[variables('roleDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/roleDefinitions'))]]",    
         "resourceGroupLookup": {
             "true": "[variables('input')]",
             "false": {
@@ -211,6 +223,14 @@
             "properties": "[variables('policyDefinitions').Properties]"
         },
         {
+            "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/roleDefinitions'))]",
+            "type": "Microsoft.Authorization/roleDefinitions",
+            "name": "[variables('roleDefinitions').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",     
+            "location": "northeurope",
+            "properties": "[variables('roleDefinitions').Properties]"
+        },
+        {
             "condition": "[equals(variables('resourceType'),'Microsoft.ContainerService/ManagedClusters')]",
             "type": "Microsoft.ContainerService/ManagedClusters",
             "name": "[variables('managedClusters').name]",
@@ -250,6 +270,11 @@
         },
         "policyDefinitions": {
             "condition": "[and(equals(variables('ResourceType'), 'Microsoft.Authorization/policyDefinitions'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('input').Properties]"
+        },
+        "roleDefinitions": {
+            "condition": "[and(equals(variables('ResourceType'), 'Microsoft.Authorization/roleDefinitions'),variables('debug'))]",
             "type": "object",
             "value": "[variables('input').Properties]"
         },
