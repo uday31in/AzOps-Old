@@ -29,9 +29,10 @@
             "Microsoft.Authorization/policyDefinitions" :"2018-05-01",
             "Microsoft.ContainerService/ManagedClusters" :"2019-10-01",
             "Microsoft.KeyVault/vaults" : "2018-02-14",
-            "Microsoft.Authorization/roleDefinitions": "2018-01-01-preview"
-
+            "Microsoft.Authorization/roleDefinitions": "2018-01-01-preview",
+            "Microsoft.Authorization/roleAssignments": "2019-04-01-preview"
         },
+        "rbacContributor": "b24988ac-6180-42a0-ab88-20f7382dd24c",
         "input": "[union(parameters('hobo'),parameters('input'))]",
         "resourceType": "[coalesce(variables('input').ExtensionResourceType,variables('input').ResourceType, variables('input').type)]",
         "virtualNetworkslookup": {
@@ -98,7 +99,18 @@
                 "Identity": null
             }
         },
-        "policyAssignments": "[variables('policyAssignmentslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policyAssignments'))]]",        
+        "policyAssignments": "[variables('policyAssignmentslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policyAssignments'))]]",
+        "roleAssignmentslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "roleAssignmentslookup",
+                "tags": null,
+                "type": null,
+                "properties": null,
+                "Identity": null
+            }
+        },
+        "roleAssignments": "[variables('roleAssignmentslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/roleAssignments'))]]",
         "policyDefinitionslookup": {
             "true": "[variables('input')]",
             "false": {
@@ -212,9 +224,17 @@
             "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "identity": {
                 "type": "SystemAssigned"
-            },
+            },      
             "location": "northeurope",
             "properties": "[variables('policyAssignments').Properties]"
+        },
+        {
+            "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/roleAssignments'))]",
+            "type": "Microsoft.Authorization/roleAssignments",
+            "name": "[variables('roleAssignments').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",           
+            "location": "northeurope",
+            "properties": "[variables('roleAssignments').Properties]"
         },
         {
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/policyDefinitions'))]",
@@ -267,6 +287,11 @@
         },
         "policyAssignments": {
             "condition": "[and(equals(variables('ResourceType'), 'Microsoft.Authorization/policyAssignments'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('input').Properties]"
+        },
+        "roleAssignments": {
+            "condition": "[and(equals(variables('ResourceType'), 'Microsoft.Authorization/roleAssignments'),variables('debug'))]",
             "type": "object",
             "value": "[variables('input').Properties]"
         },
