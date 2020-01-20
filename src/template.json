@@ -210,7 +210,9 @@
             "type": "Microsoft.Authorization/policyAssignments",
             "name": "[variables('policyAssignments').name]",
             "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
-            "identity": "[variables('policyAssignments').identity]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
             "location": "northeurope",
             "properties": "[variables('policyAssignments').Properties]"
         },
