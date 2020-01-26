@@ -220,7 +220,7 @@
         {
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/policyAssignments'))]",
             "type": "Microsoft.Authorization/policyAssignments",
-            "name": "[take(variables('policyAssignments').name,24)]",
+            "name": "[variables('policyAssignments').name]",
             "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "identity": {
                 "type": "SystemAssigned"
