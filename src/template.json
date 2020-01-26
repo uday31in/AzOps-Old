@@ -23,14 +23,15 @@
         "debug": true,
         "apiversion": {
             "Microsoft.Resources/resourceGroups": "2019-05-10",
-            "Microsoft.Network/virtualNetworks" : "2017-10-01",
-            "Microsoft.Network/azureFirewalls"  : "2019-04-01",
-            "Microsoft.ContainerService/ManagedClusters" :"2019-10-01",
-            "Microsoft.KeyVault/vaults" : "2018-02-14",
-            "Microsoft.Authorization/policyAssignments" :"2019-06-01",
-            "Microsoft.Authorization/policyDefinitions" :"2018-05-01",
+            "Microsoft.Network/virtualNetworks": "2017-10-01",
+            "Microsoft.Network/azureFirewalls": "2019-04-01",
+            "Microsoft.ContainerService/ManagedClusters": "2019-10-01",
+            "Microsoft.KeyVault/vaults": "2018-02-14",
+            "Microsoft.Authorization/policyAssignments": "2019-06-01",
+            "Microsoft.Authorization/policyDefinitions": "2018-05-01",
             "Microsoft.Authorization/roleDefinitions": "2018-01-01-preview",
-            "Microsoft.Authorization/roleAssignments": "2019-04-01-preview"
+            "Microsoft.Authorization/roleAssignments": "2019-04-01-preview",
+            "Microsoft.PolicyInsights/remediations": "2019-07-01"
         },
         "rbacContributor": "b24988ac-6180-42a0-ab88-20f7382dd24c",
         "input": "[union(parameters('hobo'),parameters('input'))]",
@@ -52,7 +53,8 @@
                             "properties": null
                         }
                     ],
-                    "virtualNetworkPeerings": []
+                    "virtualNetworkPeerings": [
+                    ]
                 }
             }
         },
@@ -132,14 +134,14 @@
                 "Identity": null
             }
         },
-        "roleDefinitions": "[variables('roleDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/roleDefinitions'))]]",    
+        "roleDefinitions": "[variables('roleDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/roleDefinitions'))]]",
         "resourceGroupLookup": {
             "true": "[variables('input')]",
             "false": {
                 "name": "resourceGroupLookup",
                 "properties": null,
                 "tags": null,
-                "location" : "northeurope",
+                "location": "northeurope",
                 "type": "Microsoft.Resources/resourceGroups"
             }
         },
@@ -226,7 +228,7 @@
             "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "identity": {
                 "type": "SystemAssigned"
-            },      
+            },
             "location": "northeurope",
             "properties": "[variables('policyAssignments').Properties]"
         },
@@ -234,7 +236,7 @@
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/roleAssignments'))]",
             "type": "Microsoft.Authorization/roleAssignments",
             "name": "[variables('roleAssignments').name]",
-            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",           
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "location": "northeurope",
             "properties": "[variables('roleAssignments').Properties]"
         },
@@ -242,7 +244,7 @@
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/policyDefinitions'))]",
             "type": "Microsoft.Authorization/policyDefinitions",
             "name": "[variables('policyDefinitions').name]",
-            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",     
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "location": "northeurope",
             "properties": "[variables('policyDefinitions').Properties]"
         },
@@ -250,7 +252,15 @@
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/roleDefinitions'))]",
             "type": "Microsoft.Authorization/roleDefinitions",
             "name": "[variables('roleDefinitions').name]",
-            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",     
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
+            "location": "northeurope",
+            "properties": "[variables('roleDefinitions').Properties]"
+        },
+        {
+            "condition": "[bool(equals(variables('resourceType'),'Microsoft.PolicyInsights/remediations'))]",
+            "type": "Microsoft.PolicyInsights/remediations",
+            "name": "[variables('roleDefinitions').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "location": "northeurope",
             "properties": "[variables('roleDefinitions').Properties]"
         },
