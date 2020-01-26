@@ -271,8 +271,7 @@
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.PolicyInsights/remediations'))]",
             "type": "Microsoft.PolicyInsights/remediations",
             "name": "[variables('remediations').name]",
-            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
-            "location": "northeurope",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",            
             "properties": "[variables('remediations').Properties]"
         },
         {
