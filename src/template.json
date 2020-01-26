@@ -177,6 +177,7 @@
                 ]
             }
         },
+        /*
         {
             "condition": "[greaterOrEquals(length(variables('virtualNetworks').properties.virtualNetworkPeerings),1)]",
             "type": "Microsoft.Resources/deployments",
@@ -209,6 +210,7 @@
                 }
             }
         },
+        */
         {
             "condition": "[equals(variables('resourceType'),'Microsoft.Network/azureFirewalls')]",
             "type": "Microsoft.Network/azureFirewalls",
