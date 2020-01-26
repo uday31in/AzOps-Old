@@ -135,6 +135,17 @@
             }
         },
         "roleDefinitions": "[variables('roleDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/roleDefinitions'))]]",
+        "remediationslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "remediationsLookup",
+                "tags": null,
+                "type": null,
+                "properties": null,
+                "Identity": null
+            }
+        },
+        "remediations": "[variables('remediationslookup')[string(equals(variables('resourceType'),'Microsoft.PolicyInsights/remediations'))]]",
         "resourceGroupLookup": {
             "true": "[variables('input')]",
             "false": {
@@ -259,9 +270,10 @@
         {
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.PolicyInsights/remediations'))]",
             "type": "Microsoft.PolicyInsights/remediations",
-            "name": "[variables('roleDefinitions').name]",
-            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",            
-            "properties": "[variables('roleDefinitions').Properties]"
+            "name": "[variables('remediations').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
+            "location": "northeurope",
+            "properties": "[variables('remediations').Properties]"
         },
         {
             "condition": "[equals(variables('resourceType'),'Microsoft.ContainerService/ManagedClusters')]",
