@@ -317,6 +317,11 @@
             "type": "object",
             "value": "[variables('input').Properties]"
         },
+        "remediations": {
+            "condition": "[and(equals(variables('ResourceType'), 'Microsoft.PolicyInsights/remediations'),variables('debug'))]",
+            "type": "object",
+            "value": "[variables('input').Properties]"
+        },
         "managedClusters": {
             "condition": "[and(equals(variables('resourceType'),'Microsoft.ContainerService/ManagedClusters'),variables('debug'))]",
             "type": "object",
