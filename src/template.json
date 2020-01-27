@@ -27,7 +27,7 @@
             "Microsoft.Network/azureFirewalls": "2019-04-01",
             "Microsoft.ContainerService/ManagedClusters": "2019-10-01",
             "Microsoft.KeyVault/vaults": "2018-02-14",
-            "Microsoft.Authorization/policyAssignments": "2018-05-01",
+            "Microsoft.Authorization/policyAssignments": "2019-06-01",
             "Microsoft.Authorization/policyDefinitions": "2018-05-01",
             "Microsoft.Authorization/roleDefinitions": "2018-01-01-preview",
             "Microsoft.Authorization/roleAssignments": "2019-04-01-preview",
