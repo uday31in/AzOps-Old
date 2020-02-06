@@ -7,12 +7,40 @@
             "metadata": {
                 "description": "input parameter for RESTful representation"
             }
+        },
+        "hobo": {
+            "type": "object",
+            "defaultValue": {
+                "DisplayName": null,
+                "ParentId": null,
+                "Children": null,
+                "properties": {
+                    "policyDefinitions": [
+                    ],
+                    "roleDefinitions": [
+                    ],
+                    "policyAssignments": [
+                    ]
+                }
+            }
         }
     },
     "variables": {
+        "debug": true,
+        "input": "[union(parameters('hobo'),parameters('input'))]",
+        /*
+            If Id proeprty is present, use one otherwise assume management group
+        */
+        "scope": "[if(contains(parameters('input'), 'Id'),parameters('input').Id, concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
+        "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,'')]",
+        "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions')),parameters('input').properties.policyDefinitions,'')]",
+        "roleDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'roleDefinitions')),parameters('input').properties.roleDefinitions,'')]",
+        "policyAssignments": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyAssignments')),parameters('input').properties.policyAssignments,'')]"
+
     },
     "resources": [
         {
+            "condition": "[contains(variables('scope'),'Microsoft.Management/managementGroups')]",
             "type": "Microsoft.Management/managementGroups",
             "apiVersion": "2019-11-01",
             "name": "[parameters('input').Name]",
@@ -26,17 +54,17 @@
             }
         },
         {
-            "condition": "[empty(parameters('input').Children)]",
+            "condition": "[not(empty(variables('Children')))]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-07-01",
             "copy": {
-                "name": "submove",
-                "count": "[length(parameters('input').Children)]"
+                "name": "childmove",
+                "count": "[length(variables('Children'))]"
             },
-            "name": "[if(not(empty(parameters('input').Children)), concat('mg-submove-', parameters('input').Children[copyIndex()].Name), 'na')]",
+            "name": "[if(not(empty(variables('Children'))), concat('mg-move-', variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
                 "[tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name)]",
-                "policydefloop",
+                "policydefinitionloop",
                 "policyassignmentloop",
                 "roleassignmentloop"
             ],
@@ -52,7 +80,7 @@
                         {
                             "type": "Microsoft.Management/managementGroups/subscriptions",
                             "apiVersion": "2019-11-01",
-                            "name": "[concat(parameters('input').Name,'/',parameters('input').Children[copyIndex()].Name)]",
+                            "name": "[concat(parameters('input').Name,'/',variables('Children')[copyIndex()].Name)]",
                             "properties": {
                             }
                         }
@@ -61,16 +89,16 @@
             }
         },
         {
-            "condition": "[not(empty(parameters('input').properties.policyDefinitions))]",
-            "scope": "[replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/','')]",
+            "condition": "[not(empty(variables('policyDefinitions')))]",
+            "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "location": "northeurope",
             "copy": {
-                "name": "policydefloop",
-                "count": "[length(parameters('input').properties.policyDefinitions)]"
+                "name": "policydefinitionloop",
+                "count": "[length(variables('policyDefinitions'))]"
             },
-            "name": "[if(not(empty(parameters('input').properties.policyDefinitions)), concat('mg-policydefinition-', parameters('input').properties.policyDefinitions[copyIndex()].value.Name), 'na')]",
+            "name": "[if(not(empty(variables('policyDefinitions'))), concat('policydefinition-', variables('policyDefinitions')[copyIndex()].value.Name), 'na-policydefinition')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -81,24 +109,24 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "input": "[parameters('input').properties.policyDefinitions[copyIndex()]]"
+                    "input": "[variables('policyDefinitions')[copyIndex()]]"
                 }
             }
         },
         {
-            "condition": "[not(empty(parameters('input').properties.policyAssignments))]",
-            "scope": "[replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/','')]",
+            "condition": "[not(empty(variables('policyAssignments')))]",
+            "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
             "location": "northeurope",
             "copy": {
                 "name": "policyassignmentloop",
-                "count": "[length(parameters('input').properties.policyAssignments)]"
+                "count": "[length(variables('policyAssignments'))]"
             },
             "dependsOn": [
-                "policydefloop"
+                "policydefinitionloop"
             ],
-            "name": "[if(not(empty(parameters('input').properties.policyAssignments)), concat('mg-policyassignment-', parameters('input').properties.policyAssignments[copyIndex()].value.Name), 'na')]",
+            "name": "[if(not(empty(variables('policyAssignments'))), concat('policyassignment-', variables('policyAssignments')[copyIndex()].value.Name), 'na-policyassignment')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -111,9 +139,9 @@
                 "parameters": {
                     "input": {
                         "value": {
-                            "name": "[parameters('input').properties.policyAssignments[copyIndex()].value.Name]",
-                            "ResourceType": "[parameters('input').properties.policyAssignments[copyIndex()].value.ResourceType]",
-                            "properties": "[parameters('input').properties.policyAssignments[copyIndex()].value.properties]"
+                            "name": "[variables('policyAssignments')[copyIndex()].value.Name]",
+                            "ResourceType": "[variables('policyAssignments')[copyIndex()].value.ResourceType]",
+                            "properties": "[variables('policyAssignments')[copyIndex()].value.properties]"
                         }
                     }
 
@@ -121,20 +149,20 @@
             }
         },
         {
-            "condition": "[not(empty(parameters('input').properties.policyAssignments))]",
-            "scope": "[replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/','')]",
+            "condition": "[not(empty(variables('policyAssignments')))]",
+            "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "location": "northeurope",
             "copy": {
                 "name": "roleassignmentloop",
-                "count": "[length(parameters('input').properties.policyAssignments)]"
+                "count": "[length(variables('policyAssignments'))]"
             },
             "dependsOn": [
-                "policydefloop",
+                "policydefinitionloop",
                 "policyassignmentloop"
             ],
-            "name": "[if(not(empty(parameters('input').properties.policyAssignments)), concat('mg-roleAssignment-', parameters('input').properties.policyAssignments[copyIndex()].value.Name), 'na')]",
+            "name": "[if(not(empty(variables('policyAssignments'))), concat('roleAssignment-', variables('policyAssignments')[copyIndex()].value.Name), 'na-roleAssignment')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -147,12 +175,12 @@
                 "parameters": {
                     "input": {
                         "value": {
-                            "name": "[guid(toLower(reference(concat(replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', parameters('input').properties.policyAssignments[copyIndex()].value.Name), '2018-05-01', 'Full' ).identity.principalId))]",
+                            "name": "[if(not(empty(variables('policyAssignments'))),guid(toLower(reference(concat(replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].value.Name), '2018-05-01', 'Full' ).identity.principalId)),'na')]",
                             "ExtensionResourceType": "Microsoft.Authorization/roleAssignments",
                             "properties": {
                                 "principalType": "ServicePrincipal",
                                 "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
-                                "principalId": "[toLower(reference(concat(replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', parameters('input').properties.policyAssignments[copyIndex()].value.Name), '2018-05-01', 'Full' ).identity.principalId)]"
+                                "principalId": "[if(not(empty(variables('policyAssignments'))),toLower(reference(concat(replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].value.Name), '2018-05-01', 'Full' ).identity.principalId),'na')]"
                             }
                         }
                     }
@@ -160,21 +188,21 @@
             }
         },
         {
-            "condition": "[not(empty(parameters('input').properties.policyAssignments))]",
-            "scope": "[replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/','')]",
+            "condition": "[not(empty(variables('policyAssignments')))]",
+            "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "location": "northeurope",
             "copy": {
                 "name": "policyremediationsloop",
-                "count": "[length(parameters('input').properties.policyAssignments)]"
+                "count": "[length(variables('policyAssignments'))]"
             },
             "dependsOn": [
-                "policydefloop",
+                "policydefinitionloop",
                 "policyassignmentloop",
                 "roleassignmentloop"
             ],
-            "name": "[if(not(empty(parameters('input').properties.policyAssignments)), concat('mg-policyremediations-', parameters('input').properties.policyAssignments[copyIndex()].value.Name), 'na')]",
+            "name": "[if(not(empty(variables('policyAssignments'))), concat('policyremediations-', variables('policyAssignments')[copyIndex()].value.Name), 'na-policyremediations')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -187,10 +215,10 @@
                 "parameters": {
                     "input": {
                         "value": {
-                            "name": "[parameters('input').properties.policyAssignments[copyIndex()].value.Name]",
+                            "name": "[variables('policyAssignments')[copyIndex()].value.Name]",
                             "ExtensionResourceType": "Microsoft.PolicyInsights/remediations",
                             "properties": {
-                                "policyAssignmentId": "[concat(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/Microsoft.Authorization/policyAssignments/', parameters('input').properties.policyAssignments[copyIndex()].value.Name)]"
+                                "policyAssignmentId": "[concat(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].value.Name)]"
                             }
                         }
                     }
@@ -198,16 +226,16 @@
             }
         },
         {
-            "condition": "[not(empty(parameters('input').properties.roleDefinitions))]",
-            "scope": "[replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/','')]",
+            "condition": "[not(empty(variables('roleDefinitions')))]",
+            "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "location": "northeurope",
             "copy": {
                 "name": "roledef",
-                "count": "[length(parameters('input').properties.roleDefinitions)]"
+                "count": "[length(variables('roleDefinitions'))]"
             },
-            "name": "[if(not(empty(parameters('input').properties.roleDefinitions)), concat('mg-roleDefinitions-', parameters('input').properties.roleDefinitions[copyIndex()].value.Name), 'na')]",
+            "name": "[if(not(empty(variables('roleDefinitions'))), concat('roleDefinitions-', variables('roleDefinitions')[copyIndex()].value.Name), 'na-roleDefinitions')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -218,44 +246,16 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "input": "[parameters('input').properties.roleDefinitions[copyIndex()]]"
+                    "input": "[variables('roleDefinitions')[copyIndex()]]"
                 }
             }
         }
-
     ],
     "outputs": {
-        "managementGroup": {
-            "condition": "[bool('false')]",
-            "type": "object",
-            "value": "[parameters('input')]"
-        },
-        "deployment": {
-            "condition": "[bool('false')]",
-            "type": "object",
-            "value": "[deployment()]"
-        },
-        "roledefinitionId": {
-            "type": "object",
-            "value": "[reference(tenantResourceId('Microsoft.Authorization/roleDefinitions', 'd90bdb18-7872-437f-913e-b88546e41b00') , '2018-07-01', 'Full' )]"
-        },
-        /*
-        "policydefinitionId": {
-            "condition": "[bool('false')]",
-            "type": "object",
-            "value": "[reference(concat(replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/',''),'/providers/Microsoft.Authorization/policyDefinitions/', 'DINE-connectivity-vwan'), '2019-09-01', 'Full' )]"
-        },
-        */
-        "policyAssignmentId": {
-            "condition": "[bool('false')]",
-            "type": "object",
-            "value": "[reference(concat(replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', 'ADINE-connectivity'), '2018-05-01', 'Full' )]"
-        },
-
-        "managementgroupId": {
-            "condition": "[bool('false')]",
-            "type": "object",
-            "value": "[reference(replace(tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name),'/providers/',''))]"
+        "Children": {
+            "condition": "[bool('true')]",
+            "type": "bool",
+            "value": "[not(empty(variables('Children')))]"
         }
     }
 }
