@@ -29,9 +29,9 @@
         "debug": true,
         "input": "[union(parameters('hobo'),parameters('input'))]",
         /*
-            If Id proeprty is present, use one otherwise assume management group
+            If Id proeprty is present, use one and repalce providers prefix, otherwise assume management group 
         */
-        "scope": "[if(contains(parameters('input'), 'Id'),parameters('input').Id, concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
+        "scope": "[if(contains(parameters('input'), 'Id'),replace(parameters('input').Id,'/providers',''), concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
         "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,'')]",
         "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions')),parameters('input').properties.policyDefinitions,'')]",
         "roleDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'roleDefinitions')),parameters('input').properties.roleDefinitions,'')]",
@@ -40,7 +40,7 @@
     },
     "resources": [
         {
-            "condition": "[contains(variables('scope'),'Microsoft.Management/managementGroups')]",
+            "condition": "[and(contains(variables('scope'),'Microsoft.Management/managementGroups'),contains(parameters('input'), 'ParentId'))]",
             "type": "Microsoft.Management/managementGroups",
             "apiVersion": "2019-11-01",
             "name": "[parameters('input').Name]",
@@ -63,7 +63,6 @@
             },
             "name": "[if(not(empty(variables('Children'))), concat('mg-move-', variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
-                "[tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name)]",
                 "policydefinitionloop",
                 "policyassignmentloop",
                 "roleassignmentloop"
@@ -78,6 +77,21 @@
                     },
                     "resources": [
                         {
+                            "condition": "[contains(if(contains(variables('Children')[copyIndex()], 'Id'),variables('Children')[copyIndex()].Id, concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].Name)),'Microsoft.Management/managementGroups')]",
+                            "type": "Microsoft.Management/managementGroups",
+                            "apiVersion": "2019-11-01",
+                            "name": "[variables('Children')[copyIndex()].Name]",
+                            "properties": {
+                                "displayName": "[variables('Children')[copyIndex()].DisplayName]",
+                                "details": {
+                                    "parent": {
+                                        "id": "[concat('/providers/Microsoft.Management/managementGroups/', parameters('input').Name)]"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "condition": "[not(contains(if(contains(variables('Children')[copyIndex()], 'Id'),variables('Children')[copyIndex()].Id, concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].Name)),'Microsoft.Management/managementGroups'))]",
                             "type": "Microsoft.Management/managementGroups/subscriptions",
                             "apiVersion": "2019-11-01",
                             "name": "[concat(parameters('input').Name,'/',variables('Children')[copyIndex()].Name)]",
