@@ -59,8 +59,7 @@
         },
         {
             "condition": "[not(empty(variables('Children')))]",
-            "type": "Microsoft.Resources/deployments",
-            "scope": "[variables('scope')]",
+            "type": "Microsoft.Resources/deployments",            
             "apiVersion": "2019-07-01",
             "copy": {
                 "name": "childmove",
