@@ -52,7 +52,7 @@
                 "displayName": "[parameters('input').DisplayName]",
                 "details": {
                     "parent": {
-                        "id": "[parameters('input').ParentId]"
+                        "id": "[if(contains(parameters('input'),'ParentId'),parameters('input').ParentId,'na-parentId')]"
                     }
                 }
             }
@@ -67,6 +67,7 @@
             },
             "name": "[if(not(empty(variables('Children'))), concat('childmove-', variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
+                "[parameters('input').Name]",
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
                 "policyassignmentloop",
@@ -366,6 +367,7 @@
                 }
             }
         },
+
         {
             "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
             "scope": "[variables('scope')]",
@@ -407,6 +409,7 @@
                 }
             }
         },
+
         {
             /*
              Subscription deployment cannot be invoked with scope property unlike management group.
@@ -511,6 +514,7 @@
                 }
             }
         }
+
     ],
     "outputs": {
         "scope": {
