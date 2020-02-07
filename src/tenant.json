@@ -60,6 +60,7 @@
         {
             "condition": "[not(empty(variables('Children')))]",
             "type": "Microsoft.Resources/deployments",
+            "scope": "[variables('scope')]",
             "apiVersion": "2019-07-01",
             "copy": {
                 "name": "childmove",
@@ -105,6 +106,9 @@
                             "apiVersion": "2019-10-01",
                             "location": "northeurope",
                             "name": "e2e",
+                            "dependsOn": [
+                                "[variables('Children')[copyIndex()].Name]"
+                            ],
                             "properties": {
                                 "expressionEvaluationOptions": {
                                     "scope": "inner"
