@@ -40,7 +40,11 @@
     },
     "resources": [
         {
-            "condition": "[contains(variables('scope'),'Microsoft.Management/managementGroups')]",
+            /*
+                If scope container management group and parentID property exists.
+                If ParentID do not exist, then it is a child and creation of managemeent group would have happended when parent's children were iterated upon.
+            */
+            "condition": "[and(contains(variables('scope'),'Microsoft.Management/managementGroups'), contains(parameters('input'),'ParentId'))]",
             "type": "Microsoft.Management/managementGroups",
             "apiVersion": "2019-11-01",
             "name": "[parameters('input').Name]",
@@ -63,14 +67,12 @@
             },
             "name": "[if(not(empty(variables('Children'))), concat('childmove-', variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
-                /*
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
                 "policyassignmentloop",
                 "policyassignmentloop-subscription",
                 "roleassignmentloop",
                 "roleassignmentloop-subscription"
-                */
             ],
             "location": "northeurope",
             "properties": {
@@ -164,7 +166,7 @@
                 "name": "policydefinitionloop",
                 "count": "[length(variables('policyDefinitions'))]"
             },
-            "name": "[if(not(empty(variables('policyDefinitions'))), concat('policydefinition-', variables('policyDefinitions')[copyIndex()].Name), 'na-policydefinition')]",
+            "name": "[if(not(empty(variables('policyDefinitions'))), concat('policydefinition-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policydefinition')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -195,7 +197,7 @@
                 "name": "policydefinitionloop-subscription",
                 "count": "[length(variables('policyDefinitions'))]"
             },
-            "name": "[if(not(empty(variables('policyDefinitions'))), concat('policydefinition-sub-', variables('policyDefinitions')[copyIndex()].Name), 'na-policydefinition')]",
+            "name": "[if(not(empty(variables('policyDefinitions'))), concat('policydefinition-sub-', variables('policyDefinitions')[copyIndex()].Name), 'na-sub-policydefinition')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -294,7 +296,7 @@
                 "policyassignmentloop",
                 "policyassignmentloop-subscription"
             ],
-            "name": "[if(not(empty(variables('policyAssignments'))), concat('roleAssignment-', variables('policyAssignments')[copyIndex()].Name), 'na-roleAssignment')]",
+            "name": "[if(not(empty(variables('policyAssignments'))), concat('roleAssignment-', variables('policyAssignments')[copyIndex()].Name), 'na-mgmt-roleAssignment')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -339,7 +341,7 @@
                 "policyassignmentloop",
                 "policyassignmentloop-subscription"
             ],
-            "name": "[if(not(empty(variables('policyAssignments'))), concat('roleAssignment-sub-', variables('policyAssignments')[copyIndex()].Name), 'na-roleAssignment')]",
+            "name": "[if(not(empty(variables('policyAssignments'))), concat('roleAssignment-sub-', variables('policyAssignments')[copyIndex()].Name), 'na-sub-roleAssignment')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -382,7 +384,7 @@
                 "roleassignmentloop",
                 "roleassignmentloop-subscription"
             ],
-            "name": "[if(not(empty(variables('policyAssignments'))), concat('policyremediations-', variables('policyAssignments')[copyIndex()].Name), 'na-policyremediations')]",
+            "name": "[if(not(empty(variables('policyAssignments'))), concat('policyremediations-', variables('policyAssignments')[copyIndex()].Name), 'na-mgmt-policyremediations')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -427,7 +429,7 @@
                 "roleassignmentloop",
                 "roleassignmentloop-subscription"
             ],
-            "name": "[if(not(empty(variables('policyAssignments'))), concat('policyremediations-sub-', variables('policyAssignments')[copyIndex()].Name), 'na-policyremediations')]",
+            "name": "[if(not(empty(variables('policyAssignments'))), concat('policyremediations-sub-', variables('policyAssignments')[copyIndex()].Name), 'na-sub-policyremediations')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -460,7 +462,7 @@
                 "name": "roledef",
                 "count": "[length(variables('roleDefinitions'))]"
             },
-            "name": "[if(not(empty(variables('roleDefinitions'))), concat('roleDefinitions-', variables('roleDefinitions')[copyIndex()].Name), 'na-roleDefinitions')]",
+            "name": "[if(not(empty(variables('roleDefinitions'))), concat('roleDefinitions-', variables('roleDefinitions')[copyIndex()].Name), 'na-mgmt-roleDefinitions')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -492,7 +494,7 @@
                 "name": "roledef-subscription",
                 "count": "[length(variables('roleDefinitions'))]"
             },
-            "name": "[if(not(empty(variables('roleDefinitions'))), concat('roleDefinitions-sub-', variables('roleDefinitions')[copyIndex()].Name), 'na-roleDefinitions')]",
+            "name": "[if(not(empty(variables('roleDefinitions'))), concat('roleDefinitions-sub-', variables('roleDefinitions')[copyIndex()].Name), 'na-sub-roleDefinitions')]",
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
