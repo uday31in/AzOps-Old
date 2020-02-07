@@ -39,8 +39,6 @@
 
     },
     "resources": [
-
-
         {
             "condition": "[and(contains(variables('scope'),'Microsoft.Management/managementGroups'),contains(parameters('input'), 'ParentId'))]",
             "type": "Microsoft.Management/managementGroups",
@@ -65,12 +63,12 @@
             },
             "name": "[if(not(empty(variables('Children'))), concat('mg-move-', variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
-
                 "policydefinitionloop",
+                "policydefinitionloop-subscription",
                 "policyassignmentloop",
-                "roleassignmentloop"
-
-
+                "policyassignmentloop-subscription",
+                "roleassignmentloop",
+                "roleassignmentloop-subscription"
             ],
             "location": "northeurope",
             "properties": {
@@ -118,7 +116,7 @@
                                 }
                             }
                         },
-
+                        /*
                         {
                             "condition": "[not(contains(if(contains(variables('Children')[copyIndex()], 'Id'),variables('Children')[copyIndex()].Id, concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].Name)),'Microsoft.Management/managementGroups'))]",
                             "type": "Microsoft.Management/managementGroups/subscriptions",
@@ -127,7 +125,7 @@
                             "properties": {
                             }
                         },
-
+                        */
                         {
                             "condition": "[not(contains(if(contains(variables('Children')[copyIndex()], 'Id'),variables('Children')[copyIndex()].Id, concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].Name)),'Microsoft.Management/managementGroups'))]",
                             "subscriptionId": "[parameters('input').Name]",
@@ -253,10 +251,8 @@
                 "count": "[length(variables('policyAssignments'))]"
             },
             "dependsOn": [
-
                 "policydefinitionloop",
-                "policydefinitionloop-subscription",
-
+                "policydefinitionloop-subscription"
             ],
             "name": "[if(not(empty(variables('policyAssignments'))), concat('policyassignment-sub-', variables('policyAssignments')[copyIndex()].value.Name), 'na-policyassignment')]",
             "properties": {
