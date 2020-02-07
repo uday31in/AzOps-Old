@@ -104,7 +104,7 @@
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "northeurope",
-                            "name": "e2e",
+                            "name": "[concat('Northstar-mgmt-',variables('Children')[copyIndex()].Name)]",
                             "dependsOn": [
                                 "[variables('Children')[copyIndex()].Name]"
                             ],
@@ -139,7 +139,7 @@
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "northeurope",
-                            "name": "e2e",
+                            "name": "[concat('Northstar-sub-',variables('Children')[copyIndex()].Name)]",
                             "properties": {
                                 "expressionEvaluationOptions": {
                                     "scope": "outer"
