@@ -366,6 +366,7 @@
                 }
             }
         },
+
         {
             "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
             "scope": "[variables('scope')]",
@@ -407,6 +408,7 @@
                 }
             }
         },
+
         {
             /*
              Subscription deployment cannot be invoked with scope property unlike management group.
@@ -511,6 +513,7 @@
                 }
             }
         }
+
     ],
     "outputs": {
         "scope": {
