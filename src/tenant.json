@@ -168,6 +168,9 @@
                 "count": "[length(variables('policyDefinitions'))]"
             },
             "name": "[if(not(empty(variables('policyDefinitions'))), concat('policydefinition-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policydefinition')]",
+            "dependsOn": [
+                "[parameters('input').Name]"
+            ],
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
@@ -199,6 +202,9 @@
                 "count": "[length(variables('policyDefinitions'))]"
             },
             "name": "[if(not(empty(variables('policyDefinitions'))), concat('policydefinition-sub-', variables('policyDefinitions')[copyIndex()].Name), 'na-sub-policydefinition')]",
+            "dependsOn": [
+                "[parameters('input').Name]"
+            ],
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
