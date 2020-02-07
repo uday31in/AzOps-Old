@@ -67,6 +67,7 @@
             },
             "name": "[if(not(empty(variables('Children'))), concat('childmove-', variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
+                "[parameters('input').Name]",
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
                 "policyassignmentloop",
