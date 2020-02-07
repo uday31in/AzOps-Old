@@ -52,7 +52,7 @@
                 "displayName": "[parameters('input').DisplayName]",
                 "details": {
                     "parent": {
-                        "id": "[parameters('input').ParentId]"
+                        "id": "[if(contains(parameters('input'),'ParentId'),parameters('input').ParentId,'na-parentId')]"
                     }
                 }
             }
