@@ -61,7 +61,7 @@
                 "name": "childmove",
                 "count": "[length(variables('Children'))]"
             },
-            "name": "[if(not(empty(variables('Children'))), concat('mg-move-', variables('Children')[copyIndex()].Name), 'na-move')]",
+            "name": "[if(not(empty(variables('Children'))), concat('childmove-', variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
@@ -135,7 +135,7 @@
                             "name": "e2e",
                             "properties": {
                                 "expressionEvaluationOptions": {
-                                    "scope": "inner"
+                                    "scope": "outer"
                                 },
                                 "mode": "Incremental",
                                 "templateLink": {
@@ -144,7 +144,9 @@
                                 },
                                 "parameters": {
                                     "input": {
-                                        "value": "[variables('Children')[copyIndex()]]"
+                                        "value": {
+                                            "value": "[variables('Children')[copyIndex()]]"
+                                        }
                                     }
                                 }
                             }
@@ -153,6 +155,7 @@
                 }
             }
         },
+
         {
             "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
             "scope": "[variables('scope')]",
@@ -310,7 +313,6 @@
                 }
             }
         },
-
         {
             /*
              Subscription deployment cannot be invoked with scope property unlike management group.
@@ -496,7 +498,7 @@
                 }
             }
         }
-        
+
     ],
     "outputs": {
         "scope": {
