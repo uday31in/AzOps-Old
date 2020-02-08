@@ -1,521 +1,528 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-      "input": {
-        "value": {
-          "Name": "Fabrikam",
-          "DisplayName": "Fabrikam",
-          "ParentId": "/providers/Microsoft.Management/managementGroups/3fc1081d-6105-4e19-b60c-1ec1252cf560",
-          "ParentName": "3fc1081d-6105-4e19-b60c-1ec1252cf560",
-          "Children": [
-            {
-              "Type": "/providers/Microsoft.Management/managementGroups",
-              "Id": "/providers/Microsoft.Management/managementGroups/fabrikam-bu1",
-              "Name": "fabrikam-bu1",
-              "DisplayName": "fabrikam-bu1",
-              "Children": [
-                {
-                  "Type": "/providers/Microsoft.Management/managementGroups",
-                  "Id": "/providers/Microsoft.Management/managementGroups/fabrikam-bu1-corp",
-                  "Name": "fabrikam-bu1-corp",
-                  "DisplayName": "fabrikam-bu1-corp",
-                  "Children": null
-                }
-              ],
-              "properties": {
-                "policyDefinitions": [],
-                "roleDefinitions": [],
-                "policyAssignments": [
-                  {
-                    "Name": "ADINE-network",
-                    "ResourceType": "Microsoft.Authorization/policyAssignments",
-                    "Properties": {
-                      "displayName": "ADINE Create network inside landing zone",
-                      "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-network",
-                      "scope": "/providers/Microsoft.Management/managementGroups/fabrikam-bu1",
-                      "notScopes": [],
-                      "parameters": {}
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "Type": "/subscriptions",
-              "Id": "/subscriptions/a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10",
-              "Name": "a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10",
-              "DisplayName": "udpandya",
-              "Children": null,
-              "properties": {
-                "policyDefinitions": [],
-                "roleDefinitions": [],
-                "policyAssignments": [
-                  {
-                    "Name": "ADINE-network",
-                    "ResourceType": "Microsoft.Authorization/policyAssignments",
-                    "Properties": {
-                      "displayName": "ADINE Create network inside landing zone",
-                      "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-network",
-                      "scope": "/subscriptions/a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10",
-                      "notScopes": [],
-                      "parameters": {}
-                    }
-                  }
-                ]
-              }
-            }
-          ],
-          "properties": {
-            "policyDefinitions": [
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "input": {
+      "value": {
+        "Name": "Fabrikam",
+        "DisplayName": "Fabrikam",
+        "ParentId": "/providers/Microsoft.Management/managementGroups/3fc1081d-6105-4e19-b60c-1ec1252cf560",
+        "ParentName": "3fc1081d-6105-4e19-b60c-1ec1252cf560",
+        "Children": [
+          {
+            "Type": "/providers/Microsoft.Management/managementGroups",
+            "Id": "/providers/Microsoft.Management/managementGroups/fabrikam-bu1",
+            "Name": "fabrikam-bu1",
+            "DisplayName": "fabrikam-bu1",
+            "Children": [
               {
-                "Name": "DINE-Diagnostics-ActivityLog",
-                "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-                "Properties": {
-                  "displayName": "DINE-Diagnostics-ActivityLog",
-                  "policyType": "Custom",
-                  "mode": "All",
-                  "description": "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics",
-                  "parameters": {
-                    "logAnalytics": {
-                      "type": "String",
-                      "metadata": {
-                        "displayName": "Primary Log Analytics workspace",
-                        "description": "Select Log Analytics workspace from dropdown list",
-                        "strongType": "omsWorkspace"
-                      }
-                    }
-                  },
-                  "policyRule": {
-                    "if": {
-                      "allOf": [
-                        {
-                          "field": "type",
-                          "equals": "Microsoft.Resources/subscriptions"
-                        }
-                      ]
-                    },
-                    "then": {
-                      "effect": "deployIfNotExists",
-                      "details": {
-                        "type": "Microsoft.Insights/diagnosticSettings",
-                        "deploymentScope": "Subscription",
-                        "existenceScope": "Subscription",
-                        "existenceCondition": {
-                          "allOf": [
-                            {
-                              "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
-                              "equals": "[parameters(\u0027logAnalytics\u0027)]"
-                            }
-                          ]
-                        },
-                        "deployment": {
-                          "location": "northeurope",
-                          "properties": {
-                            "mode": "incremental",
-                            "template": {
-                              "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
-                              "contentVersion": "1.0.0.0",
-                              "parameters": {
-                                "logAnalytics": {
-                                  "type": "string"
-                                }
-                              },
-                              "variables": {},
-                              "resources": [
-                                {
-                                  "name": "subscriptionLogsToLogAnalytics",
-                                  "type": "Microsoft.Insights/diagnosticSettings",
-                                  "apiVersion": "2017-05-01-preview",
-                                  "location": "Global",
-                                  "properties": {
-                                    "workspaceId": "[parameters(\u0027logAnalytics\u0027)]",
-                                    "logs": [
-                                      {
-                                        "category": "Administrative",
-                                        "enabled": true
-                                      },
-                                      {
-                                        "category": "Security",
-                                        "enabled": true
-                                      },
-                                      {
-                                        "category": "ServiceHealth",
-                                        "enabled": true
-                                      },
-                                      {
-                                        "category": "Alert",
-                                        "enabled": true
-                                      },
-                                      {
-                                        "category": "Recommendation",
-                                        "enabled": true
-                                      },
-                                      {
-                                        "category": "Policy",
-                                        "enabled": true
-                                      },
-                                      {
-                                        "category": "Autoscale",
-                                        "enabled": true
-                                      },
-                                      {
-                                        "category": "ResourceHealth",
-                                        "enabled": true
-                                      }
-                                    ]
-                                  }
-                                }
-                              ],
-                              "outputs": {}
-                            },
-                            "parameters": {
-                              "logAnalytics": {
-                                "value": "[parameters(\u0027logAnalytics\u0027)]"
-                              }
-                            }
-                          }
-                        },
-                        "roleDefinitionIds": [
-                          "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
-                        ]
-                      }
+                "Type": "/providers/Microsoft.Management/managementGroups",
+                "Id": "/providers/Microsoft.Management/managementGroups/fabrikam-bu1-corp",
+                "Name": "fabrikam-bu1-corp",
+                "DisplayName": "fabrikam-bu1-corp",
+                "Children": null
+              }
+            ],
+            "properties": {
+              "policyDefinitions": [],
+              "roleDefinitions": [],
+              "policyAssignments": [
+                {
+                  "Name": "ADINE-network",
+                  "ResourceType": "Microsoft.Authorization/policyAssignments",
+                  "Properties": {
+                    "displayName": "ADINE Create network inside landing zone",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-network",
+                    "scope": "/providers/Microsoft.Management/managementGroups/fabrikam-bu1",
+                    "notScopes": [],
+                    "parameters": {}
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "Type": "/subscriptions",
+            "Id": "/subscriptions/a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10",
+            "Name": "a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10",
+            "DisplayName": "udpandya",
+            "Children": null,
+            "properties": {
+              "policyDefinitions": [],
+              "roleDefinitions": [],
+              "policyAssignments": [
+                {
+                  "Name": "ADINE-network",
+                  "ResourceType": "Microsoft.Authorization/policyAssignments",
+                  "Properties": {
+                    "displayName": "ADINE Create network inside landing zone",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-network",
+                    "scope": "/subscriptions/a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10",
+                    "notScopes": [],
+                    "parameters": {}
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "properties": {
+          "policyDefinitions": [
+            {
+              "Name": "DINE-Diagnostics-ActivityLog",
+              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "Properties": {
+                "displayName": "DINE-Diagnostics-ActivityLog",
+                "policyType": "Custom",
+                "mode": "All",
+                "description": "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics",
+                "parameters": {
+                  "logAnalytics": {
+                    "type": "String",
+                    "metadata": {
+                      "displayName": "Primary Log Analytics workspace",
+                      "description": "Select Log Analytics workspace from dropdown list",
+                      "strongType": "omsWorkspace"
                     }
                   }
                 },
-                "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/contoso/providers/Microsoft.Authorization/policyDefinitions/DINE-Diagnostics-ActivityLog"
-              },
-              {
-                "Name": "DINE-lognalytics",
-                "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-                "Properties": {
-                  "displayName": "DINE-lognalytics",
-                  "policyType": "Custom",
-                  "mode": "All",
-                  "description": "Ensures that management RG is deployed in management subscription",
-                  "parameters": {},
-                  "policyRule": {
-                    "if": {
-                      "allOf": [
-                        {
-                          "field": "type",
-                          "equals": "Microsoft.Resources/subscriptions"
-                        }
-                      ]
-                    },
-                    "then": {
-                      "effect": "deployIfNotExists",
-                      "details": {
-                        "type": "Microsoft.Resources/resourceGroups",
-                        "deploymentScope": "Subscription",
-                        "existenceScope": "Subscription",
-                        "roleDefinitionIds": [
-                          "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
-                        ],
-                        "existenceCondition": {
-                          "allOf": [
-                            {
-                              "field": "type",
-                              "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+                "policyRule": {
+                  "if": {
+                    "allOf": [
+                      {
+                        "field": "type",
+                        "equals": "Microsoft.Resources/subscriptions"
+                      }
+                    ]
+                  },
+                  "then": {
+                    "effect": "deployIfNotExists",
+                    "details": {
+                      "type": "Microsoft.Insights/diagnosticSettings",
+                      "deploymentScope": "Subscription",
+                      "existenceScope": "Subscription",
+                      "existenceCondition": {
+                        "allOf": [
+                          {
+                            "field": "Microsoft.Insights/diagnosticSettings/workspaceId",
+                            "equals": "[parameters(\u0027logAnalytics\u0027)]"
+                          }
+                        ]
+                      },
+                      "deployment": {
+                        "location": "northeurope",
+                        "properties": {
+                          "mode": "incremental",
+                          "template": {
+                            "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                            "contentVersion": "1.0.0.0",
+                            "parameters": {
+                              "logAnalytics": {
+                                "type": "string"
+                              }
                             },
-                            {
-                              "field": "name",
-                              "like": "[concat(subscription().displayName, '-loganalytics')]"
-                            }
-                          ]
-                        },
-                        "deployment": {
-                          "location": "westeurope",
-                          "properties": {
-                            "mode": "incremental",
-                            "parameters": {},
-                            "template": {
-                              "$schema": "http://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json",
-                              "contentVersion": "1.0.0.0",
-                              "parameters": {},
-                              "variables": {
-                                "storageName": "[concat('e2elz', uniqueString(subscription().id,'storage'))]"
-                              },
-                              "resources": [
-                                {
-                                  "type": "Microsoft.Resources/resourceGroups",
-                                  "apiVersion": "2018-05-01",
-                                  "name": "[concat(subscription().displayName, '-loganalytics')]",
-                                  "location": "[deployment().location]",
-                                  "properties": {}
+                            "variables": {},
+                            "resources": [
+                              {
+                                "name": "subscriptionLogsToLogAnalytics",
+                                "type": "Microsoft.Insights/diagnosticSettings",
+                                "apiVersion": "2017-05-01-preview",
+                                "location": "Global",
+                                "properties": {
+                                  "workspaceId": "[parameters(\u0027logAnalytics\u0027)]",
+                                  "logs": [
+                                    {
+                                      "category": "Administrative",
+                                      "enabled": true
+                                    },
+                                    {
+                                      "category": "Security",
+                                      "enabled": true
+                                    },
+                                    {
+                                      "category": "ServiceHealth",
+                                      "enabled": true
+                                    },
+                                    {
+                                      "category": "Alert",
+                                      "enabled": true
+                                    },
+                                    {
+                                      "category": "Recommendation",
+                                      "enabled": true
+                                    },
+                                    {
+                                      "category": "Policy",
+                                      "enabled": true
+                                    },
+                                    {
+                                      "category": "Autoscale",
+                                      "enabled": true
+                                    },
+                                    {
+                                      "category": "ResourceHealth",
+                                      "enabled": true
+                                    }
+                                  ]
                                 }
-                              ],
-                              "outputs": {}
+                              }
+                            ],
+                            "outputs": {}
+                          },
+                          "parameters": {
+                            "logAnalytics": {
+                              "value": "[parameters(\u0027logAnalytics\u0027)]"
                             }
+                          }
+                        }
+                      },
+                      "roleDefinitionIds": [
+                        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+                      ]
+                    }
+                  }
+                }
+              },
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/contoso/providers/Microsoft.Authorization/policyDefinitions/DINE-Diagnostics-ActivityLog"
+            },
+            {
+              "Name": "DINE-lognalytics",
+              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "Properties": {
+                "displayName": "DINE-lognalytics",
+                "policyType": "Custom",
+                "mode": "All",
+                "description": "Ensures that management RG is deployed in management subscription",
+                "parameters": {},
+                "policyRule": {
+                  "if": {
+                    "allOf": [
+                      {
+                        "field": "type",
+                        "equals": "Microsoft.Resources/subscriptions"
+                      }
+                    ]
+                  },
+                  "then": {
+                    "effect": "deployIfNotExists",
+                    "details": {
+                      "type": "Microsoft.Resources/resourceGroups",
+                      "deploymentScope": "Subscription",
+                      "existenceScope": "Subscription",
+                      "roleDefinitionIds": [
+                        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+                      ],
+                      "existenceCondition": {
+                        "allOf": [
+                          {
+                            "field": "type",
+                            "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+                          },
+                          {
+                            "field": "name",
+                            "like": "[concat(subscription().displayName, '-loganalytics')]"
+                          }
+                        ]
+                      },
+                      "deployment": {
+                        "location": "westeurope",
+                        "properties": {
+                          "mode": "incremental",
+                          "parameters": {},
+                          "template": {
+                            "$schema": "http://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json",
+                            "contentVersion": "1.0.0.0",
+                            "parameters": {},
+                            "variables": {
+                              "storageName": "[concat('e2elz', uniqueString(subscription().id,'storage'))]"
+                            },
+                            "resources": [
+                              {
+                                "type": "Microsoft.Resources/resourceGroups",
+                                "apiVersion": "2018-05-01",
+                                "name": "[concat(subscription().displayName, '-loganalytics')]",
+                                "location": "[deployment().location]",
+                                "properties": {}
+                              }
+                            ],
+                            "outputs": {}
                           }
                         }
                       }
                     }
                   }
                 }
-              },
-              {
-                "Name": "DINE-network",
-                "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-                "Properties": {
-                  "displayName": "DINE Create Virtual Network",
-                  "policyType": "Custom",
-                  "mode": "All",
-                  "description": "DINE Create Virtual Network",
-                  "parameters": {},
-                  "policyRule": {
-                    "if": {
-                      "allOf": [
-                        {
-                          "field": "type",
-                          "equals": "Microsoft.Resources/subscriptions"
-                        }
-                      ]
-                    },
-                    "then": {
-                      "effect": "deployIfNotExists",
-                      "details": {
-                        "type": "Microsoft.Resources/resourceGroups",
-                        "deploymentScope": "Subscription",
-                        "existenceScope": "Subscription",
-                        "roleDefinitionIds": [
-                          "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
-                        ],
-                        "existenceCondition": {
-                          "allOf": [
-                            {
-                              "field": "type",
-                              "equals": "Microsoft.Resources/subscriptions/resourceGroups"
-                            },
-                            {
-                              "field": "name",
-                              "like": "[concat(subscription().displayName, '-network')]"
-                            }
-                          ]
-                        },
-                        "deployment": {
-                          "location": "westeurope",
-                          "properties": {
-                            "mode": "incremental",
+              }
+            },
+            {
+              "Name": "DINE-network",
+              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "Properties": {
+                "displayName": "DINE Create Virtual Network",
+                "policyType": "Custom",
+                "mode": "All",
+                "description": "DINE Create Virtual Network",
+                "parameters": {},
+                "policyRule": {
+                  "if": {
+                    "allOf": [
+                      {
+                        "field": "type",
+                        "equals": "Microsoft.Resources/subscriptions"
+                      }
+                    ]
+                  },
+                  "then": {
+                    "effect": "deployIfNotExists",
+                    "details": {
+                      "type": "Microsoft.Resources/resourceGroups",
+                      "deploymentScope": "Subscription",
+                      "existenceScope": "Subscription",
+                      "roleDefinitionIds": [
+                        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+                      ],
+                      "existenceCondition": {
+                        "allOf": [
+                          {
+                            "field": "type",
+                            "equals": "Microsoft.Resources/subscriptions/resourceGroups"
+                          },
+                          {
+                            "field": "name",
+                            "like": "[concat(subscription().displayName, '-network')]"
+                          }
+                        ]
+                      },
+                      "deployment": {
+                        "location": "westeurope",
+                        "properties": {
+                          "mode": "incremental",
+                          "parameters": {},
+                          "template": {
+                            "$schema": "http://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json",
+                            "contentVersion": "1.0.0.0",
                             "parameters": {},
-                            "template": {
-                              "$schema": "http://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json",
-                              "contentVersion": "1.0.0.0",
-                              "parameters": {},
-                              "variables": {},
-                              "resources": [
-                                {
-                                  "type": "Microsoft.Resources/resourceGroups",
-                                  "apiVersion": "2018-05-01",
-                                  "name": "[concat(subscription().displayName, '-network')]",
-                                  "location": "[deployment().location]",
-                                  "properties": {}
-                                },
-                                {
-                                  "type": "Microsoft.Resources/deployments",
-                                  "apiVersion": "2018-05-01",
-                                  "name": "networkDeployment",
-                                  "resourcegroup": "[concat(subscription().displayName, '-network')]",
-                                  "properties": {
-                                    "mode": "Incremental",
-                                    "template": {
-                                      "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                                      "contentVersion": "1.0.0.0",
-                                      "parameters": {},
-                                      "variables": {},
-                                      "resources": [
-                                        {
-                                          "type": "Microsoft.Network/virtualNetworks",
-                                          "apiVersion": "2018-10-01",
-                                          "name": "[concat(subscription().displayName, '-vnet')]",
-                                          "location": "[deployment().location]",
-                                          "properties": {
-                                            "addressSpace": {
-                                              "addressPrefixes": [
-                                                "10.51.219.0/24"
-                                              ]
-                                            }
-                                          }
-                                        }
-                                      ],
-                                      "outputs": {}
-                                    }
+                            "variables": {
+                              "ipam": {
+                                "udpandya": {
+                                  "addressSpace": {
+                                    "addressPrefixes": [
+                                      "10.51.219.0/24"
+                                    ]
                                   }
                                 }
-                              ],
-                              "outputs": {}
-                            }
+                              }
+                            },
+                            "resources": [
+                              {
+                                "type": "Microsoft.Resources/resourceGroups",
+                                "apiVersion": "2018-05-01",
+                                "name": "[concat(subscription().displayName, '-network')]",
+                                "location": "[deployment().location]",
+                                "properties": {}
+                              },
+                              {
+                                "type": "Microsoft.Resources/deployments",
+                                "apiVersion": "2018-05-01",
+                                "name": "northstar-sub-network-deployment",
+                                "dependsOn": [
+                                  "[concat(subscription().displayName, '-network')]"
+                                ],
+                                "resourcegroup": "[concat(subscription().displayName, '-network')]",
+                                "properties": {
+                                  "mode": "Incremental",
+                                  "template": {
+                                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                    "contentVersion": "1.0.0.0",
+                                    "parameters": {},
+                                    "variables": {},
+                                    "resources": [
+                                      {
+                                        "type": "Microsoft.Network/virtualNetworks",
+                                        "apiVersion": "2018-10-01",
+                                        "name": "[concat(subscription().displayName, '-vnet')]",
+                                        "location": "[deployment().location]",
+                                        "properties": "[variables('ipam')[subscription().displayName]]"
+                                      }
+                                    ],
+                                    "outputs": {}
+                                  }
+                                }
+                              }
+                            ],
+                            "outputs": {}
                           }
                         }
                       }
                     }
                   }
                 }
-              },
-              {
-                "Name": "DINE-network-VWAN",
-                "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-                "Properties": {
-                  "displayName": "DINE Connect Subscription vNet to VirtualHub in a Region for vWAN",
-                  "policyType": "Custom",
-                  "mode": "All",
-                  "description": "DINE Connect Subscription vNet to VirtualHub in a Region for vWAN",
-                  "parameters": {},
-                  "policyRule": {
-                    "if": {
-                      "allOf": [
-                        {
-                          "field": "type",
-                          "equals": "Microsoft.Network/virtualNetworks"
-                        }
-                      ]
-                    },
-                    "then": {
-                      "effect": "deployIfNotExists",
-                      "details": {
-                        "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
-                        "existenceCondition": {
-                          "allOf": [
-                            {
-                              "field": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings/remoteVirtualNetwork.id",
-                              "exists": true
-                            }
-                          ]
-                        },
-                        "deployment": {
-                          "properties": {
-                            "mode": "incremental",
-                            "template": {
-                              "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
-                              "contentVersion": "1.0.0.0",
-                              "parameters": {},
-                              "variables": {},
-                              "resources": [
-                                {
-                                  "type": "Microsoft.Resources/deployments",
-                                  "apiVersion": "2018-05-01",
-                                  "name": "networkDeployment",
-                                  "resourceGroup": "global-vwan",
-                                  "subscriptionId": "99c2838f-a548-4884-a6e2-38c1f8fb4c0b",
-                                  "properties": {
-                                    "mode": "Incremental",
-                                    "expressionEvaluationOptions": {
-                                      "scope": "inner"
-                                    },
-                                    "template": {
-                                      "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                                      "contentVersion": "1.0.0.0",
-                                      "parameters": {
-                                        "remoteVirtualNetwork": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "variables": {},
-                                      "resources": [
-                                        {
-                                          "type": "Microsoft.Network/virtualHubs/hubVirtualNetworkConnections",
-                                          "apiVersion": "2019-09-01",
-                                          "name": "neu-vhub/udpandya-vnet",
-                                          "location": "[resourceGroup().location]",
-                                          "properties": {
-                                            "remoteVirtualNetwork": {
-                                              "id": "[parameters('remoteVirtualNetwork')]"
-                                            },
-                                            "allowHubToRemoteVnetTransit": true,
-                                            "allowRemoteVnetToUseHubVnetGateways": true,
-                                            "enableInternetSecurity": true
-                                          }
-                                        }
-                                      ],
-                                      "outputs": {}
-                                    },
+              }
+            },
+            {
+              "Name": "DINE-network-VWAN",
+              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "Properties": {
+                "displayName": "DINE Connect Subscription vNet to VirtualHub in a Region for vWAN",
+                "policyType": "Custom",
+                "mode": "All",
+                "description": "DINE Connect Subscription vNet to VirtualHub in a Region for vWAN",
+                "parameters": {},
+                "policyRule": {
+                  "if": {
+                    "allOf": [
+                      {
+                        "field": "type",
+                        "equals": "Microsoft.Network/virtualNetworks"
+                      }
+                    ]
+                  },
+                  "then": {
+                    "effect": "deployIfNotExists",
+                    "details": {
+                      "type": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings",
+                      "existenceCondition": {
+                        "allOf": [
+                          {
+                            "field": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings/remoteVirtualNetwork.id",
+                            "exists": true
+                          }
+                        ]
+                      },
+                      "deployment": {
+                        "properties": {
+                          "mode": "incremental",
+                          "template": {
+                            "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+                            "contentVersion": "1.0.0.0",
+                            "parameters": {},
+                            "variables": {},
+                            "resources": [
+                              {
+                                "type": "Microsoft.Resources/deployments",
+                                "apiVersion": "2018-05-01",
+                                "name": "networkDeployment",
+                                "resourceGroup": "global-vwan",
+                                "subscriptionId": "99c2838f-a548-4884-a6e2-38c1f8fb4c0b",
+                                "properties": {
+                                  "mode": "Incremental",
+                                  "expressionEvaluationOptions": {
+                                    "scope": "inner"
+                                  },
+                                  "template": {
+                                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                                    "contentVersion": "1.0.0.0",
                                     "parameters": {
                                       "remoteVirtualNetwork": {
-                                        "value": "[concat(subscription().id,'/resourcegroups/',resourceGroup().name, '/providers/','Microsoft.Network/virtualNetworks/', concat(subscription().displayName, '-vnet'))]"
+                                        "type": "string"
                                       }
+                                    },
+                                    "variables": {},
+                                    "resources": [
+                                      {
+                                        "type": "Microsoft.Network/virtualHubs/hubVirtualNetworkConnections",
+                                        "apiVersion": "2019-09-01",
+                                        "name": "neu-vhub/udpandya-vnet",
+                                        "location": "[resourceGroup().location]",
+                                        "properties": {
+                                          "remoteVirtualNetwork": {
+                                            "id": "[parameters('remoteVirtualNetwork')]"
+                                          },
+                                          "allowHubToRemoteVnetTransit": true,
+                                          "allowRemoteVnetToUseHubVnetGateways": true,
+                                          "enableInternetSecurity": true
+                                        }
+                                      }
+                                    ],
+                                    "outputs": {}
+                                  },
+                                  "parameters": {
+                                    "remoteVirtualNetwork": {
+                                      "value": "[concat(subscription().id,'/resourcegroups/',resourceGroup().name, '/providers/','Microsoft.Network/virtualNetworks/', concat(subscription().displayName, '-vnet'))]"
                                     }
                                   }
                                 }
-                              ],
-                              "outputs": {}
-                            }
-                          },
-                          "parameters": {}
+                              }
+                            ],
+                            "outputs": {}
+                          }
                         },
-                        "roleDefinitionIds": [
-                          "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
-                        ]
-                      }
+                        "parameters": {}
+                      },
+                      "roleDefinitionIds": [
+                        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+                      ]
                     }
                   }
                 }
               }
-            ],
-            "roleDefinitions": [],
-            "policyAssignments": [
-              {
-                "Name": "ADINE-ActivityLog",
-                "Type": "Microsoft.Authorization/policyAssignments",
-                "ResourceType": "Microsoft.Authorization/policyAssignments",
-                "Properties": {
-                  "displayName": "ADINE-ActivityLog",
-                  "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-Diagnostics-ActivityLog",
-                  "scope": "/providers/Microsoft.Management/managementGroups/Fabrikam",
-                  "notScopes": [],
-                  "parameters": {
-                    "logAnalytics": {
-                      "value": "/subscriptions/feab2d15-66b4-438b-accf-51f889b30ec3/resourcegroups/neu-la/providers/microsoft.operationalinsights/workspaces/neu-la"
-                    }
+            }
+          ],
+          "roleDefinitions": [],
+          "policyAssignments": [
+            {
+              "Name": "ADINE-ActivityLog",
+              "Type": "Microsoft.Authorization/policyAssignments",
+              "ResourceType": "Microsoft.Authorization/policyAssignments",
+              "Properties": {
+                "displayName": "ADINE-ActivityLog",
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-Diagnostics-ActivityLog",
+                "scope": "/providers/Microsoft.Management/managementGroups/Fabrikam",
+                "notScopes": [],
+                "parameters": {
+                  "logAnalytics": {
+                    "value": "/subscriptions/feab2d15-66b4-438b-accf-51f889b30ec3/resourcegroups/neu-la/providers/microsoft.operationalinsights/workspaces/neu-la"
+                  }
+                },
+                "metadata": {
+                  "assignedBy": "uday.pandya@microsoft.com uday.pandya_microsoft.com#EXT#",
+                  "parameterScopes": {
+                    "logAnalytics": "/subscriptions/feab2d15-66b4-438b-accf-51f889b30ec3"
                   },
-                  "metadata": {
-                    "assignedBy": "uday.pandya@microsoft.com uday.pandya_microsoft.com#EXT#",
-                    "parameterScopes": {
-                      "logAnalytics": "/subscriptions/feab2d15-66b4-438b-accf-51f889b30ec3"
-                    },
-                    "createdBy": "a8a6e6dd-da4d-4b74-bdfd-cc1b4d48bf13",
-                    "createdOn": "\/Date(1579479633686)\/",
-                    "updatedBy": null,
-                    "updatedOn": null
-                  },
-                  "enforcementMode": "Default"
-                }
-              },
-              {
-                "Name": "ADINE-loganalytics",
-                "ResourceType": "Microsoft.Authorization/policyAssignments",
-                "Properties": {
-                  "displayName": "ADINE Create Log Analytics for management",
-                  "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-lognalytics",
-                  "scope": "/providers/Microsoft.Management/managementGroups/Fabrikam",
-                  "notScopes": [],
-                  "parameters": {}
-                }
-              },
-              {
-                "Name": "ADINE-network",
-                "ResourceType": "Microsoft.Authorization/policyAssignments",
-                "Properties": {
-                  "displayName": "ADINE Create network inside landing zone",
-                  "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-network",
-                  "scope": "/providers/Microsoft.Management/managementGroups/Fabrikam",
-                  "notScopes": [],
-                  "parameters": {}
-                }
-              },
-              {
-                "Name": "ADINE-network-VWAN",
-                "ResourceType": "Microsoft.Authorization/policyAssignments",
-                "Properties": {
-                  "displayName": "ADINE Connect network to vWAN with virtual hub in a region",
-                  "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-network-VWAN",
-                  "scope": "/providers/Microsoft.Management/managementGroups/Fabrikam",
-                  "notScopes": [],
-                  "parameters": {}
-                }
+                  "createdBy": "a8a6e6dd-da4d-4b74-bdfd-cc1b4d48bf13",
+                  "createdOn": "\/Date(1579479633686)\/",
+                  "updatedBy": null,
+                  "updatedOn": null
+                },
+                "enforcementMode": "Default"
               }
-            ]
-          }
+            },
+            {
+              "Name": "ADINE-loganalytics",
+              "ResourceType": "Microsoft.Authorization/policyAssignments",
+              "Properties": {
+                "displayName": "ADINE Create Log Analytics for management",
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-lognalytics",
+                "scope": "/providers/Microsoft.Management/managementGroups/Fabrikam",
+                "notScopes": [],
+                "parameters": {}
+              }
+            },
+            {
+              "Name": "ADINE-network",
+              "ResourceType": "Microsoft.Authorization/policyAssignments",
+              "Properties": {
+                "displayName": "ADINE Create network inside landing zone",
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-network",
+                "scope": "/providers/Microsoft.Management/managementGroups/Fabrikam",
+                "notScopes": [],
+                "parameters": {}
+              }
+            },
+            {
+              "Name": "ADINE-network-VWAN",
+              "ResourceType": "Microsoft.Authorization/policyAssignments",
+              "Properties": {
+                "displayName": "ADINE Connect network to vWAN with virtual hub in a region",
+                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Fabrikam/providers/Microsoft.Authorization/policyDefinitions/DINE-network-VWAN",
+                "scope": "/providers/Microsoft.Management/managementGroups/Fabrikam",
+                "notScopes": [],
+                "parameters": {}
+              }
+            }
+          ]
         }
       }
     }
   }
+}
