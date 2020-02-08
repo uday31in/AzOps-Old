@@ -30,7 +30,7 @@
             "Microsoft.Authorization/policyAssignments": "2019-06-01",
             "Microsoft.Authorization/policyDefinitions": "2018-05-01",
             "Microsoft.Authorization/roleDefinitions": "2018-01-01-preview",
-            "Microsoft.Authorization/roleAssignments": "2019-04-01-preview",
+            "Microsoft.Authorization/roleAssignments": "2018-09-01-preview",
             "Microsoft.PolicyInsights/remediations": "2019-07-01"
         },
         "rbacContributor": "b24988ac-6180-42a0-ab88-20f7382dd24c",
