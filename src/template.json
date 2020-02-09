@@ -23,15 +23,17 @@
         "debug": true,
         "apiversion": {
             "Microsoft.Resources/resourceGroups": "2019-05-10",
-            "Microsoft.Network/virtualNetworks": "2017-10-01",
-            "Microsoft.Network/azureFirewalls": "2019-04-01",
-            "Microsoft.ContainerService/ManagedClusters": "2019-10-01",
-            "Microsoft.KeyVault/vaults": "2018-02-14",
             "Microsoft.Authorization/policyAssignments": "2019-06-01",
             "Microsoft.Authorization/policyDefinitions": "2018-05-01",
             "Microsoft.Authorization/roleDefinitions": "2018-01-01-preview",
             "Microsoft.Authorization/roleAssignments": "2018-09-01-preview",
-            "Microsoft.PolicyInsights/remediations": "2019-07-01"
+            "Microsoft.PolicyInsights/remediations": "2019-07-01",
+            "Microsoft.ContainerService/ManagedClusters": "2019-10-01",
+            "Microsoft.KeyVault/vaults": "2018-02-14",
+            "Microsoft.Network/virtualWans": "2019-09-01",
+            "Microsoft.Network/virtualNetworks": "2017-10-01",
+            "Microsoft.Network/azureFirewalls": "2019-04-01",
+
         },
         "rbacContributor": "b24988ac-6180-42a0-ab88-20f7382dd24c",
         "input": "[union(parameters('hobo'),parameters('input'))]",
@@ -88,6 +90,17 @@
                         "secret": "null"
                     }
                 }
+            }
+        },
+        "virtualWans": "[variables('virtualWanslookup')[string(equals(variables('resourceType'),'Microsoft.Network/virtualWans'))]]",
+        "virtualWanslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "virtualWanslookup",
+                "tags": null,
+                "type": null,
+                "properties": null,
+                "Identity": null
             }
         },
         "managedClusters": "[variables('managedClusterslookup')[string(equals(variables('resourceType'),'Microsoft.ContainerService/ManagedClusters'))]]",
@@ -225,6 +238,14 @@
         },
         */
         {
+            "condition": "[equals(variables('resourceType'),'Microsoft.Network/virtualWans')]",
+            "type": "Microsoft.Network/virtualWans",
+            "name": "[variables('virtualWans').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
+            "location": "[variables('resourceGroup').location]",
+            "properties": "[variables('virtualWans').Properties]"
+        },
+        {
             "condition": "[equals(variables('resourceType'),'Microsoft.Network/azureFirewalls')]",
             "type": "Microsoft.Network/azureFirewalls",
             "name": "[variables('input').name]",
@@ -271,7 +292,7 @@
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.PolicyInsights/remediations'))]",
             "type": "Microsoft.PolicyInsights/remediations",
             "name": "[variables('remediations').name]",
-            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",            
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "properties": "[variables('remediations').Properties]"
         },
         {
