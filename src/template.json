@@ -31,8 +31,9 @@
             "Microsoft.ContainerService/ManagedClusters": "2019-10-01",
             "Microsoft.KeyVault/vaults": "2018-02-14",
             "Microsoft.Network/virtualWans": "2019-09-01",
+            "Microsoft.Network/virtualHubs": "2019-09-01",
             "Microsoft.Network/virtualNetworks": "2017-10-01",
-            "Microsoft.Network/azureFirewalls": "2019-04-01",
+            "Microsoft.Network/azureFirewalls": "2019-04-01"
 
         },
         "rbacContributor": "b24988ac-6180-42a0-ab88-20f7382dd24c",
@@ -97,6 +98,17 @@
             "true": "[variables('input')]",
             "false": {
                 "name": "virtualWanslookup",
+                "tags": null,
+                "type": null,
+                "properties": null,
+                "Identity": null
+            }
+        },
+        "virtualHubs": "[variables('virtualHubslookup')[string(equals(variables('resourceType'),'Microsoft.Network/virtualHubs'))]]",
+        "virtualHubslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "virtualHubslookup",
                 "tags": null,
                 "type": null,
                 "properties": null,
@@ -244,6 +256,14 @@
             "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "location": "[variables('resourceGroup').location]",
             "properties": "[variables('virtualWans').Properties]"
+        },
+        {
+            "condition": "[equals(variables('resourceType'),'Microsoft.Network/virtualHubs')]",
+            "type": "Microsoft.Network/virtualHubs",
+            "name": "[variables('virtualHubs').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
+            "location": "[variables('resourceGroup').location]",
+            "properties": "[variables('virtualHubs').Properties]"
         },
         {
             "condition": "[equals(variables('resourceType'),'Microsoft.Network/azureFirewalls')]",
