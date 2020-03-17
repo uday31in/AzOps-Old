@@ -59,7 +59,7 @@
         },
         {
             "condition": "[not(empty(variables('Children')))]",
-            "type": "Microsoft.Resources/deployments",            
+            "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-07-01",
             "copy": {
                 "name": "childmove",
@@ -124,7 +124,6 @@
                                 }
                             }
                         },
-                        /*
                         {
                             "condition": "[not(contains(if(contains(variables('Children')[copyIndex()], 'Id'),variables('Children')[copyIndex()].Id, concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].Name)),'Microsoft.Management/managementGroups'))]",
                             "type": "Microsoft.Management/managementGroups/subscriptions",
@@ -133,7 +132,6 @@
                             "properties": {
                             }
                         },
-                        */
                         {
                             "condition": "[not(contains(variables('Children')[copyIndex()].Id ,'Microsoft.Management/managementGroups'))]",
                             "type": "Microsoft.Resources/deployments",
