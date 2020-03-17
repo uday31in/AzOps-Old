@@ -52,7 +52,7 @@
                 "displayName": "[parameters('input').DisplayName]",
                 "details": {
                     "parent": {
-                        "id": "[if(contains(parameters('input'), 'ParentId'),parameters('input').ParentId ,tenantResourceId('Microsoft.Management/managementGroups/', parameters('input').Name))]"
+                        "id": "[if(contains(parameters('input'),'ParentId'),parameters('input').ParentId,'na-parentId')]"
                     }
                 }
             }
