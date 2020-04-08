@@ -34,9 +34,9 @@
         */
         "scope": "[if(contains(parameters('input'), 'Id'),replace(parameters('input').Id,'/providers',''), concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
         "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,'')]",
-        "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions')),parameters('input').properties.policyDefinitions,'')]",
-        "roleDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'roleDefinitions')),parameters('input').properties.roleDefinitions,'')]",
-        "policyAssignments": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyAssignments')),parameters('input').properties.policyAssignments,'')]",
+        "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions')),parameters('input').properties.policyDefinitions,json('[]'))]",
+        "roleDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'roleDefinitions')),parameters('input').properties.roleDefinitions,json('[]'))]",
+        "policyAssignments": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyAssignments')),parameters('input').properties.policyAssignments,json('[]'))]",
 
         "blankTemplateEscaped": "{\"$schema\":\"https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"variables\":{},\"resources\":[],\"outputs\":{}}"
     },
@@ -108,7 +108,7 @@
                 "name": "childmove",
                 "count": "[length(variables('Children'))]"
             },
-            "name": "[if(not(empty(variables('Children'))), concat('NorthStar-', variables('Children')[copyIndex()].Name), 'na-move')]",
+            "name": "[if(not(empty(variables('Children'))), concat('NorthStar', '-move-', variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
                 "[parameters('input').Name]",
                 "policydefinitionloop",
@@ -155,7 +155,7 @@
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
-                            "name": "[concat('Northstar-MG-',variables('Children')[copyIndex()].Name)]",
+                            "name": "[concat('NorthStar-ChildMG-',variables('Children')[copyIndex()].Name)]",
                             "dependsOn": [
                                 "[variables('Children')[copyIndex()].Name]"
                             ],
@@ -214,7 +214,7 @@
                                             "Id": "[variables('Children')[copyIndex()].Id]",
                                             "Type": "/subscriptions",
                                             "properties": {
-                                                "policyAssignments": "[union(union(parameters('hobo'),variables('Children')[copyIndex()]).properties.policyAssignments, variables('policyAssignments'))]"
+                                                "policyAssignments": "[if(greaterOrEquals(length(if(and(contains(variables('Children')[copyIndex()], 'properties'),contains(variables('Children')[copyIndex()].properties, 'policyAssignments')),variables('Children')[copyIndex()].properties.policyAssignments,json('[]'))),1),union(variables('Children')[copyIndex()].properties.policyAssignments,variables('policyAssignments')),variables('policyAssignments'))]"
                                             }
                                         }
                                     }
