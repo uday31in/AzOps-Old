@@ -59,7 +59,7 @@
 
                 Change Log:
                     1. Initial Definition
-            */            
+            */
             "condition": "[and(contains(variables('scope'),'Microsoft.Management/managementGroups'), contains(parameters('input'),'ParentId'))]",
             "type": "Microsoft.Management/managementGroups",
             "apiVersion": "2020-02-01",
@@ -275,7 +275,7 @@
                 }
             }
         },
-        {           
+        {
             /*
                 Intent: Upsert 'PolicyDefinition' for the Subscription. Subscription deployment cannot be invoked with scope property unlike management group hence this is seperate resoruce that uses subscriptionId property instead in the scope.
                 
@@ -616,11 +616,30 @@
                     "scope": "outer"
                 },
                 "mode": "Incremental",
-                "template": "[if(and(not(empty(variables('policyAssignments'))),not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists')),reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.details.deployment.properties.template,json(variables('blankTemplateEscaped')))]",
-                "parameters": "[if(and(not(empty(variables('policyAssignments'))),not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists')),variables('policyAssignments')[copyIndex()].Properties.parameters,json('null'))]"
+                "template": "[if(
+                                and(
+                                    not(empty(variables('policyAssignments'))),
+                                    not(contains(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                    equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect,'deployIfNotExists'),
+                                    contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
+                                    equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope,'Subscription')
+                                ),
+                                reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deployment.properties.template,
+                                json(variables('blankTemplateEscaped'))
+                            )]",
+                "parameters": "[if(
+                                    and(
+                                        not(empty(variables('policyAssignments'))),
+                                        not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                        equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists'),
+                                        contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
+                                        equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope,'Subscription')
+                                    ),                                    
+                                    variables('policyAssignments')[copyIndex()].Properties.parameters,
+                                    json('null')
+                                )]"
             }
         },
-
         {
 
             /*
