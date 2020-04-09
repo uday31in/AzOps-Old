@@ -616,8 +616,8 @@
                     "scope": "outer"
                 },
                 "mode": "Incremental",
-                "template": "[if(and(not(empty(variables('policyAssignments'))),equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists')),reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.details.deployment.properties.template,json(variables('blankTemplateEscaped')))]",
-                "parameters": "[if(and(not(empty(variables('policyAssignments'))),equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists')),variables('policyAssignments')[copyIndex()].Properties.parameters,json('null'))]"
+                "template": "[if(and(not(empty(variables('policyAssignments'))),not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists')),reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.details.deployment.properties.template,json(variables('blankTemplateEscaped')))]",
+                "parameters": "[if(and(not(empty(variables('policyAssignments'))),not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists')),variables('policyAssignments')[copyIndex()].Properties.parameters,json('null'))]"
             }
         },
 
