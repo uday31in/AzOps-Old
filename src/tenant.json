@@ -202,7 +202,7 @@
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
-                            "name": "[concat('Northstar-Subscription-',variables('Children')[copyIndex()].Name)]",
+                            "name": "[concat('Northstar-subscription-',variables('Children')[copyIndex()].Name)]",
                             "properties": {
                                 "expressionEvaluationOptions": {
                                     "scope": "outer"
