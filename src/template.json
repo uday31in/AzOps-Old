@@ -25,6 +25,7 @@
             "Microsoft.Resources/resourceGroups": "2019-05-10",
             "Microsoft.Authorization/policyAssignments": "2019-06-01",
             "Microsoft.Authorization/policyDefinitions": "2018-05-01",
+            "Microsoft.Authorization/PolicySetDefinitions": "2018-05-01",
             "Microsoft.Authorization/roleDefinitions": "2018-01-01-preview",
             "Microsoft.Authorization/roleAssignments": "2018-09-01-preview",
             "Microsoft.PolicyInsights/remediations": "2019-07-01",
@@ -149,6 +150,17 @@
             }
         },
         "policyDefinitions": "[variables('policyDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policyDefinitions'))]]",
+        "policySetDefinitionslookup": {
+            "true": "[variables('input')]",
+            "false": {
+                "name": "policySetDefinitionslookup",
+                "tags": null,
+                "type": null,
+                "properties": null,
+                "Identity": null
+            }
+        },
+        "policySetDefinitions": "[variables('policySetDefinitionslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policySetDefinitions'))]]",
         "roleDefinitionslookup": {
             "true": "[variables('input')]",
             "false": {
@@ -299,6 +311,14 @@
             "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
             "location": "northeurope",
             "properties": "[variables('policyDefinitions').Properties]"
+        },
+        {
+            "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/policySetDefinitions'))]",
+            "type": "Microsoft.Authorization/policySetDefinitions",
+            "name": "[variables('policySetDefinitions').name]",
+            "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
+            "location": "northeurope",
+            "properties": "[variables('policySetDefinitions').Properties]"
         },
         {
             "condition": "[bool(equals(variables('resourceType'),'Microsoft.Authorization/roleDefinitions'))]",
