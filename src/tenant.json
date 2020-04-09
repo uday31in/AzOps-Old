@@ -14,6 +14,8 @@
                 "properties": {
                     "policyDefinitions": [
                     ],
+                    "policySetDefinitions": [
+                    ],
                     "roleDefinitions": [
                     ],
                     "policyAssignments": [
@@ -35,6 +37,7 @@
         "scope": "[if(contains(parameters('input'), 'Id'),replace(parameters('input').Id,'/providers',''), concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
         "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,'')]",
         "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions'),not(empty(parameters('input').properties.policyDefinitions))),parameters('input').properties.policyDefinitions,json('[]'))]",
+        "policySetDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policySetDefinitions'),not(empty(parameters('input').properties.policyDefinitions))),parameters('input').properties.policySetDefinitions,json('[]'))]",
         "roleDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'roleDefinitions'),not(empty(parameters('input').properties.roleDefinitions))),parameters('input').properties.roleDefinitions,json('[]'))]",
         "policyAssignments": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyAssignments'),not(empty(parameters('input').properties.policyAssignments))),parameters('input').properties.policyAssignments,json('[]'))]",
 
@@ -108,11 +111,13 @@
                 "name": "childmove",
                 "count": "[length(variables('Children'))]"
             },
-            "name": "[if(not(empty(variables('Children'))), concat('NorthStar', '-move-', variables('Children')[copyIndex()].Name), 'na-move')]",
+            "name": "[if(not(empty(variables('Children'))), concat('NorthStar','-',parameters('input').name,'-',variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
                 "[parameters('input').Name]",
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription",
                 "policyassignmentloop",
                 "policyassignmentloop-subscription",
                 "roleassignmentloop",
@@ -326,6 +331,105 @@
         },
         {
             /*
+
+                Intent: Upsert 'policySetDefinitions' for the Management Group.
+                
+                Required Parameters (of policySetDefinitions[] Object):
+
+                    1. Name
+                    2. ExtensionResourceType set to "Microsoft.Authorization/policySetDefinitions",
+                    3. Properties
+                
+                Scope: Tenant
+                
+                Condition: Non Empty policySetDefinitions[] in Properties bag of Management Group.
+
+                Details: Trigger Nested Deployment to create policy Definition.
+
+                Change Log: 
+                    1. Initial Definition
+            */
+
+            "condition": "[and(not(empty(variables('policyDefinitions'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
+            "scope": "[variables('scope')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[deployment().location]",
+            "copy": {
+                "name": "policySetDefinitions",
+                "count": "[length(variables('policySetDefinitions'))]"
+            },
+            "name": "[if(not(empty(variables('policySetDefinitions'))), concat('PolicySetDefinitions-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policySetDefinitions')]",
+            "dependsOn": [
+                "[parameters('input').Name]"
+            ],
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/uday31in/AzOps/master/src/template.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "input": {
+                        "value": "[variables('policySetDefinitions')[copyIndex()]]"
+                    }
+                }
+            }
+        },
+        {
+            /*
+                Intent: Upsert 'policySetDefinitions' for the Subscription. Subscription deployment cannot be invoked with scope property unlike management group hence this is seperate resoruce that uses subscriptionId property instead in the scope.
+                
+                Required Parameters (of policySetDefinitions[] Object):
+
+                    1. Name
+                    2. ExtensionResourceType set to "Microsoft.Authorization/policySetDefinitions",
+                    3. Properties
+                
+                Scope: Subscription
+                
+                Condition: Non Empty policySetDefinitions[] in Properties bag of Management Group.
+
+                Details: Trigger Nested Deployment to create policy Definition.
+
+                Change Log: 
+                    1. Initial Definition
+            */
+
+            "condition": "[and(not(empty(variables('policySetDefinitions'))),contains(variables('scope'),'subscriptions'))]",
+            "subscriptionId": "[parameters('input').Name]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[deployment().location]",
+            "copy": {
+                "name": "policySetDefinitions-subscription",
+                "count": "[length(variables('policySetDefinitions'))]"
+            },
+            "name": "[if(not(empty(variables('policySetDefinitions'))), concat('PolicySetDefinitions-sub-', variables('policySetDefinitions')[copyIndex()].Name), 'na-sub-policySetDefinitions')]",
+            "dependsOn": [
+                "[parameters('input').Name]"
+            ],
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/uday31in/AzOps/master/src/template.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "input": {
+                        "value": "[variables('policySetDefinitions')[copyIndex()]]"
+                    }
+                }
+            }
+        },
+        {
+            /*
                 Management Group - Policy Assignment Loop
             */
 
@@ -340,7 +444,9 @@
             },
             "dependsOn": [
                 "policydefinitionloop",
-                "policydefinitionloop-subscription"
+                "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription"
             ],
             "name": "[if(not(empty(variables('policyAssignments'))), concat('PolicyAssignment-', variables('policyAssignments')[copyIndex()].Name), 'na-mgmt-policyassignment')]",
             "properties": {
@@ -377,7 +483,9 @@
             },
             "dependsOn": [
                 "policydefinitionloop",
-                "policydefinitionloop-subscription"
+                "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription"
             ],
             "name": "[if(not(empty(variables('policyAssignments'))), concat('PolicyAssignment-sub-', variables('policyAssignments')[copyIndex()].Name), 'na-sub-policyassignment')]",
             "properties": {
@@ -414,6 +522,8 @@
             "dependsOn": [
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription",
                 "policyassignmentloop",
                 "policyassignmentloop-subscription"
             ],
@@ -461,6 +571,8 @@
             "dependsOn": [
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription",
                 "policyassignmentloop",
                 "policyassignmentloop-subscription"
             ],
@@ -507,6 +619,8 @@
             "dependsOn": [
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription",
                 "policyassignmentloop",
                 "policyassignmentloop-subscription",
                 "roleassignmentloop",
@@ -554,6 +668,8 @@
             "dependsOn": [
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription",
                 "policyassignmentloop",
                 "policyassignmentloop-subscription",
                 "roleassignmentloop",
@@ -605,6 +721,8 @@
             "dependsOn": [
                 "policydefinitionloop",
                 "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription",
                 "policyassignmentloop",
                 "policyassignmentloop-subscription",
                 "roleassignmentloop",
