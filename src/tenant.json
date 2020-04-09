@@ -34,9 +34,9 @@
         */
         "scope": "[if(contains(parameters('input'), 'Id'),replace(parameters('input').Id,'/providers',''), concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
         "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,'')]",
-        "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions')),parameters('input').properties.policyDefinitions,json('[]'))]",
-        "roleDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'roleDefinitions')),parameters('input').properties.roleDefinitions,json('[]'))]",
-        "policyAssignments": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyAssignments')),parameters('input').properties.policyAssignments,json('[]'))]",
+        "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions'),not(empty(parameters('input').properties.policyDefinitions))),parameters('input').properties.policyDefinitions,json('[]'))]",
+        "roleDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'roleDefinitions'),not(empty(parameters('input').properties.roleDefinitions))),parameters('input').properties.roleDefinitions,json('[]'))]",
+        "policyAssignments": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyAssignments'),not(empty(parameters('input').properties.policyAssignments))),parameters('input').properties.policyAssignments,json('[]'))]",
 
         "blankTemplateEscaped": "{\"$schema\":\"https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"variables\":{},\"resources\":[],\"outputs\":{}}"
     },
