@@ -623,7 +623,7 @@
                                     equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect,'deployIfNotExists'),
                                     contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
                                     equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope,'Subscription'),
-                                    equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters, length(variables('policyAssignments')[copyIndex()].Properties.parameters))
+                                    equals(length(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters), length(variables('policyAssignments')[copyIndex()].Properties.parameters))
                                 ),
                                 reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deployment.properties.template,
                                 json(variables('blankTemplateEscaped'))
@@ -635,7 +635,7 @@
                                         equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists'),
                                         contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
                                         equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope,'Subscription'),
-                                        equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters, length(variables('policyAssignments')[copyIndex()].Properties.parameters))
+                                        equals(length(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters), length(variables('policyAssignments')[copyIndex()].Properties.parameters))
                                     ),                                    
                                     variables('policyAssignments')[copyIndex()].Properties.parameters,
                                     json('null')
