@@ -296,7 +296,7 @@
             "identity": {
                 "type": "SystemAssigned"
             },
-            "location":  "[if(contains(variables('policyAssignments'),'location'),variables('policyAssignments').location,'eastus')]",
+            "location":  "[if(and(contains(variables('policyAssignments'),'location'),not(empty(variables('policyAssignments').location))),variables('policyAssignments').location,'eastus')]",
             "properties": "[variables('policyAssignments').Properties]"
         },
         {
