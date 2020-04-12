@@ -11,7 +11,8 @@
                 "ExtensionResourceType": null,
                 "ResourceType": null,
                 "type": null,
-                "identity": null
+                "identity": null,
+                "location": null
             }
         },
         "secret": {
@@ -124,7 +125,8 @@
                 "tags": null,
                 "type": null,
                 "properties": null,
-                "Identity": null
+                "Identity": null,
+                "location": null
             }
         },
         "policyAssignments": "[variables('policyAssignmentslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/policyAssignments'))]]",
@@ -135,7 +137,8 @@
                 "tags": null,
                 "type": null,
                 "properties": null,
-                "Identity": null
+                "Identity": null,
+                "location": null
             }
         },
         "roleAssignments": "[variables('roleAssignmentslookup')[string(equals(variables('resourceType'),'Microsoft.Authorization/roleAssignments'))]]",
@@ -293,7 +296,7 @@
             "identity": {
                 "type": "SystemAssigned"
             },
-            "location": "northeurope",
+            "location":  "[if(and(contains(variables('policyAssignments'),'location'),not(equals(variables('policyAssignments').location,'null'))),variables('policyAssignments').location,'eastus')]",
             "properties": "[variables('policyAssignments').Properties]"
         },
         {
@@ -353,7 +356,7 @@
         }
     ],
     "outputs": {
-        "hobo": {
+        "input": {
             "condition": "[variables('debug')]",
             "type": "object",
             "value": "[variables('input')]"
