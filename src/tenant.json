@@ -34,7 +34,7 @@
         /*
             If Id property is present, use one and replace providers prefix, otherwise assume management group.
         */
-        "scope": "[if(contains(parameters('input'), 'Id'),replace(parameters('input').Id,'/providers',''), concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
+        "scope": "[if(contains(parameters('input'), 'Id'),replace(parameters('input').Id,'/providers/',''), concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
         "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,'')]",
         "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions'),not(empty(parameters('input').properties.policyDefinitions))),parameters('input').properties.policyDefinitions,json('[]'))]",
         "policySetDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policySetDefinitions'),not(empty(parameters('input').properties.policySetDefinitions))),parameters('input').properties.policySetDefinitions,json('[]'))]",
