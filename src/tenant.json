@@ -431,9 +431,8 @@
         {
             /*
                 Management Group - Policy Assignment Loop
-            */
-
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(variables('policyAssignments')[copyIndex()].Properties.scope,concat('/providers/',variables('scope'))) )]",
+            */                         
+            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(toLower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) )]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
@@ -472,7 +471,7 @@
              Subscription deployment cannot be invoked with scope property unlike management group.
              This resoruce is uses subscriptionId property instead.
             */
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(variables('policyAssignments')[copyIndex()].Properties.scope,variables('scope')))]",
+            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(tolower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) )]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
@@ -509,8 +508,8 @@
             /*
                 Management Group - Role Assignment Loop for Policy Assignment (System Assigned managed identity)
             */
-
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(variables('policyAssignments')[copyIndex()].Properties.scope,concat('/providers/',variables('scope'))) )]",
+            
+            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(tolower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) )]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -540,12 +539,12 @@
                 "parameters": {
                     "input": {
                         "value": {
-                            "name": "[if(and(not(empty(variables('policyAssignments'))),equals(variables('policyAssignments')[copyIndex()].Properties.scope,concat('/providers/',variables('scope')))),guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),'na')]",
+                            "name": "[if(and(not(empty(variables('policyAssignments'))),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope'))))),guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),'na')]",
                             "ExtensionResourceType": "Microsoft.Authorization/roleAssignments",
                             "properties": {
                                 "principalType": "ServicePrincipal",
                                 "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
-                                "principalId": "[if(and(not(empty(variables('policyAssignments'))),equals(variables('policyAssignments')[copyIndex()].Properties.scope,concat('/providers/',variables('scope')))),toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),'na')]"
+                                "principalId": "[if(and(not(empty(variables('policyAssignments'))),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope'))))),toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),'na')]"
                             }
                         }
                     }
@@ -559,7 +558,7 @@
              Subscription deployment cannot be invoked with scope property unlike management group.
              This resoruce is uses subscriptionId property instead.
             */
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(variables('policyAssignments')[copyIndex()].Properties.scope,variables('scope')))]",
+            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))))]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -589,12 +588,12 @@
                 "parameters": {
                     "input": {
                         "value": {
-                            "name": "[if(and(not(empty(variables('policyAssignments'))),equals(variables('policyAssignments')[copyIndex()].Properties.scope,variables('scope'))),guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),'na')]",
+                            "name": "[if(and(not(empty(variables('policyAssignments'))),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope')))),guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),'na')]",
                             "ExtensionResourceType": "Microsoft.Authorization/roleAssignments",
                             "properties": {
                                 "principalType": "ServicePrincipal",
                                 "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
-                                "principalId": "[if(and(not(empty(variables('policyAssignments'))),equals(variables('policyAssignments')[copyIndex()].Properties.scope,variables('scope'))),toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),'na')]"
+                                "principalId": "[if(and(not(empty(variables('policyAssignments'))),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope')))),toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),'na')]"
                             }
                         }
                     }
@@ -607,7 +606,7 @@
                 Management Group - Remediation for Policy Assignemnt
             */
 
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(variables('policyAssignments')[copyIndex()].Properties.scope,concat('/providers/',variables('scope'))) )]",
+            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))))]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -656,7 +655,7 @@
              Subscription deployment cannot be invoked with scope property unlike management group.
              This resoruce is uses subscriptionId property instead.
             */
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(variables('policyAssignments')[copyIndex()].Properties.scope,variables('scope')))]",
+            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))))]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -738,9 +737,9 @@
                                 and(
                                     not(empty(variables('policyAssignments'))),
                                     not(contains(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                    equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect,'deployIfNotExists'),
+                                    equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect),toLower('deployIfNotExists')),
                                     contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
-                                    equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope,'Subscription'),
+                                    equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope),toLower('Subscription')),
                                     equals(length(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters), length(variables('policyAssignments')[copyIndex()].Properties.parameters))
                                 ),
                                 reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deployment.properties.template,
@@ -750,9 +749,9 @@
                                     and(
                                         not(empty(variables('policyAssignments'))),
                                         not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                        equals(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect,'deployIfNotExists'),
+                                        equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect),toLower('deployIfNotExists')),
                                         contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
-                                        equals(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope,'Subscription'),
+                                        equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope),toLower('Subscription')),
                                         equals(length(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters), length(variables('policyAssignments')[copyIndex()].Properties.parameters))
                                     ),                                    
                                     variables('policyAssignments')[copyIndex()].Properties.parameters,
