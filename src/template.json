@@ -294,9 +294,7 @@
             "type": "Microsoft.Authorization/policyAssignments",
             "name": "[variables('policyAssignments').name]",
             "apiVersion": "[variables('apiversion')[variables('resourceType')]]",
-            "identity": {
-                "type": "SystemAssigned"
-            },
+            "identity": "[if(and(contains(variables('policyAssignments'),'identity'),not(empty(variables('policyAssignments').identity))),variables('policyAssignments').identity,json('null'))]",
             "location":  "[if(and(contains(variables('policyAssignments'),'location'),not(empty(variables('policyAssignments').location))),variables('policyAssignments').location,'eastus')]",
             "properties": "[variables('policyAssignments').Properties]"
         },
