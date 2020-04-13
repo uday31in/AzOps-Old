@@ -175,14 +175,7 @@
                                 },
                                 "parameters": {
                                     "input": {
-                                        "value": {
-                                            "Name": "[variables('Children')[copyIndex()].Name]",
-                                            "Id": "[variables('Children')[copyIndex()].Id]",
-                                            "Type": "/providers/Microsoft.Management/managementGroups",
-                                            "properties": {
-                                                "policyAssignments": "[if(greaterOrEquals(length(if(and(contains(variables('Children')[copyIndex()], 'properties'),contains(variables('Children')[copyIndex()].properties, 'policyAssignments')),variables('Children')[copyIndex()].properties.policyAssignments,json('[]'))),1),union(variables('Children')[copyIndex()].properties.policyAssignments,variables('policyAssignments')),variables('policyAssignments'))]"
-                                            }
-                                        }
+                                        "value": "[variables('Children')[copyIndex()]]"
                                     }
                                 }
                             }
@@ -438,7 +431,7 @@
         {
             /*
                 Management Group - Policy Assignment Loop
-            */
+            */                         
             "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(toLower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) )]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
@@ -515,7 +508,7 @@
             /*
                 Management Group - Role Assignment Loop for Policy Assignment (System Assigned managed identity)
             */
-
+            
             "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(tolower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) )]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
@@ -741,161 +734,108 @@
                 },
                 "mode": "Incremental",
                 "template": "[if(
-                and( not(empty(variables('policyAssignments'))),
-                not(contains(variables('policyAssignments') [
-                    copyIndex()
-                ]
-                .Properties.policyDefinitionId,
-                'policySetDefinitions')),
-                equals(toLower(reference(variables('policyAssignments') [
-                    copyIndex()
-                ]
-                .Properties.policyDefinitionId,
-                '2018-05-01').policyRule.then.effect),
-                toLower('deployIfNotExists')),
-                contains(reference(variables('policyAssignments') [
-                    copyIndex()
-                ]
-                .Properties.policyDefinitionId,
-                '2018-05-01').policyRule.then.details,
-                'deploymentScope'),
-                equals(toLower(reference(variables('policyAssignments') [
-                    copyIndex()
-                ]
-                .Properties.policyDefinitionId,
-                '2018-05-01').policyRule.then.details.deploymentScope),
-                toLower('Subscription')),
-                equals(length(reference(variables('policyAssignments') [
-                    copyIndex()
-                ]
-                .Properties.policyDefinitionId,
-                '2018-05-01').parameters),
-                length(variables('policyAssignments') [
-                    copyIndex()
-                ]
-                .Properties.parameters)) ),
-                reference(variables('policyAssignments') [
-                    copyIndex()
-                ]
-                .Properties.policyDefinitionId,
-                '2018-05-01').policyRule.then.details.deployment.properties.template,
-                json(variables('blankTemplateEscaped')) )
-    ]
-    ",
-    "parameters": "[if(
-    and( not(empty(variables('policyAssignments'))),
-    not(contains(variables('policyAssignments') [
-        copyIndex()
-    ]
-    .Properties.policyDefinitionId,
-    'policySetDefinitions')),
-    equals(toLower(reference(variables('policyAssignments') [
-        copyIndex()
-    ]
-    .Properties.policyDefinitionId,
-    '2018-05-01').policyRule.then.effect),
-    toLower('deployIfNotExists')),
-    contains(reference(variables('policyAssignments') [
-        copyIndex()
-    ]
-    .Properties.policyDefinitionId,
-    '2018-05-01').policyRule.then.details,
-    'deploymentScope'),
-    equals(toLower(reference(variables('policyAssignments') [
-        copyIndex()
-    ]
-    .Properties.policyDefinitionId,
-    '2018-05-01').policyRule.then.details.deploymentScope),
-    toLower('Subscription')),
-    equals(length(reference(variables('policyAssignments') [
-        copyIndex()
-    ]
-    .Properties.policyDefinitionId,
-    '2018-05-01').parameters),
-    length(variables('policyAssignments') [
-        copyIndex()
-    ]
-    .Properties.parameters)) ),
-    variables('policyAssignments') [
-        copyIndex()
-    ]
-    .Properties.parameters,
-    json('null') )
-    ]
-    "
-} }, {
+                                and(
+                                    not(empty(variables('policyAssignments'))),
+                                    not(contains(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                    equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect),toLower('deployIfNotExists')),
+                                    contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
+                                    equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope),toLower('Subscription')),
+                                    equals(length(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters), length(variables('policyAssignments')[copyIndex()].Properties.parameters))
+                                ),
+                                reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deployment.properties.template,
+                                json(variables('blankTemplateEscaped'))
+                            )]",
+                "parameters": "[if(
+                                    and(
+                                        not(empty(variables('policyAssignments'))),
+                                        not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                        equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId, '2018-05-01').policyRule.then.effect),toLower('deployIfNotExists')),
+                                        contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
+                                        equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope),toLower('Subscription')),
+                                        equals(length(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters), length(variables('policyAssignments')[copyIndex()].Properties.parameters))
+                                    ),                                    
+                                    variables('policyAssignments')[copyIndex()].Properties.parameters,
+                                    json('null')
+                                )]"
+            }
+        },
+        {
 
-    /*
+            /*
                 Management Group - Role Definition
             */
 
-    "condition": "[and(not(empty(variables('roleDefinitions'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
-    "scope": "[variables('scope')]",
-    "type": "Microsoft.Resources/deployments",
-    "apiVersion": "2019-10-01",
-    "location": "[deployment().location]",
-    "copy": {
-        "name": "roledef",
-        "count": "[length(variables('roleDefinitions'))]"
-    },
-    "name": "[if(not(empty(variables('roleDefinitions'))), concat('RoleDefinitions-', variables('roleDefinitions')[copyIndex()].Name), 'na-mgmt-roleDefinitions')]",
-    "properties": {
-        "expressionEvaluationOptions": {
-            "scope": "inner"
-        },
-        "mode": "Incremental",
-        "templateLink": {
-            "uri": "https://raw.githubusercontent.com/uday31in/AzOps/master/src/template.json",
-            "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-            "input": {
-                "value": "[variables('roleDefinitions')[copyIndex()]]"
-            }
+            "condition": "[and(not(empty(variables('roleDefinitions'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
+            "scope": "[variables('scope')]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[deployment().location]",
+            "copy": {
+                "name": "roledef",
+                "count": "[length(variables('roleDefinitions'))]"
+            },
+            "name": "[if(not(empty(variables('roleDefinitions'))), concat('RoleDefinitions-', variables('roleDefinitions')[copyIndex()].Name), 'na-mgmt-roleDefinitions')]",
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/uday31in/AzOps/master/src/template.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "input": {
+                        "value": "[variables('roleDefinitions')[copyIndex()]]"
+                    }
 
-        }
-    }
-}, {
-    /*
+                }
+            }
+        },
+        {
+            /*
                 Subscription - Role Definition
              
                 Subscription deployment cannot be invoked with scope property unlike management group.
                 This resoruce is uses subscriptionId property instead.
             */
-    "condition": "[and(not(empty(variables('roleDefinitions'))),contains(variables('scope'),'subscriptions'))]",
-    "subscriptionId": "[parameters('input').Name]",
-    "type": "Microsoft.Resources/deployments",
-    "apiVersion": "2019-10-01",
-    "location": "[deployment().location]",
-    "copy": {
-        "name": "roledef-subscription",
-        "count": "[length(variables('roleDefinitions'))]"
-    },
-    "name": "[if(not(empty(variables('roleDefinitions'))), concat('RoleDefinitions-sub-', variables('roleDefinitions')[copyIndex()].Name), 'na-sub-roleDefinitions')]",
-    "properties": {
-        "expressionEvaluationOptions": {
-            "scope": "inner"
-        },
-        "mode": "Incremental",
-        "templateLink": {
-            "uri": "https://raw.githubusercontent.com/uday31in/AzOps/master/src/template.json",
-            "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-            "input": {
-                "value": "[variables('roleDefinitions')[copyIndex()]]"
+            "condition": "[and(not(empty(variables('roleDefinitions'))),contains(variables('scope'),'subscriptions'))]",
+            "subscriptionId": "[parameters('input').Name]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[deployment().location]",
+            "copy": {
+                "name": "roledef-subscription",
+                "count": "[length(variables('roleDefinitions'))]"
+            },
+            "name": "[if(not(empty(variables('roleDefinitions'))), concat('RoleDefinitions-sub-', variables('roleDefinitions')[copyIndex()].Name), 'na-sub-roleDefinitions')]",
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/uday31in/AzOps/master/src/template.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "input": {
+                        "value": "[variables('roleDefinitions')[copyIndex()]]"
+                    }
+                }
             }
         }
+    ],
+    "outputs": {
+        "scope": {
+            "condition": "[bool('true')]",
+            "type": "string",
+            "value": "[variables('scope')]"
+        },
+        "policyAssignments": {
+            "condition": "[bool('true')]",
+            "type": "bool",
+            "value": "[contains(variables('scope'),'Microsoft.Management/managementGroups')]"
+        }
     }
-} ], "outputs": {
-    "scope": {
-        "condition": "[bool('true')]",
-        "type": "string",
-        "value": "[variables('scope')]"
-    },
-    "policyAssignments": {
-        "condition": "[bool('true')]",
-        "type": "bool",
-        "value": "[contains(variables('scope'),'Microsoft.Management/managementGroups')]"
-    }
-} }
+}
