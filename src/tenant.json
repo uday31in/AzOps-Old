@@ -31,11 +31,12 @@
     "variables": {
         "debug": true,
         "input": "[union(parameters('hobo'),parameters('input'))]",
+        "remediationEnable": false,
         /*
             If Id property is present, use one and replace providers prefix, otherwise assume management group.
         */
         "scope": "[if(contains(parameters('input'), 'Id'),replace(parameters('input').Id,'/providers/',''), concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
-        "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,'')]",
+        "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,json('[]'))]",
         "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions'),not(empty(parameters('input').properties.policyDefinitions))),parameters('input').properties.policyDefinitions,json('[]'))]",
         "policySetDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policySetDefinitions'),not(empty(parameters('input').properties.policySetDefinitions))),parameters('input').properties.policySetDefinitions,json('[]'))]",
         "roleDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'roleDefinitions'),not(empty(parameters('input').properties.roleDefinitions))),parameters('input').properties.roleDefinitions,json('[]'))]",
@@ -174,8 +175,24 @@
                                     "contentVersion": "1.0.0.0"
                                 },
                                 "parameters": {
-                                    "input": {
-                                        "value": "[variables('Children')[copyIndex()]]"
+                                     "input": {
+                                        "value": {
+                                            "Name": "[variables('Children')[copyIndex()].Name]",
+                                            "Id": "[variables('Children')[copyIndex()].Id]",
+                                            "Type": "/providers/Microsoft.Management/managementGroups",
+                                            "Children": "[if(and(contains(variables('Children')[copyIndex()], 'Children'),not(empty(variables('Children')[copyIndex()].Children))),variables('Children')[copyIndex()].Children,json('[]'))]",
+                                            "properties": {
+                                                "policyAssignments": "[if(
+                                                                            greaterOrEquals(length(
+                                                                                                    if(
+                                                                                                        and(contains(variables('Children')[copyIndex()], 'properties'),contains(variables('Children')[copyIndex()].properties, 'policyAssignments')),
+                                                                                                        variables('Children')[copyIndex()].properties.policyAssignments,
+                                                                                                        json('[]'))),1),
+                                                                            union(variables('Children')[copyIndex()].properties.policyAssignments,variables('policyAssignments')),
+                                                                            variables('policyAssignments')
+                                                                        )]"
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -212,14 +229,22 @@
                                     "uri": "[parameters('templateLink')]",
                                     "contentVersion": "1.0.0.0"
                                 },
-                                "parameters": {
+                               "parameters": {
                                     "input": {
                                         "value": {
                                             "Name": "[variables('Children')[copyIndex()].Name]",
                                             "Id": "[variables('Children')[copyIndex()].Id]",
                                             "Type": "/subscriptions",
                                             "properties": {
-                                                "policyAssignments": "[if(greaterOrEquals(length(if(and(contains(variables('Children')[copyIndex()], 'properties'),contains(variables('Children')[copyIndex()].properties, 'policyAssignments')),variables('Children')[copyIndex()].properties.policyAssignments,json('[]'))),1),union(variables('Children')[copyIndex()].properties.policyAssignments,variables('policyAssignments')),variables('policyAssignments'))]"
+                                                "policyAssignments": "[if(
+                                                                            greaterOrEquals(length(
+                                                                                                    if(
+                                                                                                        and(contains(variables('Children')[copyIndex()], 'properties'),contains(variables('Children')[copyIndex()].properties, 'policyAssignments')),
+                                                                                                        variables('Children')[copyIndex()].properties.policyAssignments,
+                                                                                                        json('[]'))),1),
+                                                                            union(variables('Children')[copyIndex()].properties.policyAssignments,variables('policyAssignments')),
+                                                                            variables('policyAssignments')
+                                                                        )]"
                                             }
                                         }
                                     }
@@ -606,7 +631,7 @@
                 Management Group - Remediation for Policy Assignemnt
             */
 
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))))]",
+            "condition": "[and(variables('remediationEnable'),not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))))]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -655,7 +680,7 @@
              Subscription deployment cannot be invoked with scope property unlike management group.
              This resoruce is uses subscriptionId property instead.
             */
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))))]",
+            "condition": "[and(variables('remediationEnable'),not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))))]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
