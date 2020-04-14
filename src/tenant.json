@@ -495,9 +495,14 @@
                                                 and(
                                                     not(empty(variables('policyAssignments'))),
                                                     equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
-                                                    not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                                    equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
-                                                    ),
+                                                    or(
+                                                        contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                        and(
+                                                            not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                            equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                        )
+                                                    )
+                                                ),
                                                 json('{\"type\":\"SystemAssigned\"}'),
                                                 json('null')
                                             )]",
@@ -557,8 +562,14 @@
                                                     not(empty(variables('policyAssignments'))),
                                                     equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
                                                     not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                                    equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
-                                                    ),
+                                                    or(
+                                                        contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                        and(
+                                                            not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                            equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                        )
+                                                    )
+                                                ),
                                                 json('{\"type\":\"SystemAssigned\"}'),
                                                 json('null')
                                             )]",
@@ -613,9 +624,14 @@
                                             not(empty(variables('policyAssignments'))),
                                             equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
                                             contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
-                                            not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                            equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
-                                            ),
+                                            or(
+                                                contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                and(
+                                                    not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                    equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                )
+                                            )
+                                        ),
                                         guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),
                                         'na'
                                     )]",
@@ -624,8 +640,13 @@
                                                                 not(empty(variables('policyAssignments'))),
                                                                 equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
                                                                 contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
-                                                                not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                                                equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                                or(
+                                                                    contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                                    and(
+                                                                        not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                                        equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                                    )
+                                                                )
                                                             ),
                                                             'Microsoft.Authorization/roleAssignments',
                                                             'na'
@@ -639,8 +660,13 @@
                                                         equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),
                                                         toLower(concat('/providers/',variables('scope')))),
                                                         contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
-                                                        not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                                        equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                        or(
+                                                            contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                            and(
+                                                                not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                                equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                            )
+                                                        )
                                                     ),
                                                     toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),
                                                     'na'
@@ -686,16 +712,21 @@
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                     "input": {
+                      "input": {
                         "value": {
                             "name": "[if(
                                         and(
                                             not(empty(variables('policyAssignments'))),
                                             equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
                                             contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
-                                            not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                            equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
-                                            ),
+                                            or(
+                                                contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                and(
+                                                    not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                    equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                )
+                                            )
+                                        ),
                                         guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),
                                         'na'
                                     )]",
@@ -704,8 +735,13 @@
                                                                 not(empty(variables('policyAssignments'))),
                                                                 equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
                                                                 contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
-                                                                not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                                                equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                                or(
+                                                                    contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                                    and(
+                                                                        not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                                        equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                                    )
+                                                                )
                                                             ),
                                                             'Microsoft.Authorization/roleAssignments',
                                                             'na'
@@ -719,8 +755,13 @@
                                                         equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),
                                                         toLower(concat('/providers/',variables('scope')))),
                                                         contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
-                                                        not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
-                                                        equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                        or(
+                                                            contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                            and(
+                                                                not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                                equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                            )
+                                                        )
                                                     ),
                                                     toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),
                                                     'na'
