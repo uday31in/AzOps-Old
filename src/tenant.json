@@ -495,6 +495,7 @@
                                                 and(
                                                     not(empty(variables('policyAssignments'))),
                                                     equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
+                                                    not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
                                                     equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
                                                     ),
                                                 json('{\"type\":\"SystemAssigned\"}'),
@@ -555,6 +556,7 @@
                                                 and(
                                                     not(empty(variables('policyAssignments'))),
                                                     equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
+                                                    not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
                                                     equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
                                                     ),
                                                 json('{\"type\":\"SystemAssigned\"}'),
