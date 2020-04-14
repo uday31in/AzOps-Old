@@ -287,7 +287,8 @@
             },
             "name": "[if(not(empty(variables('policyDefinitions'))), concat('PolicyDefinition-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policydefinition')]",
             "dependsOn": [
-                "[parameters('input').Name]"
+                "[parameters('input').Name]",
+                "childmove"
             ],
             "properties": {
                 "expressionEvaluationOptions": {
@@ -336,7 +337,8 @@
             },
             "name": "[if(not(empty(variables('policyDefinitions'))), concat('PolicyDefinition-sub-', variables('policyDefinitions')[copyIndex()].Name), 'na-sub-policydefinition')]",
             "dependsOn": [
-                "[parameters('input').Name]"
+                "[parameters('input').Name]",
+                "childmove"
             ],
             "properties": {
                 "expressionEvaluationOptions": {
@@ -386,7 +388,10 @@
             },
             "name": "[if(not(empty(variables('policySetDefinitions'))), concat('PolicySetDefinitions-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policySetDefinitions')]",
             "dependsOn": [
-                "[parameters('input').Name]"
+                "[parameters('input').Name]",
+                "childmove",
+                "policydefinitionloop",
+                "policydefinitionloop-subscription"
             ],
             "properties": {
                 "expressionEvaluationOptions": {
@@ -435,7 +440,10 @@
             },
             "name": "[if(not(empty(variables('policySetDefinitions'))), concat('PolicySetDefinitions-sub-', variables('policySetDefinitions')[copyIndex()].Name), 'na-sub-policySetDefinitions')]",
             "dependsOn": [
-                "[parameters('input').Name]"
+                "[parameters('input').Name]",
+                "childmove",
+                "policydefinitionloop",
+                "policydefinitionloop-subscription"
             ],
             "properties": {
                 "expressionEvaluationOptions": {
