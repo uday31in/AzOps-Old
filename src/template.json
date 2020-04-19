@@ -239,8 +239,7 @@
             "condition": "[equals(toLower(variables('effectiveResourceType')),toLower('Microsoft.PolicyInsights/remediations'))]",
             "type": "Microsoft.PolicyInsights/remediations",
             "name": "[variables('input').name]",
-            "apiVersion": "[variables('apiversion')]",
-            "location": "[deployment().location]",
+            "apiVersion": "[variables('apiversion')]",            
             "Properties": "[variables('input').Properties]"
         },
         {
