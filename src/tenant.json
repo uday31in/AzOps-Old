@@ -29,7 +29,7 @@
         },
         "remediationEnable": {
             "type": "bool",
-            "defaultValue": "true"
+            "defaultValue": true
         }
     },
     "variables": {
