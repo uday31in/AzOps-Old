@@ -26,12 +26,16 @@
         "templateLink": {
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/uday31in/AzOps/master/src/tenant.json"
+        },
+        "remediationEnable": {
+            "type": "bool",
+            "defaultValue": "true"
         }
     },
     "variables": {
         "debug": true,
         "input": "[union(parameters('hobo'),parameters('input'))]",
-        "remediationEnable": false,
+        "remediationEnable": "[parameters('remediationEnable')]",
         /*
             If Id property is present, use one and replace providers prefix, otherwise assume management group.
         */
@@ -817,7 +821,8 @@
                             "name": "[variables('policyAssignments')[copyIndex()].Name]",
                             "ExtensionResourceType": "Microsoft.PolicyInsights/remediations",
                             "properties": {
-                                "policyAssignmentId": "[concat('/providers/',variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name)]"
+                                "policyAssignmentId": "[concat('/providers/',variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name)]",
+                                "resourceDiscoveryMode": "ReEvaluateCompliance"
                             }
                         }
                     }
@@ -918,7 +923,7 @@
                                     equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope),toLower('Subscription')),
                                     equals(length(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').parameters), length(variables('policyAssignments')[copyIndex()].Properties.parameters))
                                 ),
-                                reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deployment.properties.template,
+                                reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deployment.properties.template,
                                 json(variables('blankTemplateEscaped'))
                             )]",
                 "parameters": "[if(
