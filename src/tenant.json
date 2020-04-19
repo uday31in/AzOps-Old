@@ -27,15 +27,21 @@
             "type": "string",
             "defaultValue": "https://raw.githubusercontent.com/uday31in/AzOps/master/src/tenant.json"
         },
-        "remediationEnable": {
+        "remediationEnabledForPolicy": {        
             "type": "bool",
-            "defaultValue": true
+            "defaultValue": false
+        },
+        "deploymentEnabledForPolicy": {        
+            "type": "bool",
+            "defaultValue": false
         }
     },
     "variables": {
         "debug": true,
         "input": "[union(parameters('hobo'),parameters('input'))]",
-        "remediationEnable": "[parameters('remediationEnable')]",
+        "remediationEnabledForPolicy": "[parameters('remediationEnabledForPolicy')]",
+        "deploymentEnabledForPolicy": "[parameters('deploymentEnabledForPolicy')]",
+        
         /*
             If Id property is present, use one and replace providers prefix, otherwise assume management group.
         */
@@ -781,12 +787,17 @@
             }
         },
 
-        {
-            /*
-                Management Group - Remediation for Policy Assignment
-            */
+        /*
+        
+            Management Group - Remediation for Policy Assignment.
 
-            "condition": "[and(variables('remediationEnable'),not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))))]",
+            Nothing to remediate at MG scope.
+    
+       
+        {
+           
+
+            "condition": "[and(variables('remediationEnabledForPolicy'),not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))))]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -829,14 +840,20 @@
                 }
             }
         },
+        */
         {
             /*
-             SUBSCRIPTION: Remidiation for Policy Assignment Loop
+             SUBSCRIPTION: Remediation for Policy Assignment Loop
 
              Subscription deployment cannot be invoked with scope property unlike management group.
-             This resoruce is uses subscriptionId property instead.
+             This resoruce uses subscriptionId property instead.
             */
-            "condition": "[and(variables('remediationEnable'),not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))))]",
+            "condition": "[and(
+                                variables('remediationEnabledForPolicy'),
+                                not(empty(variables('policyAssignments'))),
+                                contains(variables('scope'),'subscriptions'),
+                                empty(variables('policyAssignments')[copyIndex()].Properties.notScopes)                                
+                            )]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -869,9 +886,20 @@
                     "input": {
                         "value": {
                             "name": "[variables('policyAssignments')[copyIndex()].Name]",
-                            "ExtensionResourceType": "Microsoft.PolicyInsights/remediations",
+                            "ExtensionResourceType": "[if(
+                                                        and(
+                                                            not(empty(variables('policyAssignments'))),
+                                                            not(contains(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                            equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect),toLower('deployIfNotExists')),
+                                                            contains(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details, 'deploymentScope'),
+                                                            equals(toLower(reference(variables('policyAssignments') [copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.deploymentScope),toLower('Subscription'))                                                            
+                                                        ),
+                                                        'Microsoft.PolicyInsights/remediations',
+                                                        json('null')
+                                                    )]",                                                                                
                             "properties": {
-                                "policyAssignmentId": "[concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name)]"
+                                "policyAssignmentId": "[concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name)]",
+                                "resourceDiscoveryMode": "ReEvaluateCompliance"
                             }
                         }
                     }
@@ -889,7 +917,12 @@
              This resoruce is uses subscriptionId property instead.
             */
 
-            "condition": "[and(greaterOrEquals(length(variables('policyAssignments')),1),contains(variables('scope'),'subscriptions'))]",
+            "condition": "[and(
+                                variables('deploymentEnabledForPolicy'),                                
+                                greaterOrEquals(length(variables('policyAssignments')),1),
+                                contains(variables('scope'),'subscriptions'),
+                                empty(variables('policyAssignments')[copyIndex()].Properties.notScopes)
+                            )]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
