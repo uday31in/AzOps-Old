@@ -524,7 +524,11 @@
             /*
                 Management Group - Policy Assignment Loop
             */                         
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'Microsoft.Management/managementGroups'),equals(toLower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) )]",
+            "condition": "[and(
+                                not(empty(variables('policyAssignments'))),
+                                contains(variables('scope'),'Microsoft.Management/managementGroups'),
+                                equals(toLower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
+                            )]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
@@ -653,6 +657,7 @@
             */
             
             "condition": "[and(
+                                variables('roleAssignmentEnabledForPolicy'),
                                 not(empty(variables('policyAssignments'))),
                                 contains(variables('scope'),'Microsoft.Management/managementGroups'),
                                 equals(tolower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
@@ -751,7 +756,12 @@
              Subscription deployment cannot be invoked with scope property unlike management group.
              This resoruce is uses subscriptionId property instead.
             */
-            "condition": "[and(not(empty(variables('policyAssignments'))),contains(variables('scope'),'subscriptions'),equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))))]",
+            "condition": "[and(
+                                variables('roleAssignmentEnabledForPolicy'),
+                                not(empty(variables('policyAssignments'))),
+                                contains(variables('scope'),'subscriptions'),
+                                equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope')))
+                            )]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -980,7 +990,10 @@
                 Management Group - Role Definition
             */
 
-            "condition": "[and(not(empty(variables('roleDefinitions'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
+            "condition": "[and(
+                                not(empty(variables('roleDefinitions'))),
+                                contains(variables('scope'),'Microsoft.Management/managementGroups')
+                            )]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -1014,7 +1027,10 @@
                 Subscription deployment cannot be invoked with scope property unlike management group.
                 This resoruce is uses subscriptionId property instead.
             */
-            "condition": "[and(not(empty(variables('roleDefinitions'))),contains(variables('scope'),'subscriptions'))]",
+            "condition": "[and(
+                                not(empty(variables('roleDefinitions'))),
+                                contains(variables('scope'),'subscriptions')
+                            )]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
