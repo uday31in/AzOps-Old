@@ -78,7 +78,246 @@
         "blankTemplateEscaped": "{\"$schema\":\"https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#\",\"contentVersion\":\"1.0.0.0\",\"parameters\":{},\"variables\":{},\"resources\":[],\"outputs\":{}}"
     },
     "resources": [
-      
+        {
+            /*
+                
+                Intent: Upsert Management Group
+                
+                Required Parameters:
+                    1. Name: Management Group Name
+                    2. DisplayName: Management Group Display Name
+                    3. ParentID - To Determine Where to place Management group. It could be root or any other valid ID of the Management Group.
+                
+                Scope: Tenant
+                
+                Condition: We have Parent ID available to ensure inadvertently place management group directly the root.
+
+                Details: If ParentID do not exist, then it is a child and creation of Management group would have happened when parent's children were iterated upon.
+
+                Change Log:
+                    1. Initial Definition
+            */
+            "condition": "[and(contains(variables('scope'),'Microsoft.Management/managementGroups'), contains(parameters('input'),'ParentId'))]",
+            "type": "Microsoft.Management/managementGroups",
+            "apiVersion": "2020-02-01",
+            "name": "[parameters('input').Name]",
+            "properties": {
+                "displayName": "[parameters('input').DisplayName]",
+                "details": {
+                    "parent": {
+                        "id": "[if(contains(parameters('input'),'ParentId'),parameters('input').ParentId,'na-parentId')]"
+                    }
+                }
+            }
+        },
+        {
+
+            /*                
+                Intent: Upsert 'Child' for the Management Group. Subscriptions do not have children and hence this resource will be filtered.
+                
+                Required Parameters:
+                    1. Management Group Name
+                    2. Management Group Display Name
+                    3. ParentID: Where to place Management group
+                
+                Scope: Tenant
+                
+                Condition: If Management Group have Children object that is not null or empty.
+
+                Details: Trigger Composite Deployment at the Tenant scope for every child for following:
+
+                    1. IF Child contains 'Id' with a value that contains Microsoft.Management/managementGroups
+                        a. Create Child Management Group. ParentID property is not required since we can establish parent automatically.
+                        b. Trigger Nested Deployment of this same template 
+
+                    2. IF Child contains 'Id' with a value that does NOT contain Microsoft.Management/managementGroups
+                        a. Move Subscription under Management Group. Currently this functionality is disabled in Template due to Platform Bug. Workaround is move subscription manually under the right management group.
+                        b. Trigger Nested Deployment for the Child
+
+                Change Log: 
+                    1. Initial Definition
+            */
+
+            "condition": "[not(empty(variables('Children')))]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-07-01",
+            "copy": {
+                "name": "childmove",
+                "count": "[length(variables('Children'))]"
+            },
+            "name": "[if(not(empty(variables('Children'))), concat('NorthStar','-',parameters('input').name,'-',variables('Children')[copyIndex()].Name), 'na-move')]",
+            "dependsOn": [
+                "[parameters('input').Name]",
+                "policydefinitionloop",
+                "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription",
+                "policyassignmentloop",
+                "policyassignmentloop-subscription",
+                "roleassignmentloop",
+                "roleassignmentloop-subscription"
+
+            ],
+            "location": "[deployment().location]",
+            "properties": {
+                "mode": "incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-08-01/tenantDeploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                    },
+                    "resources": [
+                        /*
+                            Create Child Management Group
+                        */
+                        {
+                            "condition": "[contains(variables('Children')[copyIndex()].Id ,'Microsoft.Management/managementGroups')]",
+                            "type": "Microsoft.Management/managementGroups",
+                            "apiVersion": "2020-02-01",
+                            "name": "[variables('Children')[copyIndex()].Name]",
+                            "properties": {
+                                "displayName": "[variables('Children')[copyIndex()].DisplayName]",
+                                "details": {
+                                    "parent": {
+                                        "id": "[concat('/providers/Microsoft.Management/managementGroups/', parameters('input').Name)]"
+                                    }
+                                }
+                            }
+                        },
+
+                        /*
+                            Start nested deployment for each child management group
+                        */
+                        {
+                            "condition": "[contains(variables('Children')[copyIndex()].Id ,'Microsoft.Management/managementGroups')]",
+                            "scope": "[if(contains(variables('Children')[copyIndex()], 'Id'),replace(replace(variables('Children')[copyIndex()].Id,'/providers',''),'/subscriptions',''), concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].name))]",
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2019-10-01",
+                            "location": "[deployment().location]",
+                            "name": "[concat('NorthStar-ChildMG-',variables('Children')[copyIndex()].Name)]",
+                            "dependsOn": [
+                                "[variables('Children')[copyIndex()].Name]"
+                            ],
+                            "properties": {
+                                "expressionEvaluationOptions": {
+                                    "scope": "outer"
+                                },
+                                "mode": "Incremental",
+                                "templateLink": {
+                                    "uri": "[variables('nestedTemplatesLocation').tenantTemplate]",
+                                    "contentVersion": "1.0.0.0"
+                                },
+                                "parameters": {
+                                     "input": {
+                                        "value": {
+                                            "Name": "[variables('Children')[copyIndex()].Name]",
+                                            "Id": "[variables('Children')[copyIndex()].Id]",
+                                            "Type": "/providers/Microsoft.Management/managementGroups",
+                                            "Children": "[if(and(contains(variables('Children')[copyIndex()], 'Children'),not(empty(variables('Children')[copyIndex()].Children))),variables('Children')[copyIndex()].Children,json('[]'))]",
+                                            "properties": {
+                                                "policyAssignments": "[if(
+                                                                            greaterOrEquals(length(
+                                                                                                    if(
+                                                                                                        and(contains(variables('Children')[copyIndex()], 'properties'),contains(variables('Children')[copyIndex()].properties, 'policyAssignments')),
+                                                                                                        variables('Children')[copyIndex()].properties.policyAssignments,
+                                                                                                        json('[]'))),1),
+                                                                            union(variables('Children')[copyIndex()].properties.policyAssignments,variables('policyAssignments')),
+                                                                            variables('policyAssignments')
+                                                                        )]"
+                                            }
+                                        }
+                                    },
+                                    "_artifactsLocation": {
+                                        "value": "[parameters('_artifactsLocation')]"
+                                    },
+                                    "_artifactsLocationSasToken": {
+                                        "value": "[parameters('_artifactsLocationSasToken')]"
+                                    },                 
+                                    "roleAssignmentEnabledForPolicy": {
+                                        "value": "[variables('roleAssignmentEnabledForPolicy')]"
+                                    },
+                                    "deploymentEnabledForPolicy": {
+                                        "value": "[variables('deploymentEnabledForPolicy')]"
+                                    },
+                                    "remediationEnabledForPolicy": {
+                                        "value": "[variables('remediationEnabledForPolicy')]"
+                                    } 
+                                }
+                            }
+                        },
+                        /*
+                            Ensure Subscription is under parent management group
+                            This is commented out until platform supports capability.
+                        /*
+                        /*
+                        {
+                            "condition": "[not(contains(if(contains(variables('Children')[copyIndex()], 'Id'),variables('Children')[copyIndex()].Id, concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].Name)),'Microsoft.Management/managementGroups'))]",
+                            "type": "Microsoft.Management/managementGroups/subscriptions",
+                            "apiVersion": "2019-11-01",
+                            "name": "[concat(parameters('input').Name,'/',variables('Children')[copyIndex()].Name)]",
+                            "properties": {
+                            }
+                        },
+                        */
+                        /*
+                            For each Subscription (i.e. Not management group), Start nested deployment
+                        */
+                        {
+                            "condition": "[not(contains(variables('Children')[copyIndex()].Id ,'Microsoft.Management/managementGroups'))]",
+                            "type": "Microsoft.Resources/deployments",
+                            "apiVersion": "2019-10-01",
+                            "location": "[deployment().location]",
+                            "name": "[concat('Northstar-subscription-',variables('Children')[copyIndex()].Name)]",
+                            "properties": {
+                                "expressionEvaluationOptions": {
+                                    "scope": "outer"
+                                },
+                                "mode": "Incremental",
+                                "templateLink": {
+                                    "uri": "[variables('nestedTemplatesLocation').tenantTemplate]",
+                                    "contentVersion": "1.0.0.0"
+                                },
+                               "parameters": {
+                                    "input": {
+                                        "value": {
+                                            "Name": "[variables('Children')[copyIndex()].Name]",
+                                            "Id": "[variables('Children')[copyIndex()].Id]",
+                                            "Type": "/subscriptions",
+                                            "properties": {
+                                                "policyAssignments": "[if(
+                                                                            greaterOrEquals(length(
+                                                                                                    if(
+                                                                                                        and(contains(variables('Children')[copyIndex()], 'properties'),contains(variables('Children')[copyIndex()].properties, 'policyAssignments')),
+                                                                                                        variables('Children')[copyIndex()].properties.policyAssignments,
+                                                                                                        json('[]'))),1),
+                                                                            union(variables('Children')[copyIndex()].properties.policyAssignments,variables('policyAssignments')),
+                                                                            variables('policyAssignments')
+                                                                        )]"
+                                            }
+                                        }
+                                    },
+                                    "_artifactsLocation": {
+                                        "value": "[parameters('_artifactsLocation')]"
+                                    },
+                                    "_artifactsLocationSasToken": {
+                                        "value": "[parameters('_artifactsLocationSasToken')]"
+                                    },                 
+                                    "roleAssignmentEnabledForPolicy": {
+                                        "value": "[variables('roleAssignmentEnabledForPolicy')]"
+                                    },
+                                    "deploymentEnabledForPolicy": {
+                                        "value": "[variables('deploymentEnabledForPolicy')]"
+                                    },
+                                    "remediationEnabledForPolicy": {
+                                        "value": "[variables('remediationEnabledForPolicy')]"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        },
         {
             /*
 
@@ -100,7 +339,7 @@
                     1. Initial Definition
             */
 
-            "condition": "[ not(empty(variables('policyDefinitions'))) ]",
+            "condition": "[not(empty(variables('policyDefinitions')))]",
             "scope": "[if(
                             contains(variables('scope'),'Microsoft.Management/managementGroups'),
                             variables('scope'),
@@ -113,7 +352,10 @@
                 "name": "policydefinitionloop",
                 "count": "[length(variables('policyDefinitions'))]"
             },
-            "name": "[if(not(empty(variables('policyDefinitions'))), concat('PolicyDefinition-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policydefinition')]",            
+            "name": "[if(not(empty(variables('policyDefinitions'))), concat('PolicyDefinition-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policydefinition')]",
+            "dependsOn": [
+                "[parameters('input').Name]"                
+            ],
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "outer"
@@ -129,8 +371,64 @@
                     }
                 }
             }
+        },      
+        {
+            /*
+
+                Intent: Upsert 'policySetDefinitions' for the Management Group.
+                
+                Required Parameters (of policySetDefinitions[] Object):
+
+                    1. Name
+                    2. ExtensionResourceType set to "Microsoft.Authorization/policySetDefinitions",
+                    3. Properties
+                
+                Scope: Tenant
+                
+                Condition: Non Empty policySetDefinitions[] in Properties bag of Management Group.
+
+                Details: Trigger Nested Deployment to create policy Definition.
+
+                Change Log: 
+                    1. Initial Definition
+            */
+
+            "condition": "[not(empty(variables('policyDefinitions')))]",
+            "scope": "[if(
+                            contains(variables('scope'),'Microsoft.Management/managementGroups'),
+                            variables('scope'),
+                            ''
+                        )]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[deployment().location]",
+            "copy": {
+                "name": "policySetDefinitions",
+                "count": "[length(variables('policySetDefinitions'))]"
+            },
+            "name": "[if(not(empty(variables('policySetDefinitions'))), concat('PolicySetDefinitions-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policySetDefinitions')]",
+            "dependsOn": [
+                "[parameters('input').Name]",                
+                "policydefinitionloop",
+                "policydefinitionloop-subscription"
+            ],
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "outer"
+                },
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('nestedTemplatesLocation').resourceTemplate]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "input": {
+                        "value": "[variables('policySetDefinitions')[copyIndex()]]"
+                    }
+                }
+            }
         },
-          
+     
         {
             /*
                 Management Group - Policy Assignment Loop
@@ -139,8 +437,8 @@
                                 not(empty(variables('policyAssignments'))),                                
                                 contains(toLower(variables('policyAssignments')[0].Properties.scope),toLower(variables('scope'))) 
                             )]",
-            "scope": "[if
-                            (contains(variables('scope'),'Microsoft.Management/managementGroups'),
+            "scope": "[if(
+                            contains(variables('scope'),'Microsoft.Management/managementGroups'),
                             variables('scope'),
                             ''
                         )]",
@@ -152,7 +450,8 @@
                 "count": "[length(variables('policyAssignments'))]"
             },
             "dependsOn": [
-                "policydefinitionloop"
+                "policydefinitionloop",                
+                "policySetDefinitions"                
             ],
             "name": "[if(not(empty(variables('policyAssignments'))), concat('PolicyAssignment-', variables('policyAssignments')[copyIndex()].Name), 'na-mgmt-policyassignment')]",
             "properties": {
@@ -193,7 +492,110 @@
                     }
                 }
             }
-        }       
+        },
+     
+        {
+
+            /*
+                Management Group - Role Assignment Loop for Policy Assignment (System Assigned managed identity)
+            */
+            
+            "condition": "[and(
+                                variables('roleAssignmentEnabledForPolicy'),
+                                not(empty(variables('policyAssignments'))),                                
+                                contains(tolower(variables('policyAssignments')[0].Properties.scope),toLower(variables('scope'))) 
+                            )]",
+            "scope": "[if(
+                            contains(variables('scope'),'Microsoft.Management/managementGroups'),
+                            variables('scope'),
+                            ''
+                        )]",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "location": "[deployment().location]",
+            "copy": {
+                "name": "roleassignmentloop",
+                "count": "[length(variables('policyAssignments'))]"
+            },
+            "dependsOn": [
+                "policydefinitionloop",
+                "policydefinitionloop-subscription",
+                "policySetDefinitions",
+                "policySetDefinitions-subscription",
+                "policyassignmentloop",
+                "policyassignmentloop-subscription"
+            ],
+            "name": "[if(not(empty(variables('policyAssignments'))), concat('RoleAssignment-', variables('policyAssignments')[copyIndex()].Name), 'na-mgmt-roleAssignment')]",
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "outer"
+                },
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('nestedTemplatesLocation').resourceTemplate]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "input": {
+                        "value": {
+                            "name": "[if(
+                                        and(
+                                            not(empty(variables('policyAssignments'))),
+                                            equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
+                                            contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
+                                            or(
+                                                contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                and(
+                                                    not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                    equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                )
+                                            )
+                                        ),
+                                        guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),
+                                        'na'
+                                    )]",
+                            "ExtensionResourceType": "[if(
+                                                            and(
+                                                                not(empty(variables('policyAssignments'))),
+                                                                equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
+                                                                contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
+                                                                or(
+                                                                    contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                                    and(
+                                                                        not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                                        equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                                    )
+                                                                )
+                                                            ),
+                                                            'Microsoft.Authorization/roleAssignments',
+                                                            'na'
+                                                        )]",
+                            "properties": {
+                                "principalType": "ServicePrincipal",
+                                "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+                                "principalId": "[if(
+                                                    and(
+                                                        not(empty(variables('policyAssignments'))),
+                                                        equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),
+                                                        toLower(concat('/providers/',variables('scope')))),
+                                                        contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
+                                                        or(
+                                                            contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                            and(
+                                                                not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                                equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                            )
+                                                        )
+                                                    ),
+                                                    toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),
+                                                    'na'
+                                                )]"
+                            }
+                        }
+                    }
+                }
+            }
+        }                     
     ],
     "outputs": {
         "scope": {
@@ -203,8 +605,8 @@
         },
         "policyAssignments": {
             "condition": "[bool('true')]",
-            "type": "int",
-            "value": "[length(variables('policyAssignments'))]"
+            "type": "bool",
+            "value": "[contains(variables('scope'),'Microsoft.Management/managementGroups')]"
         }
     }
 }
