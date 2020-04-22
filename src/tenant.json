@@ -137,7 +137,7 @@
             */                         
             "condition": "[and(
                                 not(empty(variables('policyAssignments'))),                                
-                                equals(toLower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
+                                contains(toLower(variables('policyAssignments')[0].Properties.scope),toLower(variables('scope'))) 
                             )]",
             "scope": "[if
                             (contains(variables('scope'),'Microsoft.Management/managementGroups'),
