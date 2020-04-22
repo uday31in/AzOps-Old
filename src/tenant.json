@@ -100,9 +100,7 @@
                     1. Initial Definition
             */
 
-            "condition": "[and(
-                                not(empty(variables('policyDefinitions'))),                                
-                            )]",
+            "condition": "[ not(empty(variables('policyDefinitions'))) ]",
             "scope": "[if(
                             contains(variables('scope'),'Microsoft.Management/managementGroups'),
                             variables('scope'),
