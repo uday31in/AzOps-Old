@@ -65,10 +65,18 @@
         
 
         "input": "[union(parameters('hobo'),parameters('input'))]",
+
+        "scopeLookup": {
+            "Microsoft.Resources/resourceGroups": "2019-05-10",            
+            "/providers/Microsoft.Management/managementGroups": "[concat('/providers/Microsoft.Management/managementGroups/',parameters('input').name)]",
+            "/subscriptions" : "[concat('/subscriptions/',parameters('input').name)]"
+        },
+
         /*
             If Id property is present, use one and replace providers prefix, otherwise assume management group.
         */
-        "scope": "[if(contains(parameters('input'), 'Id'),replace(parameters('input').Id,'/providers/',''), concat('Microsoft.Management/managementGroups/',parameters('input').name))]",
+        "scope": "[variables('scopeLookup')[parameters('input').Type]]",
+
         "Children": "[if(and(contains(parameters('input'), 'Children'),not(empty(parameters('input').Children))),parameters('input').Children,json('[]'))]",
         "policyDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policyDefinitions'),not(empty(parameters('input').properties.policyDefinitions))),parameters('input').properties.policyDefinitions,json('[]'))]",
         "policySetDefinitions": "[if(and(contains(parameters('input'), 'properties'),contains(parameters('input').properties, 'policySetDefinitions'),not(empty(parameters('input').properties.policySetDefinitions))),parameters('input').properties.policySetDefinitions,json('[]'))]",
@@ -184,8 +192,8 @@
                             Start nested deployment for each child management group
                         */
                         {
-                            "condition": "[contains(variables('Children')[copyIndex()].Id ,'Microsoft.Management/managementGroups')]",
-                            "scope": "[if(contains(variables('Children')[copyIndex()], 'Id'),replace(replace(variables('Children')[copyIndex()].Id,'/providers',''),'/subscriptions',''), concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].name))]",
+                            "condition": "[contains(variables('Children')[copyIndex()].Type ,'Microsoft.Management/managementGroups')]",
+                            "scope": "[concat(variables('Children')[copyIndex()].Name)]",
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
@@ -258,7 +266,7 @@
                             For each Subscription (i.e. Not management group), Start nested deployment
                         */
                         {
-                            "condition": "[not(contains(variables('Children')[copyIndex()].Id ,'Microsoft.Management/managementGroups'))]",
+                            "condition": "[equals(toLower(variables('Children')[copyIndex()].Type) ,toLower('/subscriptions'))]",
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
@@ -470,7 +478,7 @@
                             "identity" : "[if(
                                                 and(
                                                     not(empty(variables('policyAssignments'))),
-                                                    equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
+                                                    equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))),
                                                     or(
                                                         contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
                                                         and(
@@ -533,8 +541,8 @@
                             "name": "[if(
                                         and(
                                             not(empty(variables('policyAssignments'))),
-                                            equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
-                                            contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
+                                            equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))),
+                                            contains(reference(concat(replace(variables('scope'),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
                                             or(
                                                 contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
                                                 and(
@@ -543,14 +551,14 @@
                                                 )
                                             )
                                         ),
-                                        guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),
+                                        guid(toLower(reference(concat(replace(variables('scope'),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),
                                         'na'
                                     )]",
                             "ExtensionResourceType": "[if(
                                                             and(
                                                                 not(empty(variables('policyAssignments'))),
-                                                                equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))),
-                                                                contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
+                                                                equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))),
+                                                                contains(reference(concat(replace(variables('scope'),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
                                                                 or(
                                                                     contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
                                                                     and(
@@ -564,13 +572,29 @@
                                                         )]",
                             "properties": {
                                 "principalType": "ServicePrincipal",
-                                "roleDefinitionId": "[concat('/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+                                "roleDefinitionId":  "[if(
+                                                        and(
+                                                            contains(variables('policyAssignments')[copyIndex()].Properties,'scope'),
+                                                            contains(variables('policyAssignments')[copyIndex()].Properties,'policyDefinitionId'),
+                                                            contains(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then,'details'),
+                                                            contains(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details,'roleDefinitionIds'),
+                                                            contains(reference(concat(replace(variables('scope'),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),                                                            
+                                                            or(
+                                                                contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
+                                                                and(
+                                                                    not(contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions')),
+                                                                    equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
+                                                                )
+                                                            )
+                                                        ),
+                                                        toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.details.roleDefinitionIds[0]),
+                                                        concat('/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')
+                                                    )]",
                                 "principalId": "[if(
                                                     and(
                                                         not(empty(variables('policyAssignments'))),
-                                                        equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),
-                                                        toLower(concat('/providers/',variables('scope')))),
-                                                        contains(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
+                                                        equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(variables('scope'))),
+                                                        contains(reference(concat(replace(variables('scope'),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ),'identity'),
                                                         or(
                                                             contains(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'policySetDefinitions'),
                                                             and(
@@ -579,7 +603,7 @@
                                                             )
                                                         )
                                                     ),
-                                                    toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),
+                                                    toLower(reference(concat(replace(variables('scope'),'/providers/',''),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),
                                                     'na'
                                                 )]"
                             }
