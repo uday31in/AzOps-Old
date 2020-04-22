@@ -148,15 +148,10 @@
             "name": "[if(not(empty(variables('Children'))), concat('NorthStar','-',parameters('input').name,'-',variables('Children')[copyIndex()].Name), 'na-move')]",
             "dependsOn": [
                 "[parameters('input').Name]",
-                "policydefinitionloop",
-                "policydefinitionloop-subscription",
-                "policySetDefinitions",
-                "policySetDefinitions-subscription",
-                "policyassignmentloop",
-                "policyassignmentloop-subscription",
-                "roleassignmentloop",
-                "roleassignmentloop-subscription"
-
+                "policydefinitionloop",                
+                "policySetDefinitions",                
+                "policyassignmentloop",                
+                "roleassignmentloop"
             ],
             "location": "[deployment().location]",
             "properties": {
@@ -409,8 +404,7 @@
             "name": "[if(not(empty(variables('policySetDefinitions'))), concat('PolicySetDefinitions-', variables('policyDefinitions')[copyIndex()].Name), 'na-mgmt-policySetDefinitions')]",
             "dependsOn": [
                 "[parameters('input').Name]",                
-                "policydefinitionloop",
-                "policydefinitionloop-subscription"
+                "policydefinitionloop"                
             ],
             "properties": {
                 "expressionEvaluationOptions": {
@@ -518,12 +512,9 @@
                 "count": "[length(variables('policyAssignments'))]"
             },
             "dependsOn": [
-                "policydefinitionloop",
-                "policydefinitionloop-subscription",
-                "policySetDefinitions",
-                "policySetDefinitions-subscription",
-                "policyassignmentloop",
-                "policyassignmentloop-subscription"
+                "policydefinitionloop",                
+                "policySetDefinitions",                
+                "policyassignmentloop"                
             ],
             "name": "[if(not(empty(variables('policyAssignments'))), concat('RoleAssignment-', variables('policyAssignments')[copyIndex()].Name), 'na-mgmt-roleAssignment')]",
             "properties": {
