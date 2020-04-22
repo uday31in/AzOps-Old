@@ -263,6 +263,7 @@
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
                             "name": "[concat('Northstar-subscription-',variables('Children')[copyIndex()].Name)]",
+                            "subscriptionId": "[variables('Children')[copyIndex()].Name]",
                             "properties": {
                                 "expressionEvaluationOptions": {
                                     "scope": "outer"
