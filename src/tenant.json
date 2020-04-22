@@ -68,7 +68,7 @@
 
         "scopeLookup": {
             "Microsoft.Resources/resourceGroups": "2019-05-10",            
-            "/providers/Microsoft.Management/managementGroups": "[concat('/providers/Microsoft.Management/managementGroups/',parameters('input').name)]",
+            "/providers/Microsoft.Management/managementGroups": "[concat('/Microsoft.Management/managementGroups/',parameters('input').name)]",
             "/subscriptions" : "[concat('/subscriptions/',parameters('input').name)]"
         },
 
