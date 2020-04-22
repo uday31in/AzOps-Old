@@ -203,8 +203,8 @@
         },
         "policyAssignments": {
             "condition": "[bool('true')]",
-            "type": "bool",
-            "value": "[contains(variables('scope'),'Microsoft.Management/managementGroups')]"
+            "type": "int",
+            "value": "[length(variables('policyAssignments'))]"
         }
     }
 }
