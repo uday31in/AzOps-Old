@@ -101,10 +101,10 @@
             */
 
             "condition": "[and(not(empty(variables('policyDefinitions'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
-            "scope": "[if
-                            (contains(variables('scope'),'Microsoft.Management/managementGroups'),
+            "scope": "[if(
+                            contains(variables('scope'),'Microsoft.Management/managementGroups'),
                             variables('scope'),
-                            json('null')
+                            ''
                         )]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
@@ -143,7 +143,7 @@
             "scope": "[if
                             (contains(variables('scope'),'Microsoft.Management/managementGroups'),
                             variables('scope'),
-                            json('null')
+                            ''
                         )]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
