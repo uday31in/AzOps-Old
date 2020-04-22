@@ -193,7 +193,7 @@
                         */
                         {
                             "condition": "[contains(variables('Children')[copyIndex()].Type ,'Microsoft.Management/managementGroups')]",
-                            "scope": "[concat(variables('Children')[copyIndex()].Name)]",
+                            "scope": "[concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].Name)]",
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
