@@ -100,7 +100,9 @@
                     1. Initial Definition
             */
 
-            "condition": "[and(not(empty(variables('policyDefinitions'))),contains(variables('scope'),'Microsoft.Management/managementGroups'))]",
+            "condition": "[and(
+                                not(empty(variables('policyDefinitions'))),                                
+                            )]",
             "scope": "[if(
                             contains(variables('scope'),'Microsoft.Management/managementGroups'),
                             variables('scope'),
@@ -136,8 +138,7 @@
                 Management Group - Policy Assignment Loop
             */                         
             "condition": "[and(
-                                not(empty(variables('policyAssignments'))),
-                                contains(variables('scope'),'Microsoft.Management/managementGroups'),
+                                not(empty(variables('policyAssignments'))),                                
                                 equals(toLower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
                             )]",
             "scope": "[if
