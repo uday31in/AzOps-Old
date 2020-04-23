@@ -626,7 +626,7 @@
                                 not(empty(variables('policyAssignments'))),                                
                                 contains(tolower(variables('policyAssignments')[0].Properties.scope),toLower(variables('scope'))) 
                             )]",
-            "subscriptionId": "[subscription().subscriptionId]",
+            "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
             "location": "[deployment().location]",
