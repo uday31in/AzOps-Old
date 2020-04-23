@@ -497,11 +497,12 @@
             }
         },
      
+        /*
         {
 
             /*
                 Management Group - Role Assignment Loop for Policy Assignment (System Assigned managed identity)
-            */
+            
             
             "condition": "[and(
                                 variables('roleAssignmentEnabledForPolicy'),
@@ -610,8 +611,11 @@
                         }
                     }
                 }
+            
             }
-        }                     
+            
+        }
+        */                     
     ],
     "outputs": {
         "scope": {
