@@ -494,14 +494,12 @@
                     }
                 }
             }
-        },
-     
-        /*
+        },            
         {
 
             /*
                 Management Group - Role Assignment Loop for Policy Assignment (System Assigned managed identity)
-            
+            */
             
             "condition": "[and(
                                 variables('roleAssignmentEnabledForPolicy'),
@@ -551,6 +549,7 @@
                                                 )
                                             )
                                         ),
+                                        
                                         guid(toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId)),
                                         'na'
                                     )]",
@@ -602,7 +601,7 @@
                                                                 equals(toLower(reference(variables('policyAssignments')[copyIndex()].Properties.policyDefinitionId,'2018-05-01').policyRule.then.effect), toLower('deployIfNotExists'))
                                                             )
                                                         )
-                                                    ),
+                                                    ),                                                    
                                                     toLower(reference(concat(variables('scope'),'/providers/Microsoft.Authorization/policyAssignments/', variables('policyAssignments')[copyIndex()].Name), '2018-05-01', 'Full' ).identity.principalId),
                                                     'na'
                                                 )]"
@@ -613,8 +612,7 @@
             
             }
             
-        }
-        */                     
+        }                             
     ],
     "outputs": {
         "scope": {
