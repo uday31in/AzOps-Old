@@ -863,7 +863,8 @@
                                 variables('remediationEnabledForPolicy'),
                                 not(empty(variables('policyAssignments'))),
                                 contains(variables('scope'),'subscriptions'),
-                                empty(variables('policyAssignments')[copyIndex()].Properties.notScopes)                                
+                                contains(variables('policyAssignments')[copyIndex()].Properties, 'notScopes'),
+                                empty(variables('policyAssignments')[copyIndex()].Properties.notScopes)                       
                             )]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
@@ -932,6 +933,7 @@
                                 variables('deploymentEnabledForPolicy'),                                
                                 greaterOrEquals(length(variables('policyAssignments')),1),
                                 contains(variables('scope'),'subscriptions'),
+                                contains(variables('policyAssignments')[copyIndex()].Properties, 'notScopes'),
                                 empty(variables('policyAssignments')[copyIndex()].Properties.notScopes)
                             )]",
             "subscriptionId": "[parameters('input').Name]",
