@@ -145,7 +145,7 @@
                 "name": "childmove",
                 "count": "[length(variables('Children'))]"
             },
-            "name": "[if(not(empty(variables('Children'))), concat('NorthStar','-',parameters('input').name,'-',variables('Children')[copyIndex()].Name), 'na-move')]",
+            "name": "[if(not(empty(variables('Children'))), take(concat('NorthStar','-',parameters('input').name,'-',variables('Children')[copyIndex()].Name), 'na-move'),63)]",
             "dependsOn": [
                 "[parameters('input').Name]",
                 "policydefinitionloop",
@@ -194,7 +194,7 @@
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
-                            "name": "[concat('NorthStar-ChildMG-',variables('Children')[copyIndex()].Name)]",
+                            "name": "[take(concat('NorthStar-ChildMG-',variables('Children')[copyIndex()].Name),64)]",
                             "dependsOn": [
                                 "[variables('Children')[copyIndex()].Name]"
                             ],
@@ -267,7 +267,7 @@
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
-                            "name": "[concat('Northstar-subscription-',variables('Children')[copyIndex()].Name)]",
+                            "name": "[take(concat('Northstar-subscription-',variables('Children')[copyIndex()].Name),63)]",
                             "properties": {
                                 "expressionEvaluationOptions": {
                                     "scope": "outer"
