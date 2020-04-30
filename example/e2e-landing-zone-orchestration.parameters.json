@@ -17,57 +17,198 @@
         "Children": [
           {
             "Type": "/providers/Microsoft.Management/managementGroups",
-            "Id": "/providers/Microsoft.Management/managementGroups/decomissioned",
-            "Name": "decomissioned",
-            "DisplayName": "decomissioned",
-            "Children": null
-          },
-          {
-            "Type": "/providers/Microsoft.Management/managementGroups",
-            "Id": "/providers/Microsoft.Management/managementGroups/sandboxes",
-            "Name": "sandboxes",
-            "DisplayName": "sandboxes",
-            "Children": [             
-            ]
-          },
-          {
-            "Type": "/providers/Microsoft.Management/managementGroups",
-            "Id": "/providers/Microsoft.Management/managementGroups/landingzones",
-            "Name": "landingzones",
-            "DisplayName": "Landing Zones",
+            "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-landingzones",
+            "Name": "Tailspin-landingzones",
+            "DisplayName": "Tailspin-Landing Zones",
             "Children": [
               {
                 "Type": "/providers/Microsoft.Management/managementGroups",
-                "Id": "/providers/Microsoft.Management/managementGroups/corp",
-                "Name": "corp",
-                "DisplayName": "corp",
-                "Children": [                  
-                ]
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-sap",
+                "Name": "Tailspin-sap",
+                "DisplayName": "Tailspin-sap",
+                "Children": null
               },
               {
                 "Type": "/providers/Microsoft.Management/managementGroups",
-                "Id": "/providers/Microsoft.Management/managementGroups/online",
-                "Name": "online",
-                "DisplayName": "online",
-                "Children": [                 
-                ]
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-online",
+                "Name": "Tailspin-online",
+                "DisplayName": "Tailspin-online",
+                "Children": null
               },
               {
                 "Type": "/providers/Microsoft.Management/managementGroups",
-                "Id": "/providers/Microsoft.Management/managementGroups/sap",
-                "Name": "sap",
-                "DisplayName": "sap",
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-corp",
+                "Name": "Tailspin-corp",
+                "DisplayName": "Tailspin-corp",
                 "Children": null
               }
             ]
           },
           {
             "Type": "/providers/Microsoft.Management/managementGroups",
-            "Id": "/providers/Microsoft.Management/managementGroups/platform",
-            "Name": "platform",
-            "DisplayName": "platform",
-            "Children": [              
+            "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-decomissioned",
+            "Name": "Tailspin-decomissioned",
+            "DisplayName": "Tailspin-decomissioned",
+            "Children": null
+          },
+          {
+            "Type": "/providers/Microsoft.Management/managementGroups",
+            "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-sandboxes",
+            "Name": "Tailspin-sandboxes",
+            "DisplayName": "Tailspin-sandboxes",
+            "Children": null
+          },
+          {
+            "Type": "/providers/Microsoft.Management/managementGroups",
+            "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-platform",
+            "Name": "Tailspin-platform",
+            "DisplayName": "Tailspin-platform",
+            "Children": [
+              {
+                "Type": "/providers/Microsoft.Management/managementGroups",
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity",
+                "Name": "Tailspin-connectivity",
+                "DisplayName": "Tailspin-connectivity",
+                "Children": null,
+                "properties": {
+                  "policyDefinitions": [],
+                  "policySetDefinitions": [],
+                  "policyAssignments": [
+                    {
+                      "Name": "Deploy-vHUB-NEU",
+                      "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity/providers/Microsoft.Authorization/policyAssignments/Deploy-vHUB-NEU",
+                      "ResourceName": "Tailspin-connectivity",
+                      "ResourceType": "Microsoft.Management/managementGroups",
+                      "ExtensionResourceName": "Deploy-vHUB-NEU",
+                      "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
+                      "Location": "northeurope",
+                      "Properties": {
+                        "displayName": "Deploy-vHUB-NEU",
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vHUB",
+                        "scope": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity",
+                        "parameters": {
+                          "vwanname": {
+                            "value": "tailspin-vwan"
+                          },
+                          "vhubname": {
+                            "value": "tailspin-vhub-neu"
+                          },
+                          "vhub": {
+                            "value": {
+                              "location": "northeurope",
+                              "addressPrefix": "10.1.0.0/16",
+                              "virtualNetworkConnections": [],
+                              "vpnGateway": {}
+                            }
+                          },
+                          "vpngw": {
+                            "value": {}
+                          },
+                          "ergw": {
+                            "value": {}
+                          },
+                          "azfw": {
+                            "value": {
+                              "name": "tailspin-fw-neu",
+                              "firewallPolicy": {
+                                "id": ""
+                              }
+                            }
+                          },
+                          "rgName": {
+                            "value": "tailspin-global-vwan"
+                          }
+                        },
+                        "metadata": {
+                          "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
+                          "createdOn": "2020-04-30T10:08:35.554645Z",
+                          "updatedBy": null,
+                          "updatedOn": null
+                        },
+                        "enforcementMode": "Default"
+                      },
+                      "Sku": {
+                        "name": "A0",
+                        "tier": "Free"
+                      },
+                      "Identity": {
+                        "type": "SystemAssigned",
+                        "principalId": "f767132f-d019-42db-8029-c2e1a0f6c13c",
+                        "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
+                      },
+                      "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity/providers/Microsoft.Authorization/policyAssignments/Deploy-vHUB-NEU"
+                    },
+                    {
+                      "Name": "Deploy-vWAN",
+                      "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity/providers/Microsoft.Authorization/policyAssignments/Deploy-vWAN",
+                      "ResourceName": "Tailspin-connectivity",
+                      "ResourceType": "Microsoft.Management/managementGroups",
+                      "ExtensionResourceName": "Deploy-vWAN",
+                      "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
+                      "Location": "northeurope",
+                      "Properties": {
+                        "displayName": "Deploy-VWAN",
+                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vWAN",
+                        "scope": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity",
+                        "notScopes": [],
+                        "parameters": {
+                          "vwanname": {
+                            "value": "tailspin-vwan"
+                          },
+                          "vwanRegion": {
+                            "value": "northeurope"
+                          },
+                          "rgName": {
+                            "value": "tailspin-global-vwan"
+                          }
+                        },
+                        "description": "",
+                        "metadata": {
+                          "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
+                          "createdOn": "2020-04-30T10:09:21.2314172Z",
+                          "updatedBy": null,
+                          "updatedOn": null
+                        },
+                        "enforcementMode": "Default"
+                      },
+                      "Sku": {
+                        "name": "A0",
+                        "tier": "Free"
+                      },
+                      "Identity": {
+                        "type": "SystemAssigned",
+                        "principalId": "dadb5536-c65f-4679-a561-ffd5846ae0d3",
+                        "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
+                      },
+                      "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity/providers/Microsoft.Authorization/policyAssignments/Deploy-vWAN"
+                    }
+                  ],
+                  "roleDefinitions": null,
+                  "roleAssignments": null
+                }
+              },
+              {
+                "Type": "/providers/Microsoft.Management/managementGroups",
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-identity",
+                "Name": "Tailspin-identity",
+                "DisplayName": "Tailspin-identity",
+                "Children": null
+              },
+              {
+                "Type": "/providers/Microsoft.Management/managementGroups",
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-management",
+                "Name": "Tailspin-management",
+                "DisplayName": "Tailspin-management",
+                "Children": null
+              }
             ]
+          },
+          {
+            "Type": "/subscriptions",
+            "Id": "/subscriptions/a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10",
+            "Name": "a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10",
+            "DisplayName": "udpandya",
+            "Children": null
           }
         ],
         "properties": {
@@ -88,7 +229,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:26:55.0277868Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.6300042Z"
+                  "updatedOn": "2020-04-30T10:20:57.1230947Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -136,7 +277,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:27:03.7927807Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.9113669Z"
+                  "updatedOn": "2020-04-30T10:20:56.0952717Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -175,7 +316,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:27:13.575058Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.6136194Z"
+                  "updatedOn": "2020-04-30T10:20:56.498185Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -206,7 +347,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:27:20.568474Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.133716Z"
+                  "updatedOn": "2020-04-30T10:20:56.8761365Z"
                 },
                 "policyRule": {
                   "if": {
@@ -244,7 +385,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:27:29.4738768Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.2085837Z"
+                  "updatedOn": "2020-04-30T10:20:56.3110722Z"
                 },
                 "policyRule": {
                   "if": {
@@ -282,7 +423,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:27:36.7245675Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7743492Z"
+                  "updatedOn": "2020-04-30T10:20:56.6047719Z"
                 },
                 "policyRule": {
                   "if": {
@@ -320,7 +461,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:27:43.825116Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.1170242Z"
+                  "updatedOn": "2020-04-30T10:20:55.8925311Z"
                 },
                 "policyRule": {
                   "if": {
@@ -358,7 +499,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:27:50.1560046Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7585261Z"
+                  "updatedOn": "2020-04-30T10:20:56.7943581Z"
                 },
                 "policyRule": {
                   "if": {
@@ -396,7 +537,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:27:58.2200578Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5361481Z"
+                  "updatedOn": "2020-04-30T10:20:56.3099431Z"
                 },
                 "policyRule": {
                   "if": {
@@ -434,7 +575,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:28:06.4239334Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.4266926Z"
+                  "updatedOn": "2020-04-30T10:20:56.8591617Z"
                 },
                 "policyRule": {
                   "if": {
@@ -472,7 +613,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:28:14.6767639Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.0846859Z"
+                  "updatedOn": "2020-04-30T10:20:56.7528818Z"
                 },
                 "policyRule": {
                   "if": {
@@ -510,7 +651,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:28:21.0813177Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7242811Z"
+                  "updatedOn": "2020-04-30T10:20:56.528726Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -540,7 +681,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:28:27.9849257Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.4930693Z"
+                  "updatedOn": "2020-04-30T10:20:57.2077798Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -578,7 +719,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:28:35.6052803Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7548079Z"
+                  "updatedOn": "2020-04-30T10:20:56.6571332Z"
                 },
                 "parameters": {
                   "resourceGroupLocation": {
@@ -884,7 +1025,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:28:42.9670048Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.5673452Z"
+                  "updatedOn": "2020-04-30T10:20:56.858766Z"
                 },
                 "parameters": {
                   "emailSecurityContact": {
@@ -1229,7 +1370,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:28:50.4158154Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.8254996Z"
+                  "updatedOn": "2020-04-30T10:20:56.3467144Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -1676,7 +1817,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:28:59.0506947Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5988816Z"
+                  "updatedOn": "2020-04-30T10:20:57.1851488Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -2124,7 +2265,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:29:06.2191502Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.7586779Z"
+                  "updatedOn": "2020-04-30T10:20:56.3160348Z"
                 },
                 "parameters": {
                   "ddosName": {
@@ -2275,7 +2416,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:29:12.7465564Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5277385Z"
+                  "updatedOn": "2020-04-30T10:20:56.1582696Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2392,7 +2533,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:29:20.108743Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.1611838Z"
+                  "updatedOn": "2020-04-30T10:20:58.5745192Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2496,7 +2637,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:29:26.8241283Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7242811Z"
+                  "updatedOn": "2020-04-30T10:20:56.3300458Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2600,7 +2741,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:29:33.6325537Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.5087193Z"
+                  "updatedOn": "2020-04-30T10:20:56.7229451Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2731,7 +2872,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:29:40.8673857Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7711854Z"
+                  "updatedOn": "2020-04-30T10:20:57.107185Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2856,7 +2997,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:29:48.0091354Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:51.9893359Z"
+                  "updatedOn": "2020-04-30T10:20:55.1492325Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2969,7 +3110,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:29:54.9603564Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7586882Z"
+                  "updatedOn": "2020-04-30T10:20:56.5801475Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3096,7 +3237,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:30:02.2578832Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.790085Z"
+                  "updatedOn": "2020-04-30T10:20:56.0422444Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3213,7 +3354,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:30:08.810291Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5988816Z"
+                  "updatedOn": "2020-04-30T10:20:57.0153937Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3322,7 +3463,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:30:15.6296052Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7275813Z"
+                  "updatedOn": "2020-04-30T10:20:55.9862598Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3421,7 +3562,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:30:28.1989762Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.4112199Z"
+                  "updatedOn": "2020-04-30T10:20:56.8923766Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3534,7 +3675,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:30:37.6183044Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5986553Z"
+                  "updatedOn": "2020-04-30T10:20:56.0748919Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3651,7 +3792,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:30:45.9803622Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.8210142Z"
+                  "updatedOn": "2020-04-30T10:20:56.9979226Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3768,7 +3909,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:30:53.2574195Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.5712049Z"
+                  "updatedOn": "2020-04-30T10:20:56.6571332Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3881,7 +4022,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:00.1138739Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:51.9615595Z"
+                  "updatedOn": "2020-04-30T10:20:55.1559351Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3994,7 +4135,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:06.9792294Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.509389Z"
+                  "updatedOn": "2020-04-30T10:20:57.0935187Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4098,7 +4239,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:15.0727861Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.5210832Z"
+                  "updatedOn": "2020-04-30T10:20:59.6474563Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4202,7 +4343,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:21.0180987Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7730004Z"
+                  "updatedOn": "2020-04-30T10:20:56.6061586Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4319,7 +4460,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:29.6603877Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.1299318Z"
+                  "updatedOn": "2020-04-30T10:20:56.3591728Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4428,7 +4569,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:37.7037114Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5866455Z"
+                  "updatedOn": "2020-04-30T10:20:57.1381188Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4541,7 +4682,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:44.7310708Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5400495Z"
+                  "updatedOn": "2020-04-30T10:20:57.0527433Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4645,7 +4786,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:50.3986124Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.0673262Z"
+                  "updatedOn": "2020-04-30T10:20:59.3634903Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4802,7 +4943,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:31:58.4910706Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.4460413Z"
+                  "updatedOn": "2020-04-30T10:20:57.2851752Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4911,7 +5052,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:32:05.9847244Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.6768648Z"
+                  "updatedOn": "2020-04-30T10:20:56.0834982Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5024,7 +5165,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:32:12.8919292Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.9755935Z"
+                  "updatedOn": "2020-04-30T10:20:55.9601441Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5123,7 +5264,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:32:19.7641566Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.3849015Z"
+                  "updatedOn": "2020-04-30T10:20:56.270628Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5232,7 +5373,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:32:26.3206684Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5518023Z"
+                  "updatedOn": "2020-04-30T10:20:56.6904006Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5341,7 +5482,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:32:38.4788647Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7274483Z"
+                  "updatedOn": "2020-04-30T10:20:56.1007493Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5444,7 +5585,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:32:46.917584Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.3330137Z"
+                  "updatedOn": "2020-04-30T10:20:56.330709Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5547,7 +5688,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:32:55.9181186Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.5674812Z"
+                  "updatedOn": "2020-04-30T10:20:57.0748153Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5656,7 +5797,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:33:02.3776754Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.41581Z"
+                  "updatedOn": "2020-04-30T10:20:56.3290951Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5765,7 +5906,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:33:09.1459886Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7861037Z"
+                  "updatedOn": "2020-04-30T10:20:56.4849946Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5882,7 +6023,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:33:16.489003Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7274697Z"
+                  "updatedOn": "2020-04-30T10:20:56.6754971Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6009,7 +6150,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:33:23.6656698Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.8501772Z"
+                  "updatedOn": "2020-04-30T10:20:57.0820394Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6113,7 +6254,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:33:30.4036562Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.2899261Z"
+                  "updatedOn": "2020-04-30T10:20:56.3591107Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6217,7 +6358,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:33:38.1399253Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.6178448Z"
+                  "updatedOn": "2020-04-30T10:20:56.5449507Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6326,7 +6467,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:33:43.8702943Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5985483Z"
+                  "updatedOn": "2020-04-30T10:20:56.289885Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6435,7 +6576,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:33:56.4185339Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.0679191Z"
+                  "updatedOn": "2020-04-30T10:20:57.3256721Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6539,7 +6680,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:34:02.3565766Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.4737768Z"
+                  "updatedOn": "2020-04-30T10:20:55.9550325Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6688,7 +6829,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:34:10.2322224Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.8678518Z"
+                  "updatedOn": "2020-04-30T10:20:56.263694Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6792,7 +6933,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:34:17.275836Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.2543609Z"
+                  "updatedOn": "2020-04-30T10:20:56.1230627Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6894,7 +7035,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:34:24.3202358Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.8970862Z"
+                  "updatedOn": "2020-04-30T10:20:56.0069929Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7007,7 +7148,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:34:35.604891Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.8486683Z"
+                  "updatedOn": "2020-04-30T10:20:57.2793484Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7111,7 +7252,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:34:43.2249196Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.2991825Z"
+                  "updatedOn": "2020-04-30T10:20:55.185532Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7220,7 +7361,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:34:51.8147298Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.1453831Z"
+                  "updatedOn": "2020-04-30T10:20:56.1999188Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7319,7 +7460,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:34:56.8108531Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:04.9563491Z"
+                  "updatedOn": "2020-04-30T10:20:57.3486432Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7422,7 +7563,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:35:04.6412194Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.3525389Z"
+                  "updatedOn": "2020-04-30T10:20:57.0476175Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7525,7 +7666,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:35:11.7974248Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:04.885133Z"
+                  "updatedOn": "2020-04-30T10:20:56.4773547Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7654,7 +7795,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:35:18.6108389Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.41581Z"
+                  "updatedOn": "2020-04-30T10:20:55.9132402Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7758,7 +7899,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:35:25.9475746Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.786222Z"
+                  "updatedOn": "2020-04-30T10:20:57.0178163Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7862,7 +8003,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:35:33.3796996Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.8486683Z"
+                  "updatedOn": "2020-04-30T10:20:56.0156968Z"
                 },
                 "parameters": {
                   "fwpolicy": {
@@ -8029,7 +8170,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:35:41.3843128Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.1448499Z"
+                  "updatedOn": "2020-04-30T10:20:57.107185Z"
                 },
                 "parameters": {
                   "workspaceName": {
@@ -8436,7 +8577,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:35:47.7790868Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.9440607Z"
+                  "updatedOn": "2020-04-30T10:20:57.2077798Z"
                 },
                 "parameters": {
                   "workspaceName": {
@@ -8648,7 +8789,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:35:54.9818395Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.7604859Z"
+                  "updatedOn": "2020-04-30T10:20:55.8565671Z"
                 },
                 "parameters": {
                   "retention": {
@@ -8771,7 +8912,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:36:03.3980109Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.5523097Z"
+                  "updatedOn": "2020-04-30T10:20:57.2851752Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -8882,7 +9023,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:36:15.1024711Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5711683Z"
+                  "updatedOn": "2020-04-30T10:20:57.0287416Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -8980,7 +9121,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:36:22.321505Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.7393301Z"
+                  "updatedOn": "2020-04-30T10:20:57.2851752Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -9068,7 +9209,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:36:29.8924648Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.7079561Z"
+                  "updatedOn": "2020-04-30T10:20:57.0615267Z"
                 },
                 "parameters": {
                   "vulnerabilityAssessmentsEmail": {
@@ -9195,7 +9336,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:36:37.1520801Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.3485894Z"
+                  "updatedOn": "2020-04-30T10:20:57.0773901Z"
                 },
                 "parameters": {
                   "vwanname": {
@@ -9527,7 +9668,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:36:42.904782Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.8205518Z"
+                  "updatedOn": "2020-04-30T10:20:57.1961231Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -9975,7 +10116,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:36:50.5625514Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.9755935Z"
+                  "updatedOn": "2020-04-30T10:20:56.2809814Z"
                 },
                 "parameters": {
                   "ipam": {
@@ -10072,7 +10213,7 @@
                             },
                             "resources": [
                               {
-                                "condition": "[if(and(not(empty(parameters('ipam'))), equals(toLower(parameters('ipam')[copyIndex()].name),toLower(variables('vNetName')))),bool('true'),bool('false'))]",
+                                "condition": "[if(and(not(empty(parameters('ipam'))), equals(parameters('ipam')[copyIndex()].name,variables('vNetName'))),bool('true'),bool('false'))]",
                                 "type": "Microsoft.Resources/deployments",
                                 "location": "[parameters('ipam')[copyIndex()].location]",
                                 "apiVersion": "2018-05-01",
@@ -10110,7 +10251,7 @@
                                 }
                               },
                               {
-                                "condition": "[if(and(not(empty(parameters('ipam'))), equals(toLower(parameters('ipam')[copyIndex()].name),toLower(variables('vNetName')))),bool('true'),bool('false'))]",
+                                "condition": "[if(and(not(empty(parameters('ipam'))), equals(parameters('ipam')[copyIndex()].name,variables('vNetName'))),bool('true'),bool('false'))]",
                                 "type": "Microsoft.Resources/deployments",
                                 "apiVersion": "2018-05-01",
                                 "name": "[concat('Northstar-ipam-',subscription().displayName,'-nsg-udr-vnet-vwan-peering-',copyIndex())]",
@@ -10271,7 +10412,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:36:57.6441679Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.5869443Z"
+                  "updatedOn": "2020-04-30T10:20:56.3693395Z"
                 },
                 "parameters": {
                   "vwanname": {
@@ -10414,7 +10555,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T20:37:09.5620019Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:52.868059Z"
+                  "updatedOn": "2020-04-30T10:20:56.1914613Z"
                 },
                 "parameters": {
                   "domainUsername": {
@@ -10667,7 +10808,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T22:15:02.4284641Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:47:53.3174542Z"
+                  "updatedOn": "2020-04-30T10:20:57.0135323Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -10745,7 +10886,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T21:54:54.9136904Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:08.6625442Z"
+                  "updatedOn": "2020-04-30T10:21:03.5234523Z"
                 },
                 "parameters": {},
                 "policyDefinitions": [
@@ -10808,7 +10949,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T21:55:01.7728874Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:08.9161059Z"
+                  "updatedOn": "2020-04-30T10:21:03.3078081Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -11281,7 +11422,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-25T21:55:09.4082201Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:09.2365123Z"
+                  "updatedOn": "2020-04-30T10:21:03.4002128Z"
                 },
                 "parameters": {
                   "vulnerabilityAssessmentsEmail": {
@@ -11355,7 +11496,7 @@
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
                   "createdOn": "2020-04-27T00:05:13.9101132Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:13.6382418Z"
+                  "updatedOn": "2020-04-30T10:21:07.5554417Z"
                 },
                 "enforcementMode": "Default"
               },
@@ -11369,272 +11510,6 @@
                 "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
               },
               "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-Diag-ActivityLog"
-            },
-            {
-              "Name": "Deploy-LA-Config",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-LA-Config",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "Deploy-LA-Config",
-              "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-              "Location": "eastus",
-              "Properties": {
-                "displayName": "Deploy-LogAnalytics-Config",
-                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-LA-Config",
-                "scope": "/providers/Microsoft.Management/managementGroups/Tailspin",
-                "notScopes": [],
-                "parameters": {
-                  "workspaceName": {
-                    "value": "tailspin-weu-la"
-                  },
-                  "workspaceRegion": {
-                    "value": "westeurope"
-                  }
-                },
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-26T20:43:59.3276871Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:13.7931283Z"
-                },
-                "enforcementMode": "Default"
-              },
-              "Sku": {
-                "name": "A0",
-                "tier": "Free"
-              },
-              "Identity": {
-                "type": "SystemAssigned",
-                "principalId": "7a68392f-e77a-42a2-8d9b-c0e7e495fcdd",
-                "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-              },
-              "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-LA-Config"
-            },
-            {
-              "Name": "Deploy-Log-Analytics",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-Log-Analytics",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "Deploy-Log-Analytics",
-              "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-              "Location": "eastus",
-              "Properties": {
-                "displayName": "Deploy-LogAnalytics",
-                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Log-Analytics",
-                "scope": "/providers/Microsoft.Management/managementGroups/Tailspin",
-                "notScopes": [],
-                "parameters": {
-                  "workspaceName": {
-                    "value": "tailspin-weu-la"
-                  },
-                  "automationAccountName": {
-                    "value": "tailspin-weu-aa"
-                  },
-                  "workspaceRegion": {
-                    "value": "westeurope"
-                  },
-                  "automationRegion": {
-                    "value": "westeurope"
-                  },
-                  "rgName": {
-                    "value": "tailspin-weu-mgmt"
-                  }
-                },
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-26T20:44:18.3658568Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:13.6993748Z"
-                },
-                "enforcementMode": "Default"
-              },
-              "Sku": {
-                "name": "A0",
-                "tier": "Free"
-              },
-              "Identity": {
-                "type": "SystemAssigned",
-                "principalId": "bbadda9b-f014-420c-abe9-75adc0eabaab",
-                "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-              },
-              "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-Log-Analytics"
-            },
-            {
-              "Name": "Deploy-vHUB-NEU",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-vHUB-NEU",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "Deploy-vHUB-NEU",
-              "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-              "Location": "northeurope",
-              "Properties": {
-                "displayName": "Deploy-vHUB-NEU",
-                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vHUB",
-                "scope": "/providers/Microsoft.Management/managementGroups/Tailspin",
-                "parameters": {
-                  "vwanname": {
-                    "value": "tailspin-vwan"
-                  },
-                  "vhubname": {
-                    "value": "tailspin-vhub-neu"
-                  },
-                  "vhub": {
-                    "value": {
-                      "location": "northeurope",
-                      "addressPrefix": "10.1.0.0/16",
-                      "virtualNetworkConnections": [],
-                      "vpnGateway": {}
-                    }
-                  },
-                  "vpngw": {
-                    "value": {}
-                  },
-                  "ergw": {
-                    "value": {}
-                  },
-                  "azfw": {
-                    "value": {
-                      "name": "tailspin-fw-neu",
-                      "firewallPolicy": {
-                        "id": ""
-                      }
-                    }
-                  },
-                  "rgName": {
-                    "value": "tailspin-global-vwan"
-                  }
-                },
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-26T22:36:24.9448143Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:13.7753826Z"
-                },
-                "enforcementMode": "Default"
-              },
-              "Sku": {
-                "name": "A0",
-                "tier": "Free"
-              },
-              "Identity": {
-                "type": "SystemAssigned",
-                "principalId": "67ad41fa-6312-4126-a2f6-264d9763e182",
-                "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-              },
-              "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-vHUB-NEU"
-            },
-            {
-              "Name": "Deploy-vNet",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-vNet",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "Deploy-vNet",
-              "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-              "Location": "northeurope",
-              "Properties": {
-                "displayName": "Deploy vNet",
-                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vNet",
-                "scope": "/providers/Microsoft.Management/managementGroups/Tailspin",
-                "notScopes": [],
-                "parameters": {
-                  "ipam": {
-                    "value": [
-                      {
-                        "name": "udpandya-vNet",
-                        "location": "northeurope",
-                        "virtualNetworks": {
-                          "properties": {
-                            "addressSpace": {
-                              "addressPrefixes": [
-                                "10.51.217.0/24"
-                              ]
-                            }
-                          }
-                        },
-                        "networkSecurityGroups": {
-                          "properties": {
-                            "securityRules": []
-                          }
-                        },
-                        "routeTables": {
-                          "properties": {
-                            "routes": []
-                          }
-                        },
-                        "hubVirtualNetworkConnection": {
-                          "vWanVhubResourceId": "/subscriptions/a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10/resourceGroups/tailspin-global-vwan/providers/Microsoft.Network/virtualHubs/tailspin-vhub-neu",
-                          "properties": {
-                            "allowHubToRemoteVnetTransit": true,
-                            "allowRemoteVnetToUseHubVnetGateways": false,
-                            "enableInternetSecurity": true
-                          }
-                        }
-                      }
-                    ]
-                  }
-                },
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-26T23:26:34.2036803Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:13.9003861Z"
-                },
-                "enforcementMode": "Default"
-              },
-              "Sku": {
-                "name": "A0",
-                "tier": "Free"
-              },
-              "Identity": {
-                "type": "SystemAssigned",
-                "principalId": "63c9e987-c137-40e2-8d6e-90669d656dec",
-                "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-              },
-              "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-vNet"
-            },
-            {
-              "Name": "Deploy-vWAN",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-vWAN",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "Deploy-vWAN",
-              "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-              "Location": "northeurope",
-              "Properties": {
-                "displayName": "Deploy-VWAN",
-                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vWAN",
-                "scope": "/providers/Microsoft.Management/managementGroups/Tailspin",
-                "notScopes": [],
-                "parameters": {
-                  "vwanname": {
-                    "value": "tailspin-vwan"
-                  },
-                  "vwanRegion": {
-                    "value": "northeurope"
-                  },
-                  "rgName": {
-                    "value": "tailspin-global-vwan"
-                  }
-                },
-                "description": "",
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-26T22:20:15.9828901Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-28T16:48:13.62547Z"
-                },
-                "enforcementMode": "Default"
-              },
-              "Sku": {
-                "name": "A0",
-                "tier": "Free"
-              },
-              "Identity": {
-                "type": "SystemAssigned",
-                "principalId": "27b6de5f-81a1-4750-a6a9-db9c956476e2",
-                "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-              },
-              "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-vWAN"
             }
           ],
           "roleDefinitions": null,
