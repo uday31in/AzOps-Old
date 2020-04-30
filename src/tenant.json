@@ -527,7 +527,7 @@
             "condition": "[and(
                                 not(empty(variables('policyAssignments'))),
                                 contains(variables('scope'),'Microsoft.Management/managementGroups'),
-                                equals(toLower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
+                                equals(toLower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
                             )]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
@@ -593,7 +593,7 @@
             "condition": "[and(
                                 not(empty(variables('policyAssignments'))),
                                 contains(variables('scope'),'subscriptions'),
-                                equals(tolower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
+                                equals(tolower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
                             )]",
             "subscriptionId": "[parameters('input').Name]",
             "type": "Microsoft.Resources/deployments",
@@ -660,7 +660,7 @@
                                 variables('roleAssignmentEnabledForPolicy'),
                                 not(empty(variables('policyAssignments'))),
                                 contains(variables('scope'),'Microsoft.Management/managementGroups'),
-                                equals(tolower(variables('policyAssignments')[0].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
+                                equals(tolower(variables('policyAssignments')[copyIndex()].Properties.scope),toLower(concat('/providers/',variables('scope')))) 
                             )]",
             "scope": "[variables('scope')]",
             "type": "Microsoft.Resources/deployments",
