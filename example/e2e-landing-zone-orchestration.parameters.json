@@ -11472,46 +11472,7 @@
               },
               "PolicySetDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Sql-Security"
             }
-          ],
-          "policyAssignments": [
-            {
-              "Name": "Deploy-Diag-ActivityLog",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-Diag-ActivityLog",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "Deploy-Diag-ActivityLog",
-              "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-              "Location": "northeurope",
-              "Properties": {
-                "displayName": "Deploy Diagnostics ActivityLog",
-                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ActivityLog",
-                "scope": "/providers/Microsoft.Management/managementGroups/Tailspin",
-                "notScopes": [],
-                "parameters": {
-                  "logAnalytics": {
-                    "value": "/subscriptions/a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10/resourceGroups/tailspin-weu-mgmt/providers/Microsoft.OperationalInsights/workspaces/tailspin-weu-la"
-                  }
-                },
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-27T00:05:13.9101132Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:21:07.5554417Z"
-                },
-                "enforcementMode": "Default"
-              },
-              "Sku": {
-                "name": "A0",
-                "tier": "Free"
-              },
-              "Identity": {
-                "type": "SystemAssigned",
-                "principalId": "1fcd0b4c-f216-4b55-aebc-fd57ff99119c",
-                "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-              },
-              "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-Diag-ActivityLog"
-            }
-          ],
+          ],         
           "roleDefinitions": null,
           "roleAssignments": null
         }
