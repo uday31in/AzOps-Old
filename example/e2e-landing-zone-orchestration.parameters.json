@@ -11253,8 +11253,7 @@
               },
               "PolicySetDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Sql-Security"
             }
-          ],
-          "policyAssignments": [],
+          ],         
           "roleDefinitions": null,
           "roleAssignments": null
         }
