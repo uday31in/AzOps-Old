@@ -73,116 +73,7 @@
                 "properties": {
                   "policyDefinitions": [],
                   "policySetDefinitions": [],
-                  "policyAssignments": [
-                    {
-                      "Name": "Deploy-vHUB-NEU",
-                      "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity/providers/Microsoft.Authorization/policyAssignments/Deploy-vHUB-NEU",
-                      "ResourceName": "Tailspin-connectivity",
-                      "ResourceType": "Microsoft.Management/managementGroups",
-                      "ExtensionResourceName": "Deploy-vHUB-NEU",
-                      "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-                      "Location": "northeurope",
-                      "Properties": {
-                        "displayName": "Deploy-vHUB-NEU",
-                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vHUB",
-                        "scope": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity",
-                        "parameters": {
-                          "vwanname": {
-                            "value": "tailspin-vwan"
-                          },
-                          "vhubname": {
-                            "value": "tailspin-vhub-neu"
-                          },
-                          "vhub": {
-                            "value": {
-                              "location": "northeurope",
-                              "addressPrefix": "10.1.0.0/16",
-                              "virtualNetworkConnections": [],
-                              "vpnGateway": {}
-                            }
-                          },
-                          "vpngw": {
-                            "value": {}
-                          },
-                          "ergw": {
-                            "value": {}
-                          },
-                          "azfw": {
-                            "value": {
-                              "name": "tailspin-fw-neu",
-                              "firewallPolicy": {
-                                "id": ""
-                              }
-                            }
-                          },
-                          "rgName": {
-                            "value": "tailspin-global-vwan"
-                          }
-                        },
-                        "metadata": {
-                          "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                          "createdOn": "2020-04-30T10:08:35.554645Z",
-                          "updatedBy": null,
-                          "updatedOn": null
-                        },
-                        "enforcementMode": "Default"
-                      },
-                      "Sku": {
-                        "name": "A0",
-                        "tier": "Free"
-                      },
-                      "Identity": {
-                        "type": "SystemAssigned",
-                        "principalId": "f767132f-d019-42db-8029-c2e1a0f6c13c",
-                        "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-                      },
-                      "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity/providers/Microsoft.Authorization/policyAssignments/Deploy-vHUB-NEU"
-                    },
-                    {
-                      "Name": "Deploy-vWAN",
-                      "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity/providers/Microsoft.Authorization/policyAssignments/Deploy-vWAN",
-                      "ResourceName": "Tailspin-connectivity",
-                      "ResourceType": "Microsoft.Management/managementGroups",
-                      "ExtensionResourceName": "Deploy-vWAN",
-                      "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-                      "Location": "northeurope",
-                      "Properties": {
-                        "displayName": "Deploy-VWAN",
-                        "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vWAN",
-                        "scope": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity",
-                        "notScopes": [],
-                        "parameters": {
-                          "vwanname": {
-                            "value": "tailspin-vwan"
-                          },
-                          "vwanRegion": {
-                            "value": "northeurope"
-                          },
-                          "rgName": {
-                            "value": "tailspin-global-vwan"
-                          }
-                        },
-                        "description": "",
-                        "metadata": {
-                          "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                          "createdOn": "2020-04-30T10:09:21.2314172Z",
-                          "updatedBy": null,
-                          "updatedOn": null
-                        },
-                        "enforcementMode": "Default"
-                      },
-                      "Sku": {
-                        "name": "A0",
-                        "tier": "Free"
-                      },
-                      "Identity": {
-                        "type": "SystemAssigned",
-                        "principalId": "dadb5536-c65f-4679-a561-ffd5846ae0d3",
-                        "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-                      },
-                      "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity/providers/Microsoft.Authorization/policyAssignments/Deploy-vWAN"
-                    }
-                  ],
+                  "policyAssignments": [],
                   "roleDefinitions": null,
                   "roleAssignments": null
                 }
@@ -214,6 +105,413 @@
         "properties": {
           "policyDefinitions": [
             {
+              "Name": "Deploy-LA-Config",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-LA-Config",
+              "ResourceName": "Tailspin",
+              "ResourceType": "Microsoft.Management/managementGroups",
+              "ExtensionResourceName": "Deploy-LA-Config",
+              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "Properties": {
+                "displayName": "Deploy-LA-Config",
+                "policyType": "Custom",
+                "mode": "All",
+                "metadata": {
+                  "createdBy": "dc38e734-2649-4e25-823e-5fcd01a2475f",
+                  "createdOn": "2020-04-30T11:10:29.4134816Z",
+                  "updatedBy": null,
+                  "updatedOn": null
+                },
+                "parameters": {
+                  "workspaceName": {
+                    "type": "String",
+                    "metadata": {
+                      "displayName": "workspaceName",
+                      "description": "Provide name of existing Log Analytics workspace"
+                    }
+                  },
+                  "workspaceRegion": {
+                    "type": "String",
+                    "metadata": {
+                      "displayName": "workspaceRegion",
+                      "description": "Select region of existing Log Analytics workspace"
+                    }
+                  }
+                },
+                "policyRule": {
+                  "if": {
+                    "allOf": [
+                      {
+                        "field": "type",
+                        "equals": "Microsoft.OperationalInsights/workspaces"
+                      }
+                    ]
+                  },
+                  "then": {
+                    "effect": "deployIfNotExists",
+                    "details": {
+                      "type": "Microsoft.OperationalInsights/workspaces",
+                      "deploymentScope": "resourceGroup",
+                      "existenceScope": "Subscription",
+                      "roleDefinitionIds": [
+                        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
+                      ],
+                      "existenceCondition": {
+                        "allOf": [
+                          {
+                            "field": "name",
+                            "like": "[parameters('workspaceName')]"
+                          },
+                          {
+                            "field": "location",
+                            "equals": "[parameters('workspaceRegion')]"
+                          }
+                        ]
+                      },
+                      "deployment": {
+                        "properties": {
+                          "mode": "incremental",
+                          "parameters": {
+                            "workspaceName": {
+                              "value": "[parameters('workspaceName')]"
+                            },
+                            "workspaceRegion": {
+                              "value": "[parameters('workspaceRegion')]"
+                            }
+                          },
+                          "template": {
+                            "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                            "contentVersion": "1.0.0.0",
+                            "parameters": {
+                              "workspaceName": {
+                                "type": "string"
+                              },
+                              "workspaceRegion": {
+                                "type": "string"
+                              }
+                            },
+                            "variables": {
+                              "vmInsightsPerfCounters": {
+                                "windowsArray": [
+                                  {
+                                    "armName": "counter1",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "% Free Space",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter2",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Avg. Disk sec/Read",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter3",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Avg. Disk sec/Transfer",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter4",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Avg. Disk sec/Write",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter5",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Disk Read Bytes/sec",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter6",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Disk Reads/sec",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter7",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Disk Transfers/sec",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter8",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Disk Write Bytes/sec",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter9",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Disk Writes/sec",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter10",
+                                    "objectName": "LogicalDisk",
+                                    "counterName": "Free Megabytes",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter11",
+                                    "objectName": "Memory",
+                                    "counterName": "Available MBytes",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter12",
+                                    "objectName": "Network Adapter",
+                                    "counterName": "Bytes Received/sec",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter13",
+                                    "objectName": "Network Adapter",
+                                    "counterName": "Bytes Sent/sec",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  },
+                                  {
+                                    "armName": "counter14",
+                                    "objectName": "Processor",
+                                    "counterName": "% Processor Time",
+                                    "instanceName": "*",
+                                    "intervalSeconds": 10
+                                  }
+                                ],
+                                "linuxDiskArray": [
+                                  {
+                                    "counterName": "% Used Inodes"
+                                  },
+                                  {
+                                    "counterName": "Free Megabytes"
+                                  },
+                                  {
+                                    "counterName": "% Used Space"
+                                  },
+                                  {
+                                    "counterName": "Disk Transfers/sec"
+                                  },
+                                  {
+                                    "counterName": "Disk Reads/sec"
+                                  },
+                                  {
+                                    "counterName": "Disk writes/sec"
+                                  }
+                                ],
+                                "linuxDiskObject": {
+                                  "armResourceName": "Disk",
+                                  "objectName": "Logical Disk",
+                                  "instanceName": "*",
+                                  "intervalSeconds": 10
+                                },
+                                "linuxMemoryArray": [
+                                  {
+                                    "counterName": "Available MBytes Memory"
+                                  }
+                                ],
+                                "linuxMemoryObject": {
+                                  "armResourceName": "Memory",
+                                  "objectName": "Memory",
+                                  "instanceName": "*",
+                                  "intervalSeconds": 10
+                                },
+                                "linuxNetworkArray": [
+                                  {
+                                    "counterName": "Total Bytes Received"
+                                  },
+                                  {
+                                    "counterName": "Total Bytes Transmitted"
+                                  }
+                                ],
+                                "linuxNetworkObject": {
+                                  "armResourceName": "Network",
+                                  "objectName": "Network",
+                                  "instanceName": "*",
+                                  "intervalSeconds": 10
+                                },
+                                "linuxCpuArray": [
+                                  {
+                                    "counterName": "% Processor Time"
+                                  }
+                                ],
+                                "linuxCpuObject": {
+                                  "armResourceName": "Processor",
+                                  "objectName": "Processor",
+                                  "instanceName": "*",
+                                  "intervalSeconds": 10
+                                }
+                              },
+                              "batch1": {
+                                "solutions": [
+                                  {
+                                    "name": "[concat('Security', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "Security"
+                                  },
+                                  {
+                                    "name": "[concat('AgentHealthAssessment', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "AgentHealthAssessment"
+                                  },
+                                  {
+                                    "name": "[concat('ChangeTracking', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "ChangeTracking"
+                                  },
+                                  {
+                                    "name": "[concat('Updates', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "Updates"
+                                  },
+                                  {
+                                    "name": "[concat('AzureActivity', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "AzureActivity"
+                                  },
+                                  {
+                                    "name": "[concat('AzureAutomation', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "AzureAutomation"
+                                  },
+                                  {
+                                    "name": "[concat('ADAssessment', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "ADAssessment"
+                                  },
+                                  {
+                                    "name": "[concat('SQLAssessment', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "SQLAssessment"
+                                  },
+                                  {
+                                    "name": "[concat('AntiMalware', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "AntiMalware"
+                                  },
+                                  {
+                                    "name": "[concat('InfrastructureInsights', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "InfrastructureInsights"
+                                  },
+                                  {
+                                    "name": "[concat('ServiceMap', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "ServiceMap"
+                                  },
+                                  {
+                                    "name": "[concat('SecurityInsights', '(', parameters('workspaceName'), ')')]",
+                                    "marketplaceName": "SecurityInsights"
+                                  }
+                                ]
+                              }
+                            },
+                            "resources": [
+                              {
+                                "apiVersion": "2015-11-01-preview",
+                                "type": "Microsoft.OperationalInsights/workspaces/datasources",
+                                "name": "[concat(parameters('workspaceName'), '/LinuxPerfCollection')]",
+                                "kind": "LinuxPerformanceCollection",
+                                "properties": {
+                                  "state": "Enabled"
+                                }
+                              },
+                              {
+                                "apiVersion": "2015-11-01-preview",
+                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
+                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').linuxDiskObject.armResourceName)]",
+                                "kind": "LinuxPerformanceObject",
+                                "properties": {
+                                  "performanceCounters": "[variables('vmInsightsPerfCounters').linuxDiskArray]",
+                                  "objectName": "[variables('vmInsightsPerfCounters').linuxDiskObject.objectName]",
+                                  "instanceName": "[variables('vmInsightsPerfCounters').linuxDiskObject.instanceName]",
+                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').linuxDiskObject.intervalSeconds]"
+                                }
+                              },
+                              {
+                                "apiVersion": "2015-11-01-preview",
+                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
+                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').linuxMemoryObject.armResourceName)]",
+                                "kind": "LinuxPerformanceObject",
+                                "properties": {
+                                  "performanceCounters": "[variables('vmInsightsPerfCounters').linuxMemoryArray]",
+                                  "objectName": "[variables('vmInsightsPerfCounters').linuxMemoryObject.objectName]",
+                                  "instanceName": "[variables('vmInsightsPerfCounters').linuxMemoryObject.instanceName]",
+                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').linuxMemoryObject.intervalSeconds]"
+                                }
+                              },
+                              {
+                                "apiVersion": "2015-11-01-preview",
+                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
+                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').linuxCpuObject.armResourceName)]",
+                                "kind": "LinuxPerformanceObject",
+                                "properties": {
+                                  "performanceCounters": "[variables('vmInsightsPerfCounters').linuxCpuArray]",
+                                  "objectName": "[variables('vmInsightsPerfCounters').linuxCpuObject.objectName]",
+                                  "instanceName": "[variables('vmInsightsPerfCounters').linuxCpuObject.instanceName]",
+                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').linuxCpuObject.intervalSeconds]"
+                                }
+                              },
+                              {
+                                "apiVersion": "2015-11-01-preview",
+                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
+                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').linuxNetworkObject.armResourceName)]",
+                                "kind": "LinuxPerformanceObject",
+                                "properties": {
+                                  "performanceCounters": "[variables('vmInsightsPerfCounters').linuxNetworkArray]",
+                                  "objectName": "[variables('vmInsightsPerfCounters').linuxNetworkObject.objectName]",
+                                  "instanceName": "[variables('vmInsightsPerfCounters').linuxNetworkObject.instanceName]",
+                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').linuxNetworkObject.intervalSeconds]"
+                                }
+                              },
+                              {
+                                "apiVersion": "2015-11-01-preview",
+                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
+                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').windowsArray[copyIndex()].armName)]",
+                                "kind": "WindowsPerformanceCounter",
+                                "copy": {
+                                  "name": "counterCopy",
+                                  "count": "[length(variables('vmInsightsPerfCounters').windowsArray)]"
+                                },
+                                "properties": {
+                                  "objectName": "[variables('vmInsightsPerfCounters').windowsArray[copyIndex()].objectName]",
+                                  "instanceName": "[variables('vmInsightsPerfCounters').windowsArray[copyIndex()].instanceName]",
+                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').windowsArray[copyIndex()].intervalSeconds]",
+                                  "counterName": "[variables('vmInsightsPerfCounters').windowsArray[copyIndex()].counterName]"
+                                }
+                              },
+                              {
+                                "apiVersion": "2015-11-01-preview",
+                                "type": "Microsoft.OperationsManagement/solutions",
+                                "name": "[concat(variables('batch1').solutions[copyIndex()].Name)]",
+                                "location": "[parameters('workspaceRegion')]",
+                                "copy": {
+                                  "name": "solutionCopy",
+                                  "count": "[length(variables('batch1').solutions)]"
+                                },
+                                "properties": {
+                                  "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
+                                },
+                                "plan": {
+                                  "name": "[variables('batch1').solutions[copyIndex()].name]",
+                                  "product": "[concat('OMSGallery/', variables('batch1').solutions[copyIndex()].marketplaceName)]",
+                                  "promotionCode": "",
+                                  "publisher": "Microsoft"
+                                }
+                              }
+                            ],
+                            "outputs": {}
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-LA-Config"
+            },
+            {
               "Name": "Append-KV-SoftDelete",
               "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Append-KV-SoftDelete",
               "ResourceName": "Tailspin",
@@ -226,10 +524,10 @@
                 "mode": "All",
                 "description": "When a Key Vault is created with out soft delete enabled then this will add it.",
                 "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:26:55.0277868Z",
+                  "createdBy": "92f6232d-8ccc-4c97-b9ec-a93cd5f1b9bd",
+                  "createdOn": "2020-01-10T13:25:13.3375471Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.1230947Z"
+                  "updatedOn": "2020-04-28T16:24:41.6784586Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -275,9 +573,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:27:03.7927807Z",
+                  "createdOn": "2020-04-16T08:52:25.0186758Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.0952717Z"
+                  "updatedOn": "2020-04-28T16:24:48.9098431Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -314,9 +612,9 @@
                 "description": "Denies creation of ER Peerings under the assigned scope.",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:27:13.575058Z",
+                  "createdOn": "2020-01-09T22:46:08.9700559Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.498185Z"
+                  "updatedOn": "2020-04-28T16:25:08.9851094Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -345,9 +643,9 @@
                 "description": "This policy restricts creation of non-private AKS clusters",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:27:20.568474Z",
+                  "createdOn": "2020-04-14T21:16:46.6261478Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.8761365Z"
+                  "updatedOn": "2020-04-28T16:25:16.6477554Z"
                 },
                 "policyRule": {
                   "if": {
@@ -383,9 +681,9 @@
                 "description": "This policy restrict creation of cosmos db accounts with exposed public endpoints",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:27:29.4738768Z",
+                  "createdOn": "2020-04-14T21:16:47.174586Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3110722Z"
+                  "updatedOn": "2020-04-28T16:25:24.0102659Z"
                 },
                 "policyRule": {
                   "if": {
@@ -421,9 +719,9 @@
                 "description": "This policy restrict creation of Key Vaults with IP Firewall exposed to all public endpoints",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:27:36.7245675Z",
+                  "createdOn": "2020-04-14T21:16:47.1412722Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.6047719Z"
+                  "updatedOn": "2020-04-28T16:25:32.6277159Z"
                 },
                 "policyRule": {
                   "if": {
@@ -459,9 +757,9 @@
                 "description": "This policy restrict creation of Maria DB accounts with exposed public endpoints",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:27:43.825116Z",
+                  "createdOn": "2020-04-14T21:16:46.7829716Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.8925311Z"
+                  "updatedOn": "2020-04-28T16:25:39.6175272Z"
                 },
                 "policyRule": {
                   "if": {
@@ -497,9 +795,9 @@
                 "description": "This policy restrict creation of MySql DB accounts with exposed public endpoints",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:27:50.1560046Z",
+                  "createdOn": "2020-04-14T21:16:47.5750347Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.7943581Z"
+                  "updatedOn": "2020-04-28T16:25:48.0705473Z"
                 },
                 "policyRule": {
                   "if": {
@@ -535,9 +833,9 @@
                 "description": "This policy restrict creation of Postgre SQL DB accounts with exposed public endpoints",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:27:58.2200578Z",
+                  "createdOn": "2020-04-14T21:16:47.8350486Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3099431Z"
+                  "updatedOn": "2020-04-28T16:25:54.9834677Z"
                 },
                 "policyRule": {
                   "if": {
@@ -573,9 +871,9 @@
                 "description": "This policy restrict creation of Sql servers with exposed public endpoints",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:28:06.4239334Z",
+                  "createdOn": "2020-04-14T21:16:48.022541Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.8591617Z"
+                  "updatedOn": "2020-04-28T16:26:02.3306977Z"
                 },
                 "policyRule": {
                   "if": {
@@ -611,9 +909,9 @@
                 "description": "This policy restrict creation of storage accounts with IP Firewall exposed to all public endpoints",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:28:14.6767639Z",
+                  "createdOn": "2020-04-14T21:16:48.1883819Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.7528818Z"
+                  "updatedOn": "2020-04-28T16:26:09.9368312Z"
                 },
                 "policyRule": {
                   "if": {
@@ -649,9 +947,9 @@
                 "description": "Denies creation of Public IPs under the assigned scope.",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:28:21.0813177Z",
+                  "createdOn": "2020-01-09T22:46:15.2799589Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.528726Z"
+                  "updatedOn": "2020-04-28T16:26:16.5698449Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -679,9 +977,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:28:27.9849257Z",
+                  "createdOn": "2020-04-16T15:28:37.858751Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.2077798Z"
+                  "updatedOn": "2020-04-28T16:26:24.024491Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -717,9 +1015,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:28:35.6052803Z",
+                  "createdOn": "2020-04-16T09:14:59.9347591Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.6571332Z"
+                  "updatedOn": "2020-04-28T16:26:31.0449221Z"
                 },
                 "parameters": {
                   "resourceGroupLocation": {
@@ -1023,9 +1321,9 @@
                 "description": "Ensures that subscriptions have Security Centre Standard enabled.",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:28:42.9670048Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.858766Z"
+                  "createdOn": "2020-04-16T09:12:08.3722171Z",
+                  "updatedBy": "dc38e734-2649-4e25-823e-5fcd01a2475f",
+                  "updatedOn": "2020-04-29T07:32:32.9108938Z"
                 },
                 "parameters": {
                   "emailSecurityContact": {
@@ -1044,7 +1342,10 @@
                   },
                   "pricingTierVMs": {
                     "type": "String",
-                    "metadata": {},
+                    "metadata": {
+                      "displayName": "pricingTierVMs",
+                      "description": null
+                    },
                     "allowedValues": [
                       "Standard",
                       "Free"
@@ -1053,7 +1354,10 @@
                   },
                   "pricingTierSqlServers": {
                     "type": "String",
-                    "metadata": {},
+                    "metadata": {
+                      "displayName": "pricingTierSqlServers",
+                      "description": null
+                    },
                     "allowedValues": [
                       "Standard",
                       "Free"
@@ -1062,7 +1366,10 @@
                   },
                   "pricingTierAppServices": {
                     "type": "String",
-                    "metadata": {},
+                    "metadata": {
+                      "displayName": "pricingTierAppServices",
+                      "description": null
+                    },
                     "allowedValues": [
                       "Standard",
                       "Free"
@@ -1071,7 +1378,10 @@
                   },
                   "pricingTierStorageAccounts": {
                     "type": "String",
-                    "metadata": {},
+                    "metadata": {
+                      "displayName": "pricingTierStorageAccounts",
+                      "description": null
+                    },
                     "allowedValues": [
                       "Standard",
                       "Free"
@@ -1080,7 +1390,10 @@
                   },
                   "pricingTierContainerRegistry": {
                     "type": "String",
-                    "metadata": {},
+                    "metadata": {
+                      "displayName": "pricingTierContainerRegistry",
+                      "description": null
+                    },
                     "allowedValues": [
                       "Standard",
                       "Free"
@@ -1089,7 +1402,10 @@
                   },
                   "pricingTierKeyVaults": {
                     "type": "String",
-                    "metadata": {},
+                    "metadata": {
+                      "displayName": "pricingTierKeyVaults",
+                      "description": null
+                    },
                     "allowedValues": [
                       "Standard",
                       "Free"
@@ -1098,7 +1414,10 @@
                   },
                   "pricingTierKubernetesService": {
                     "type": "String",
-                    "metadata": {},
+                    "metadata": {
+                      "displayName": "pricingTierKubernetesService",
+                      "description": null
+                    },
                     "allowedValues": [
                       "Standard",
                       "Free"
@@ -1118,21 +1437,21 @@
                   "then": {
                     "effect": "deployIfNotExists",
                     "details": {
-                      "type": "Microsoft.Security/policies",
-                      "deploymentScope": "Subscription",
-                      "existenceScope": "Subscription",
+                      "type": "Microsoft.Security/pricings",
+                      "deploymentScope": "subscription",
+                      "existenceScope": "subscription",
                       "roleDefinitionIds": [
                         "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
                       ],
                       "existenceCondition": {
                         "allOf": [
                           {
-                            "field": "name",
-                            "like": "default"
+                            "field": "Microsoft.Security/pricings/pricingTier",
+                            "equals": "Standard"
                           },
                           {
-                            "field": "Microsoft.Security/policies/pricingConfiguration.selectedPricingTier",
-                            "equals": "Standard"
+                            "field": "type",
+                            "equals": "Microsoft.Security/pricings"
                           }
                         ]
                       },
@@ -1242,35 +1561,6 @@
                                 }
                               },
                               {
-                                "type": "Microsoft.Security/policies",
-                                "apiVersion": "2015-06-01-preview",
-                                "name": "default",
-                                "properties": {
-                                  "policyLevel": "Subscription",
-                                  "name": "default",
-                                  "unique": "Off",
-                                  "logCollection": "Off",
-                                  "recommendations": {
-                                    "patch": "On",
-                                    "baseline": "On",
-                                    "antimalware": "On",
-                                    "diskEncryption": "On",
-                                    "acls": "On",
-                                    "nsgs": "On",
-                                    "waf": "On",
-                                    "sqlAuditing": "On",
-                                    "sqlTde": "On",
-                                    "ngfw": "On",
-                                    "vulnerabilityAssessment": "On",
-                                    "storageEncryption": "On",
-                                    "jitNetworkAccess": "On"
-                                  },
-                                  "pricingConfiguration": {
-                                    "selectedPricingTier": "Standard"
-                                  }
-                                }
-                              },
-                              {
                                 "type": "Microsoft.Security/pricings",
                                 "apiVersion": "2018-06-01",
                                 "name": "VirtualMachines",
@@ -1368,9 +1658,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:28:50.4158154Z",
+                  "createdOn": "2020-04-16T17:16:49.0307607Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3467144Z"
+                  "updatedOn": "2020-04-28T16:26:45.6040008Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -1815,9 +2105,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:28:59.0506947Z",
+                  "createdOn": "2020-04-16T09:15:00.4358267Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.1851488Z"
+                  "updatedOn": "2020-04-28T16:26:52.301638Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -2263,9 +2553,9 @@
                 "description": "This policy deploys an Azure DDoS Protection Standard plan",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:29:06.2191502Z",
+                  "createdOn": "2020-04-22T19:53:45.8633316Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3160348Z"
+                  "updatedOn": "2020-04-28T16:26:59.6716715Z"
                 },
                 "parameters": {
                   "ddosName": {
@@ -2414,9 +2704,9 @@
                 "description": "Apply diagnostic settings for Azure Automation Accounts - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:29:12.7465564Z",
+                  "createdOn": "2020-04-16T09:30:33.9750063Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.1582696Z"
+                  "updatedOn": "2020-04-28T16:27:06.4601852Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2531,9 +2821,9 @@
                 "description": "Apply diagnostic settings for Azure Container Instances - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:29:20.108743Z",
+                  "createdOn": "2020-04-16T09:24:26.4177328Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:58.5745192Z"
+                  "updatedOn": "2020-04-28T16:27:13.278006Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2635,9 +2925,9 @@
                 "description": "Apply diagnostic settings for Azure Container Registries - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:29:26.8241283Z",
+                  "createdOn": "2020-04-16T09:24:26.6366975Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3300458Z"
+                  "updatedOn": "2020-04-28T16:27:20.1359351Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2739,9 +3029,9 @@
                 "description": "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:29:33.6325537Z",
+                  "createdOn": "2020-04-16T09:05:01.2742845Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.7229451Z"
+                  "updatedOn": "2020-04-28T16:27:26.8703472Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2870,9 +3160,9 @@
                 "description": "Apply diagnostic settings for Azure Kubernetes Service - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:29:40.8673857Z",
+                  "createdOn": "2020-04-16T09:24:27.9802834Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.107185Z"
+                  "updatedOn": "2020-04-28T16:27:34.0905627Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -2995,9 +3285,9 @@
                 "description": "Apply diagnostic settings for Azure Analysis Services - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:29:48.0091354Z",
+                  "createdOn": "2020-04-16T09:30:43.8261365Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.1492325Z"
+                  "updatedOn": "2020-04-28T16:27:40.698773Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3108,9 +3398,9 @@
                 "description": "Apply diagnostic settings for API Management services - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:29:54.9603564Z",
+                  "createdOn": "2020-04-16T09:24:23.5113918Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.5801475Z"
+                  "updatedOn": "2020-04-28T16:27:48.0283407Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3235,9 +3525,9 @@
                 "description": "Apply diagnostic settings for Application Gateways - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:30:02.2578832Z",
+                  "createdOn": "2020-04-16T09:24:23.6842483Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.0422444Z"
+                  "updatedOn": "2020-04-28T16:27:53.843144Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3352,9 +3642,9 @@
                 "description": "Apply diagnostic settings for Azure Batch accounts - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:30:08.810291Z",
+                  "createdOn": "2020-04-16T09:24:23.9176849Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0153937Z"
+                  "updatedOn": "2020-04-28T16:28:01.9639249Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3461,9 +3751,9 @@
                 "description": "Apply diagnostic settings for CDN Endpoints - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:30:15.6296052Z",
+                  "createdOn": "2020-04-16T09:24:24.6051808Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.9862598Z"
+                  "updatedOn": "2020-04-28T16:28:07.2871018Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3560,9 +3850,9 @@
                 "description": "Apply diagnostic settings for Cognitive Services - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:30:28.1989762Z",
+                  "createdOn": "2020-04-16T09:24:20.9487233Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.8923766Z"
+                  "updatedOn": "2020-04-28T16:28:15.0192354Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3673,9 +3963,9 @@
                 "description": "Apply diagnostic settings for Cosmos DB - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:30:37.6183044Z",
+                  "createdOn": "2020-04-16T09:24:24.8241678Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.0748919Z"
+                  "updatedOn": "2020-04-28T16:28:21.2893769Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3790,9 +4080,9 @@
                 "description": "Apply diagnostic settings for Data Factory - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:30:45.9803622Z",
+                  "createdOn": "2020-04-16T09:24:24.9958211Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.9979226Z"
+                  "updatedOn": "2020-04-28T16:28:27.659571Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -3907,9 +4197,9 @@
                 "description": "Apply diagnostic settings for Data Lake Storage - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:30:53.2574195Z",
+                  "createdOn": "2020-04-16T09:24:21.5294867Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.6571332Z"
+                  "updatedOn": "2020-04-28T16:28:36.8703891Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4020,9 +4310,9 @@
                 "description": "Apply diagnostic settings for Data Lake Analytics - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:00.1138739Z",
+                  "createdOn": "2020-04-16T09:24:21.1715893Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.1559351Z"
+                  "updatedOn": "2020-04-28T16:28:42.2480053Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4133,9 +4423,9 @@
                 "description": "Apply diagnostic settings for Event Grid Subscriptions - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:06.9792294Z",
+                  "createdOn": "2020-04-16T09:24:29.2928364Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0935187Z"
+                  "updatedOn": "2020-04-28T16:28:48.7244379Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4237,9 +4527,9 @@
                 "description": "Apply diagnostic settings for Event Grid Topics - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:15.0727861Z",
+                  "createdOn": "2020-04-16T09:24:29.074553Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:59.6474563Z"
+                  "updatedOn": "2020-04-28T16:28:55.4083718Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4341,9 +4631,9 @@
                 "description": "Apply diagnostic settings for Event Hub Namespaces - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:21.0180987Z",
+                  "createdOn": "2020-04-16T09:24:21.7300041Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.6061586Z"
+                  "updatedOn": "2020-04-28T16:29:02.7877988Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4458,9 +4748,9 @@
                 "description": "Apply diagnostic settings for Express Routes Circuits - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:29.6603877Z",
+                  "createdOn": "2020-04-16T09:24:26.2345839Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3591728Z"
+                  "updatedOn": "2020-04-28T16:29:08.5596124Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4567,9 +4857,9 @@
                 "description": "Apply diagnostic settings for Azure Firewalls - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:37.7037114Z",
+                  "createdOn": "2020-04-16T09:24:25.2931155Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.1381188Z"
+                  "updatedOn": "2020-04-28T16:29:15.6017457Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4680,9 +4970,9 @@
                 "description": "Apply diagnostic settings for HDInsight - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:44.7310708Z",
+                  "createdOn": "2020-04-16T09:24:29.5007434Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0527433Z"
+                  "updatedOn": "2020-04-28T16:29:22.3109532Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4784,9 +5074,9 @@
                 "description": "Apply diagnostic settings for IoT Hubs - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:50.3986124Z",
+                  "createdOn": "2020-04-16T09:24:21.9175494Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:59.3634903Z"
+                  "updatedOn": "2020-04-28T16:29:29.0232878Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -4941,9 +5231,9 @@
                 "description": "Apply diagnostic settings for Key Vaults - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:31:58.4910706Z",
+                  "createdOn": "2020-04-16T09:24:20.7423407Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.2851752Z"
+                  "updatedOn": "2020-04-28T16:29:36.4967466Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5050,9 +5340,9 @@
                 "description": "Apply diagnostic settings for Load Balancers - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:32:05.9847244Z",
+                  "createdOn": "2020-04-16T09:24:20.2300652Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.0834982Z"
+                  "updatedOn": "2020-04-28T16:29:43.4319228Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5163,9 +5453,9 @@
                 "description": "Apply diagnostic settings for Logic Apps Integration Accounts - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:32:12.8919292Z",
+                  "createdOn": "2020-04-16T09:24:22.2925485Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.9601441Z"
+                  "updatedOn": "2020-04-28T16:30:05.9666471Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5262,9 +5552,9 @@
                 "description": "Apply diagnostic settings for Logic Apps workflows - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:32:19.7641566Z",
+                  "createdOn": "2020-04-16T09:24:22.105037Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.270628Z"
+                  "updatedOn": "2020-04-28T16:30:13.8898906Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5371,9 +5661,9 @@
                 "description": "Apply diagnostic settings for MySQL Databases - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:32:26.3206684Z",
+                  "createdOn": "2020-04-16T09:24:24.1851807Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.6904006Z"
+                  "updatedOn": "2020-04-28T16:30:20.4086362Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5480,9 +5770,9 @@
                 "description": "Apply diagnostic settings for Network Security Groups - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:32:38.4788647Z",
+                  "createdOn": "2020-04-16T09:24:20.4924634Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.1007493Z"
+                  "updatedOn": "2020-04-28T16:30:27.6066664Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5583,9 +5873,9 @@
                 "description": "Apply diagnostic settings for Network Interfaces - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:32:46.917584Z",
+                  "createdOn": "2020-04-16T09:24:19.4812656Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.330709Z"
+                  "updatedOn": "2020-04-28T16:30:34.4544355Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5686,9 +5976,9 @@
                 "description": "Apply diagnostic settings for PostgreSQL Databases - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:32:55.9181186Z",
+                  "createdOn": "2020-04-16T09:24:24.3708251Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0748153Z"
+                  "updatedOn": "2020-04-28T16:30:42.76735Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5795,9 +6085,9 @@
                 "description": "Apply diagnostic settings for Power BI Embedded - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:33:02.3776754Z",
+                  "createdOn": "2020-04-16T09:24:25.4802086Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3290951Z"
+                  "updatedOn": "2020-04-28T16:30:48.3171028Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -5904,9 +6194,9 @@
                 "description": "Apply diagnostic settings for Public IPs - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:33:09.1459886Z",
+                  "createdOn": "2020-04-16T09:24:19.9611306Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.4849946Z"
+                  "updatedOn": "2020-04-28T16:30:55.624074Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6021,9 +6311,9 @@
                 "description": "Apply diagnostic settings for Recovery Vaults - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:33:16.489003Z",
+                  "createdOn": "2020-04-16T09:24:22.4956451Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.6754971Z"
+                  "updatedOn": "2020-04-28T16:31:01.777914Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6148,9 +6438,9 @@
                 "description": "Apply diagnostic settings for Redis Cache - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:33:23.6656698Z",
+                  "createdOn": "2020-04-16T09:24:29.6991693Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0820394Z"
+                  "updatedOn": "2020-04-28T16:31:08.4012692Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6252,9 +6542,9 @@
                 "description": "Apply diagnostic settings for Azure Relay - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:33:30.4036562Z",
+                  "createdOn": "2020-04-16T09:24:29.8876301Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3591107Z"
+                  "updatedOn": "2020-04-28T16:31:18.0548597Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6356,9 +6646,9 @@
                 "description": "Apply diagnostic settings for Search Services - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:33:38.1399253Z",
+                  "createdOn": "2020-04-16T09:24:22.7456981Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.5449507Z"
+                  "updatedOn": "2020-04-28T16:31:24.4732058Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6465,9 +6755,9 @@
                 "description": "Apply diagnostic settings for Service Bus namespaces - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:33:43.8702943Z",
+                  "createdOn": "2020-04-16T09:24:22.9331615Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.289885Z"
+                  "updatedOn": "2020-04-28T16:31:31.0390472Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6574,9 +6864,9 @@
                 "description": "Apply diagnostic settings for SignalR - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:33:56.4185339Z",
+                  "createdOn": "2020-04-16T09:24:30.1532999Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.3256721Z"
+                  "updatedOn": "2020-04-28T16:31:51.2538933Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6678,9 +6968,9 @@
                 "description": "Apply diagnostic settings for SQL Databases - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:34:02.3565766Z",
+                  "createdOn": "2020-04-16T09:24:23.1519234Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.9550325Z"
+                  "updatedOn": "2020-04-28T16:31:57.6420007Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6827,9 +7117,9 @@
                 "description": "Apply diagnostic settings for SQL Elastic Pools - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:34:10.2322224Z",
+                  "createdOn": "2020-04-16T09:24:23.3395601Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.263694Z"
+                  "updatedOn": "2020-04-28T16:32:06.2515809Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -6931,9 +7221,9 @@
                 "description": "Apply diagnostic settings for SQL Managed Instances - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:34:17.275836Z",
+                  "createdOn": "2020-04-16T09:24:30.8095515Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.1230627Z"
+                  "updatedOn": "2020-04-28T16:32:12.9603281Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7033,9 +7323,9 @@
                 "description": "Apply diagnostic settings for Stream Analytics - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:34:24.3202358Z",
+                  "createdOn": "2020-04-16T09:24:25.7614685Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.0069929Z"
+                  "updatedOn": "2020-04-28T16:32:20.2726545Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7146,9 +7436,9 @@
                 "description": "Apply diagnostic settings for Time Series Insights - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:34:35.604891Z",
+                  "createdOn": "2020-04-16T09:24:31.0129009Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.2793484Z"
+                  "updatedOn": "2020-04-28T16:32:27.2336434Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7250,9 +7540,9 @@
                 "description": "Apply diagnostic settings for Azure Traffic Manager - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:34:43.2249196Z",
+                  "createdOn": "2020-04-16T09:24:30.3891763Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.185532Z"
+                  "updatedOn": "2020-04-28T16:32:34.9751309Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7359,9 +7649,9 @@
                 "description": "Apply diagnostic settings for Virtual Networks - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:34:51.8147298Z",
+                  "createdOn": "2020-04-16T09:24:26.8708743Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.1999188Z"
+                  "updatedOn": "2020-04-28T16:32:41.9127787Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7458,9 +7748,9 @@
                 "description": "Apply diagnostic settings for Virtual Machines - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:34:56.8108531Z",
+                  "createdOn": "2020-04-16T09:24:27.0619205Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.3486432Z"
+                  "updatedOn": "2020-04-28T16:32:48.4910111Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7561,9 +7851,9 @@
                 "description": "Apply diagnostic settings for Virtual Machine Scale Sets - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:35:04.6412194Z",
+                  "createdOn": "2020-04-16T09:24:27.3084499Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0476175Z"
+                  "updatedOn": "2020-04-28T16:32:54.9561481Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7664,9 +7954,9 @@
                 "description": "Apply diagnostic settings for Virtual Network Gateways - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:35:11.7974248Z",
+                  "createdOn": "2020-04-16T09:24:27.778961Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.4773547Z"
+                  "updatedOn": "2020-04-28T16:33:01.4643771Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7793,9 +8083,9 @@
                 "description": "Apply diagnostic settings for Azure App Service Plans - Log Analytics",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:35:18.6108389Z",
+                  "createdOn": "2020-04-16T09:24:30.5595218Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.9132402Z"
+                  "updatedOn": "2020-04-28T16:33:08.9927933Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -7897,9 +8187,9 @@
                 "description": "Apply diagnostic settings for Azure Web Sites",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:35:25.9475746Z",
+                  "createdOn": "2020-04-16T09:24:28.2639979Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0178163Z"
+                  "updatedOn": "2020-04-28T16:33:16.295328Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -8001,14 +8291,15 @@
                 "description": "Deploys Azure Firewall Policy/Manager",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:35:33.3796996Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.0156968Z"
+                  "createdOn": "2020-04-22T20:05:02.2659542Z",
+                  "updatedBy": "9a4d35a6-233e-4853-b177-ef128425e760",
+                  "updatedOn": "2020-05-04T07:17:37.0873284Z"
                 },
                 "parameters": {
                   "fwpolicy": {
                     "type": "Object",
                     "metadata": {
+                      "displayName": "fwpolicy",
                       "description": "Object describing Azure Firewall Policy"
                     },
                     "defaultValue": {}
@@ -8041,28 +8332,13 @@
                   "then": {
                     "effect": "deployIfNotExists",
                     "details": {
-                      "type": "Microsoft.Resources/resourceGroups",
+                      "type": "Microsoft.Network/firewallPolicies",
                       "deploymentScope": "Subscription",
-                      "existenceScope": "Subscription",
+                      "existenceScope": "ResourceGroup",
+                      "resourceGroupName": "[parameters('rgName')]",
                       "roleDefinitionIds": [
                         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
                       ],
-                      "existenceCondition": {
-                        "allOf": [
-                          {
-                            "field": "name",
-                            "like": "[parameters('rgName')]"
-                          },
-                          {
-                            "field": "type",
-                            "equals": "Microsoft.Resources/subscriptions/resourceGroups"
-                          },
-                          {
-                            "field": "type",
-                            "equals": "Microsoft.Network/firewallPolicies"
-                          }
-                        ]
-                      },
                       "deployment": {
                         "location": "northeurope",
                         "properties": {
@@ -8156,413 +8432,6 @@
               "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-FirewallPolicy"
             },
             {
-              "Name": "Deploy-LA-Config",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-LA-Config",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "Deploy-LA-Config",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-              "Properties": {
-                "displayName": "Deploy-LA-Config",
-                "policyType": "Custom",
-                "mode": "All",
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:35:41.3843128Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.107185Z"
-                },
-                "parameters": {
-                  "workspaceName": {
-                    "type": "String",
-                    "metadata": {
-                      "displayName": "workspaceName",
-                      "description": "Provide name of existing Log Analytics workspace"
-                    }
-                  },
-                  "workspaceRegion": {
-                    "type": "String",
-                    "metadata": {
-                      "displayName": "workspaceRegion",
-                      "description": "Select region of existing Log Analytics workspace"
-                    }
-                  }
-                },
-                "policyRule": {
-                  "if": {
-                    "allOf": [
-                      {
-                        "field": "type",
-                        "equals": "Microsoft.OperationalInsights/workspaces"
-                      }
-                    ]
-                  },
-                  "then": {
-                    "effect": "deployIfNotExists",
-                    "details": {
-                      "type": "Microsoft.OperationalInsights/workspaces",
-                      "deploymentScope": "resourceGroup",
-                      "existenceScope": "Subscription",
-                      "roleDefinitionIds": [
-                        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
-                      ],
-                      "existenceCondition": {
-                        "allOf": [
-                          {
-                            "field": "name",
-                            "like": "[parameters('workspaceName')]"
-                          },
-                          {
-                            "field": "location",
-                            "equals": "[parameters('workspaceRegion"
-                          }
-                        ]
-                      },
-                      "deployment": {
-                        "properties": {
-                          "mode": "incremental",
-                          "parameters": {
-                            "workspaceName": {
-                              "value": "[parameters('workspaceName')]"
-                            },
-                            "workspaceRegion": {
-                              "value": "[parameters('workspaceRegion')]"
-                            }
-                          },
-                          "template": {
-                            "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-                            "contentVersion": "1.0.0.0",
-                            "parameters": {
-                              "workspaceName": {
-                                "type": "string"
-                              },
-                              "workspaceRegion": {
-                                "type": "string"
-                              }
-                            },
-                            "variables": {
-                              "vmInsightsPerfCounters": {
-                                "windowsArray": [
-                                  {
-                                    "armName": "counter1",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "% Free Space",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter2",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Avg. Disk sec/Read",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter3",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Avg. Disk sec/Transfer",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter4",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Avg. Disk sec/Write",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter5",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Disk Read Bytes/sec",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter6",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Disk Reads/sec",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter7",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Disk Transfers/sec",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter8",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Disk Write Bytes/sec",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter9",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Disk Writes/sec",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter10",
-                                    "objectName": "LogicalDisk",
-                                    "counterName": "Free Megabytes",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter11",
-                                    "objectName": "Memory",
-                                    "counterName": "Available MBytes",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter12",
-                                    "objectName": "Network Adapter",
-                                    "counterName": "Bytes Received/sec",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter13",
-                                    "objectName": "Network Adapter",
-                                    "counterName": "Bytes Sent/sec",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  },
-                                  {
-                                    "armName": "counter14",
-                                    "objectName": "Processor",
-                                    "counterName": "% Processor Time",
-                                    "instanceName": "*",
-                                    "intervalSeconds": 10
-                                  }
-                                ],
-                                "linuxDiskArray": [
-                                  {
-                                    "counterName": "% Used Inodes"
-                                  },
-                                  {
-                                    "counterName": "Free Megabytes"
-                                  },
-                                  {
-                                    "counterName": "% Used Space"
-                                  },
-                                  {
-                                    "counterName": "Disk Transfers/sec"
-                                  },
-                                  {
-                                    "counterName": "Disk Reads/sec"
-                                  },
-                                  {
-                                    "counterName": "Disk writes/sec"
-                                  }
-                                ],
-                                "linuxDiskObject": {
-                                  "armResourceName": "Disk",
-                                  "objectName": "Logical Disk",
-                                  "instanceName": "*",
-                                  "intervalSeconds": 10
-                                },
-                                "linuxMemoryArray": [
-                                  {
-                                    "counterName": "Available MBytes Memory"
-                                  }
-                                ],
-                                "linuxMemoryObject": {
-                                  "armResourceName": "Memory",
-                                  "objectName": "Memory",
-                                  "instanceName": "*",
-                                  "intervalSeconds": 10
-                                },
-                                "linuxNetworkArray": [
-                                  {
-                                    "counterName": "Total Bytes Received"
-                                  },
-                                  {
-                                    "counterName": "Total Bytes Transmitted"
-                                  }
-                                ],
-                                "linuxNetworkObject": {
-                                  "armResourceName": "Network",
-                                  "objectName": "Network",
-                                  "instanceName": "*",
-                                  "intervalSeconds": 10
-                                },
-                                "linuxCpuArray": [
-                                  {
-                                    "counterName": "% Processor Time"
-                                  }
-                                ],
-                                "linuxCpuObject": {
-                                  "armResourceName": "Processor",
-                                  "objectName": "Processor",
-                                  "instanceName": "*",
-                                  "intervalSeconds": 10
-                                }
-                              },
-                              "batch1": {
-                                "solutions": [
-                                  {
-                                    "name": "[concat('Security', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "Security"
-                                  },
-                                  {
-                                    "name": "[concat('AgentHealthAssessment', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "AgentHealthAssessment"
-                                  },
-                                  {
-                                    "name": "[concat('ChangeTracking', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "ChangeTracking"
-                                  },
-                                  {
-                                    "name": "[concat('Updates', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "Updates"
-                                  },
-                                  {
-                                    "name": "[concat('AzureActivity', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "AzureActivity"
-                                  },
-                                  {
-                                    "name": "[concat('AzureAutomation', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "AzureAutomation"
-                                  },
-                                  {
-                                    "name": "[concat('ADAssessment', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "ADAssessment"
-                                  },
-                                  {
-                                    "name": "[concat('SQLAssessment', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "SQLAssessment"
-                                  },
-                                  {
-                                    "name": "[concat('AntiMalware', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "AntiMalware"
-                                  },
-                                  {
-                                    "name": "[concat('InfrastructureInsights', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "InfrastructureInsights"
-                                  },
-                                  {
-                                    "name": "[concat('ServiceMap', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "ServiceMap"
-                                  },
-                                  {
-                                    "name": "[concat('SecurityInsights', '(', parameters('workspaceName'), ')')]",
-                                    "marketplaceName": "SecurityInsights"
-                                  }
-                                ]
-                              }
-                            },
-                            "resources": [
-                              {
-                                "apiVersion": "2015-11-01-preview",
-                                "type": "Microsoft.OperationalInsights/workspaces/datasources",
-                                "name": "[concat(parameters('workspaceName'), '/LinuxPerfCollection')]",
-                                "kind": "LinuxPerformanceCollection",
-                                "properties": {
-                                  "state": "Enabled"
-                                }
-                              },
-                              {
-                                "apiVersion": "2015-11-01-preview",
-                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
-                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').linuxDiskObject.armResourceName)]",
-                                "kind": "LinuxPerformanceObject",
-                                "properties": {
-                                  "performanceCounters": "[variables('vmInsightsPerfCounters').linuxDiskArray]",
-                                  "objectName": "[variables('vmInsightsPerfCounters').linuxDiskObject.objectName]",
-                                  "instanceName": "[variables('vmInsightsPerfCounters').linuxDiskObject.instanceName]",
-                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').linuxDiskObject.intervalSeconds]"
-                                }
-                              },
-                              {
-                                "apiVersion": "2015-11-01-preview",
-                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
-                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').linuxMemoryObject.armResourceName)]",
-                                "kind": "LinuxPerformanceObject",
-                                "properties": {
-                                  "performanceCounters": "[variables('vmInsightsPerfCounters').linuxMemoryArray]",
-                                  "objectName": "[variables('vmInsightsPerfCounters').linuxMemoryObject.objectName]",
-                                  "instanceName": "[variables('vmInsightsPerfCounters').linuxMemoryObject.instanceName]",
-                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').linuxMemoryObject.intervalSeconds]"
-                                }
-                              },
-                              {
-                                "apiVersion": "2015-11-01-preview",
-                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
-                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').linuxCpuObject.armResourceName)]",
-                                "kind": "LinuxPerformanceObject",
-                                "properties": {
-                                  "performanceCounters": "[variables('vmInsightsPerfCounters').linuxCpuArray]",
-                                  "objectName": "[variables('vmInsightsPerfCounters').linuxCpuObject.objectName]",
-                                  "instanceName": "[variables('vmInsightsPerfCounters').linuxCpuObject.instanceName]",
-                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').linuxCpuObject.intervalSeconds]"
-                                }
-                              },
-                              {
-                                "apiVersion": "2015-11-01-preview",
-                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
-                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').linuxNetworkObject.armResourceName)]",
-                                "kind": "LinuxPerformanceObject",
-                                "properties": {
-                                  "performanceCounters": "[variables('vmInsightsPerfCounters').linuxNetworkArray]",
-                                  "objectName": "[variables('vmInsightsPerfCounters').linuxNetworkObject.objectName]",
-                                  "instanceName": "[variables('vmInsightsPerfCounters').linuxNetworkObject.instanceName]",
-                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').linuxNetworkObject.intervalSeconds]"
-                                }
-                              },
-                              {
-                                "apiVersion": "2015-11-01-preview",
-                                "type": "Microsoft.OperationalInsights/workspaces/dataSources",
-                                "name": "[concat(parameters('workspaceName'), '/', variables('vmInsightsPerfCounters').windowsArray[copyIndex()].armName)]",
-                                "kind": "WindowsPerformanceCounter",
-                                "copy": {
-                                  "name": "counterCopy",
-                                  "count": "[length(variables('vmInsightsPerfCounters').windowsArray)]"
-                                },
-                                "properties": {
-                                  "objectName": "[variables('vmInsightsPerfCounters').windowsArray[copyIndex()].objectName]",
-                                  "instanceName": "[variables('vmInsightsPerfCounters').windowsArray[copyIndex()].instanceName]",
-                                  "intervalSeconds": "[variables('vmInsightsPerfCounters').windowsArray[copyIndex()].intervalSeconds]",
-                                  "counterName": "[variables('vmInsightsPerfCounters').windowsArray[copyIndex()].counterName]"
-                                }
-                              },
-                              {
-                                "apiVersion": "2015-11-01-preview",
-                                "type": "Microsoft.OperationsManagement/solutions",
-                                "name": "[concat(variables('batch1').solutions[copyIndex()].Name)]",
-                                "location": "[parameters('workspaceRegion')]",
-                                "copy": {
-                                  "name": "solutionCopy",
-                                  "count": "[length(variables('batch1').solutions)]"
-                                },
-                                "properties": {
-                                  "workspaceResourceId": "[resourceId('Microsoft.OperationalInsights/workspaces/', parameters('workspaceName'))]"
-                                },
-                                "plan": {
-                                  "name": "[variables('batch1').solutions[copyIndex()].name]",
-                                  "product": "[concat('OMSGallery/', variables('batch1').solutions[copyIndex()].marketplaceName)]",
-                                  "promotionCode": "",
-                                  "publisher": "Microsoft"
-                                }
-                              }
-                            ],
-                            "outputs": {}
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-LA-Config"
-            },
-            {
               "Name": "Deploy-Log-Analytics",
               "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Log-Analytics",
               "ResourceName": "Tailspin",
@@ -8574,10 +8443,10 @@
                 "policyType": "Custom",
                 "mode": "All",
                 "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:35:47.7790868Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.2077798Z"
+                  "createdBy": "dc38e734-2649-4e25-823e-5fcd01a2475f",
+                  "createdOn": "2020-04-15T10:27:49.793798Z",
+                  "updatedBy": "dc38e734-2649-4e25-823e-5fcd01a2475f",
+                  "updatedOn": "2020-04-29T16:11:44.608983Z"
                 },
                 "parameters": {
                   "workspaceName": {
@@ -8628,7 +8497,7 @@
                   "then": {
                     "effect": "deployIfNotExists",
                     "details": {
-                      "type": "Microsoft.Resources/resourceGroups",
+                      "type": "Microsoft.OperationalInsights/workspaces",
                       "deploymentScope": "Subscription",
                       "existenceScope": "Subscription",
                       "roleDefinitionIds": [
@@ -8638,19 +8507,7 @@
                         "allOf": [
                           {
                             "field": "name",
-                            "like": "[parameters('rgName')]"
-                          },
-                          {
-                            "field": "type",
-                            "equals": "Microsoft.Resources/subscriptions/resourceGroups"
-                          },
-                          {
-                            "field": "type",
-                            "equals": "Microsoft.OperationalInsights/workspaces"
-                          },
-                          {
-                            "field": "type",
-                            "equals": "Microsoft.Automation/automationAccounts"
+                            "like": "[parameters('workspaceName')]"
                           }
                         ]
                       },
@@ -8787,9 +8644,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:35:54.9818395Z",
+                  "createdOn": "2020-04-16T08:44:58.3134726Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:55.8565671Z"
+                  "updatedOn": "2020-04-28T16:33:43.1807396Z"
                 },
                 "parameters": {
                   "retention": {
@@ -8910,9 +8767,9 @@
                 "description": "Configures SQL Server",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:36:03.3980109Z",
+                  "createdOn": "2020-04-16T09:04:59.9709624Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.2851752Z"
+                  "updatedOn": "2020-04-28T16:33:50.452896Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -9021,9 +8878,9 @@
                 "description": "Configures SQL DataBases",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:36:15.1024711Z",
+                  "createdOn": "2020-04-16T09:09:58.3186486Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0287416Z"
+                  "updatedOn": "2020-04-28T16:33:55.847002Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -9119,9 +8976,9 @@
                 "description": "Configures SQL DataBases",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:36:22.321505Z",
+                  "createdOn": "2020-04-16T09:09:58.4436535Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.2851752Z"
+                  "updatedOn": "2020-04-28T16:34:03.2117033Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -9207,9 +9064,9 @@
                 "description": "Configures SQL DataBases",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:36:29.8924648Z",
+                  "createdOn": "2020-04-16T09:12:08.1482678Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0615267Z"
+                  "updatedOn": "2020-04-28T16:34:09.1389257Z"
                 },
                 "parameters": {
                   "vulnerabilityAssessmentsEmail": {
@@ -9334,9 +9191,9 @@
                 "description": "Deploys Azure Virtual WAN vHUB in desired regions",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:36:37.1520801Z",
+                  "createdOn": "2020-04-24T07:47:23.9134731Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0773901Z"
+                  "updatedOn": "2020-04-28T16:34:16.8041356Z"
                 },
                 "parameters": {
                   "vwanname": {
@@ -9666,9 +9523,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:36:42.904782Z",
+                  "createdOn": "2020-04-16T15:28:37.909606Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.1961231Z"
+                  "updatedOn": "2020-04-28T16:34:23.0854467Z"
                 },
                 "parameters": {},
                 "policyRule": {
@@ -10114,9 +9971,9 @@
                 "description": "Deploy-vNet",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:36:50.5625514Z",
+                  "createdOn": "2020-04-24T22:01:09.6525887Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.2809814Z"
+                  "updatedOn": "2020-04-28T16:34:30.2291576Z"
                 },
                 "parameters": {
                   "ipam": {
@@ -10213,7 +10070,7 @@
                             },
                             "resources": [
                               {
-                                "condition": "[if(and(not(empty(parameters('ipam'))), equals(parameters('ipam')[copyIndex()].name,variables('vNetName'))),bool('true'),bool('false'))]",
+                                "condition": "[if(and(not(empty(parameters('ipam'))), equals(toLower(parameters('ipam')[copyIndex()].name),toLower(variables('vNetName')))),bool('true'),bool('false'))]",
                                 "type": "Microsoft.Resources/deployments",
                                 "location": "[parameters('ipam')[copyIndex()].location]",
                                 "apiVersion": "2018-05-01",
@@ -10251,7 +10108,7 @@
                                 }
                               },
                               {
-                                "condition": "[if(and(not(empty(parameters('ipam'))), equals(parameters('ipam')[copyIndex()].name,variables('vNetName'))),bool('true'),bool('false'))]",
+                                "condition": "[if(and(not(empty(parameters('ipam'))), equals(toLower(parameters('ipam')[copyIndex()].name),toLower(variables('vNetName')))),bool('true'),bool('false'))]",
                                 "type": "Microsoft.Resources/deployments",
                                 "apiVersion": "2018-05-01",
                                 "name": "[concat('Northstar-ipam-',subscription().displayName,'-nsg-udr-vnet-vwan-peering-',copyIndex())]",
@@ -10410,9 +10267,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:36:57.6441679Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.3693395Z"
+                  "createdOn": "2020-04-22T19:47:44.3627702Z",
+                  "updatedBy": "9a4d35a6-233e-4853-b177-ef128425e760",
+                  "updatedOn": "2020-05-04T07:15:15.7478832Z"
                 },
                 "parameters": {
                   "vwanname": {
@@ -10454,7 +10311,7 @@
                       "deploymentScope": "Subscription",
                       "existenceScope": "ResourceGroup",
                       "name": "[parameters('vwanname')]",
-                      "resourceGroupName": "[parameters('rgName')",
+                      "resourceGroupName": "[parameters('rgName')]",
                       "roleDefinitionIds": [
                         "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
                       ],
@@ -10553,9 +10410,9 @@
                 "mode": "All",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T20:37:09.5620019Z",
+                  "createdOn": "2020-04-16T08:47:37.3235334Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:56.1914613Z"
+                  "updatedOn": "2020-04-28T16:34:56.4048435Z"
                 },
                 "parameters": {
                   "domainUsername": {
@@ -10791,84 +10648,6 @@
                 }
               },
               "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Windows-DomainJoin"
-            },
-            {
-              "Name": "DINE-KeyVault",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/DINE-KeyVault",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "DINE-KeyVault",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-              "Properties": {
-                "displayName": "KeyVault",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Ensures that management RG has Key Vault Deployed to manage platform secrets",
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T22:15:02.4284641Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:20:57.0135323Z"
-                },
-                "parameters": {},
-                "policyRule": {
-                  "if": {
-                    "allOf": [
-                      {
-                        "field": "type",
-                        "equals": "Microsoft.Resources/subscriptions"
-                      }
-                    ]
-                  },
-                  "then": {
-                    "effect": "deployIfNotExists",
-                    "details": {
-                      "type": "Microsoft.KeyVault/vaults",
-                      "deploymentScope": "Subscription",
-                      "existenceScope": "Subscription",
-                      "roleDefinitionIds": [
-                        "/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635"
-                      ],
-                      "existenceCondition": {
-                        "allOf": [
-                          {
-                            "field": "type",
-                            "equals": "Microsoft.KeyVault/vaults"
-                          },
-                          {
-                            "field": "name",
-                            "like": "[concat(subscription().displayName, '-keyvault')]"
-                          }
-                        ]
-                      },
-                      "deployment": {
-                        "location": "northeurope",
-                        "properties": {
-                          "mode": "incremental",
-                          "parameters": {},
-                          "template": {
-                            "$schema": "http://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json",
-                            "contentVersion": "1.0.0.0",
-                            "parameters": {},
-                            "variables": {},
-                            "resources": [
-                              {
-                                "type": "Microsoft.Resources/resourceGroups",
-                                "apiVersion": "2018-05-01",
-                                "name": "[concat(subscription().displayName, '-keyvault')]",
-                                "location": "[deployment().location]",
-                                "properties": {}
-                              }
-                            ],
-                            "outputs": {}
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/DINE-KeyVault"
             }
           ],
           "policySetDefinitions": [
@@ -10883,51 +10662,52 @@
                 "displayName": "Deny-Public-Endpoints-for-PaaS-Services",
                 "policyType": "Custom",
                 "metadata": {
+                  "category": "Network",
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T21:54:54.9136904Z",
+                  "createdOn": "2020-04-14T21:57:24.9238485Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:21:03.5234523Z"
+                  "updatedOn": "2020-04-28T16:35:00.8128275Z"
                 },
                 "parameters": {},
                 "policyDefinitions": [
                   {
                     "policyDefinitionReferenceId": "2305471075076999555",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-CosmosDB",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-CosmosDB",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "9147011493650353598",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MariaDB",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MariaDB",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "12408670082151357639",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MySQL",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MySQL",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "12661820429455827739",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-PostgreSql",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-PostgreSql",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "4034941732885719677",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-KeyVault",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-KeyVault",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "3088050605787531398",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Sql",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Sql",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "9863399000097702281",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Storage",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Storage",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "8251035221074005943",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Aks",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Aks",
                     "parameters": {}
                   }
                 ]
@@ -10946,10 +10726,11 @@
                 "policyType": "Custom",
                 "description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace.",
                 "metadata": {
+                  "category": "Monitoring",
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T21:55:01.7728874Z",
+                  "createdOn": "2020-04-16T14:04:36.7049677Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:21:03.3078081Z"
+                  "updatedOn": "2020-04-28T16:35:21.4849503Z"
                 },
                 "parameters": {
                   "logAnalytics": {
@@ -10964,7 +10745,7 @@
                 "policyDefinitions": [
                   {
                     "policyDefinitionReferenceId": "7236125568528343678",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NIC",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NIC",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -10973,7 +10754,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "16237567380538299695",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -10982,7 +10763,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "12685756144414362153",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PublicIP",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PublicIP",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -10991,7 +10772,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "2557958870151738256",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LoadBalancer",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LoadBalancer",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11000,7 +10781,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "4538039732467449756",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NetworkSecurityGroups",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NetworkSecurityGroups",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11009,7 +10790,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "5161149613138249385",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-KeyVault",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-KeyVault",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11018,7 +10799,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "16623885990575636691",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CognitiveServices",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CognitiveServices",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11027,7 +10808,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "14165180690437289514",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DLAnalytics",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DLAnalytics",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11036,7 +10817,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "13371143819958730506",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DataLakeStore",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DataLakeStore",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11045,7 +10826,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "2071678625413859115",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventHub",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventHub",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11054,7 +10835,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "16343927162737995596",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-iotHub",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-iotHub",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11063,7 +10844,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "5158551526259161161",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LogicAppsWF",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LogicAppsWF",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11072,7 +10853,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "3565767401079350483",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LogicAppsISE",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LogicAppsISE",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11081,7 +10862,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "8137866490937856070",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-RecoveryVault",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-RecoveryVault",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11090,7 +10871,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "12916195990937786417",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SearchServices",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SearchServices",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11099,7 +10880,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "9087684938078686846",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ServiceBus",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ServiceBus",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11108,7 +10889,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "1436434173336656375",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLDBs",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLDBs",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11117,7 +10898,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "5057222585536622942",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLElasticPools",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLElasticPools",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11126,7 +10907,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "1432091505729419124",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-APIMgmt",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-APIMgmt",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11135,7 +10916,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "18134267480412652992",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ApplicationGateway",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ApplicationGateway",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11144,7 +10925,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "8388389559870572478",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Batch",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Batch",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11153,7 +10934,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "11192323136602097727",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-MySQL",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-MySQL",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11162,7 +10943,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "7568623331654212445",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PostgreSQL",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PostgreSQL",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11171,7 +10952,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "17748756007148882262",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CDNEndpoints",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CDNEndpoints",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11180,7 +10961,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "17566721830488803368",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CosmosDB",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CosmosDB",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11189,7 +10970,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "15931864125238299472",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DataFactory",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DataFactory",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11198,7 +10979,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "2952564532567566124",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Firewall",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Firewall",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11207,7 +10988,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "12523335183303523469",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PowerBIEmbedded",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PowerBIEmbedded",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11216,7 +10997,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "17060547101037299375",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-StreamAnalytics",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-StreamAnalytics",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11225,7 +11006,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "6702667909971191151",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ExpressRoute",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ExpressRoute",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11234,7 +11015,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "17715931723533988224",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ACI",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ACI",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11243,7 +11024,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "524463144292725949",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ACR",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ACR",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11252,7 +11033,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "10130212469996596913",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VirtualNetwork",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VirtualNetwork",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11261,7 +11042,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "17249814480476613114",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VM",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VM",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11270,7 +11051,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "16803376314801817083",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VMSS",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VMSS",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11279,7 +11060,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "2031506689370542266",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VNetGW",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VNetGW",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11288,7 +11069,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "15407192821715569861",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AKS",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AKS",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11297,7 +11078,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "17213255122979381246",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Website",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Website",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11306,7 +11087,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "17165387524202107114",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AnalysisService",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AnalysisService",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11315,7 +11096,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "13426869199552741022",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventGridTopic",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventGridTopic",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11324,7 +11105,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "105879099833677357",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventGridSub",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventGridSub",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11333,7 +11114,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "9850618825532501923",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-HDInsight",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-HDInsight",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11342,7 +11123,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "5865748922408110407",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-RedisCache",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-RedisCache",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11351,7 +11132,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "3593019545976924523",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Relay",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Relay",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11360,7 +11141,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "13856581306682461017",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SignalR",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SignalR",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11369,7 +11150,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "12212520351949118745",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-TrafficManager",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-TrafficManager",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11378,7 +11159,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "14904583669671807849",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-WebServerFarm",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-WebServerFarm",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11387,7 +11168,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "8550486177634190353",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLMI",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLMI",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11396,7 +11177,7 @@
                   },
                   {
                     "policyDefinitionReferenceId": "11982436241091362267",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-TimeSeriesInsights",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-TimeSeriesInsights",
                     "parameters": {
                       "logAnalytics": {
                         "value": "[parameters('logAnalytics')]"
@@ -11420,9 +11201,9 @@
                 "description": "Recommended built-in security policies for the North Star architecture",
                 "metadata": {
                   "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-25T21:55:09.4082201Z",
+                  "createdOn": "2020-04-16T09:27:54.1032116Z",
                   "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:21:03.4002128Z"
+                  "updatedOn": "2020-04-28T16:35:40.5012627Z"
                 },
                 "parameters": {
                   "vulnerabilityAssessmentsEmail": {
@@ -11443,22 +11224,22 @@
                 "policyDefinitions": [
                   {
                     "policyDefinitionReferenceId": "Deploy-Sql-Tde",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-Tde",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-Tde",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "Deploy-Sql-SecurityAlertPolicies",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-SecurityAlertPolicies",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-SecurityAlertPolicies",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "Deploy-Sql-AuditingSettings",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-AuditingSettings",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-AuditingSettings",
                     "parameters": {}
                   },
                   {
                     "policyDefinitionReferenceId": "Deploy-Sql-vulnerabilityAssessments",
-                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-vulnerabilityAssessments",
+                    "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-vulnerabilityAssessments",
                     "parameters": {
                       "vulnerabilityAssessmentsEmail": {
                         "value": "[parameters('vulnerabilityAssessmentsEmail')]"
@@ -11473,45 +11254,7 @@
               "PolicySetDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Sql-Security"
             }
           ],
-          "policyAssignments": [
-            {
-              "Name": "Deploy-Diag-ActivityLog",
-              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-Diag-ActivityLog",
-              "ResourceName": "Tailspin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceName": "Deploy-Diag-ActivityLog",
-              "ExtensionResourceType": "Microsoft.Authorization/policyAssignments",
-              "Location": "northeurope",
-              "Properties": {
-                "displayName": "Deploy Diagnostics ActivityLog",
-                "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ActivityLog",
-                "scope": "/providers/Microsoft.Management/managementGroups/Tailspin",
-                "notScopes": [],
-                "parameters": {
-                  "logAnalytics": {
-                    "value": "/subscriptions/a480e5aa-d8c1-4610-a4d8-7e23d7a6ac10/resourceGroups/tailspin-weu-mgmt/providers/Microsoft.OperationalInsights/workspaces/tailspin-weu-la"
-                  }
-                },
-                "metadata": {
-                  "createdBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "createdOn": "2020-04-27T00:05:13.9101132Z",
-                  "updatedBy": "2c25a680-5943-4cf3-abbd-999be5a9c8b8",
-                  "updatedOn": "2020-04-30T10:21:07.5554417Z"
-                },
-                "enforcementMode": "Default"
-              },
-              "Sku": {
-                "name": "A0",
-                "tier": "Free"
-              },
-              "Identity": {
-                "type": "SystemAssigned",
-                "principalId": "1fcd0b4c-f216-4b55-aebc-fd57ff99119c",
-                "tenantId": "3fc1081d-6105-4e19-b60c-1ec1252cf560"
-              },
-              "PolicyAssignmentId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyAssignments/Deploy-Diag-ActivityLog"
-            }
-          ],
+          "policyAssignments": [],
           "roleDefinitions": null,
           "roleAssignments": null
         }
