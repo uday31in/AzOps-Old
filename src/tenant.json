@@ -97,46 +97,19 @@
                 Change Log:
                     1. Initial Definition
             */
-            "condition": "[and(contains(variables('scope'),'Microsoft.Management/managementGroups'), contains(parameters('input'),'ParentId'),not(empty(parameters('input').ParentId)))]",
+            "condition": "[and(contains(variables('scope'),'Microsoft.Management/managementGroups'), contains(parameters('input'),'ParentId'))]",
             "type": "Microsoft.Management/managementGroups",
             "apiVersion": "2020-02-01",
             "name": "[parameters('input').Name]",
             "properties": {
                 "displayName": "[parameters('input').DisplayName]",                                
-                "details": {
-                    "parent": {
-                        "id": "[if(contains(parameters('input'),'ParentId'),parameters('input').ParentId,'na-parentId')]"
-                    }
-                }                
+                "details": "[if(
+                                    not(empty(parameters('input').ParentId)),
+                                    json(concat('{\"parent\": {\"id\": \"', replace(parameters('input').ParentId,'/','\/') ,'\"}}')),
+                                    json('{}')
+                            )]"
             }
-        },
-        {
-            /*
-                
-                Intent: Upsert Management Group at the root
-                
-                Required Parameters:
-                    1. Name: Management Group Name
-                    2. DisplayName: Management Group Display Name
-                    3. ParentID - To Determine Where to place Management group. It could be root or any other valid ID of the Management Group. For the top level manage
-                
-                Scope: Tenant
-                
-                Condition: We have Parent ID available to ensure inadvertently place management group directly the root.
-
-                Details: If ParentID do not exist, then it is a child and creation of Management group would have happened when parent's children were iterated upon.
-
-                Change Log:
-                    1. Initial Definition
-            */
-            "condition": "[and(contains(variables('scope'),'Microsoft.Management/managementGroups'), contains(parameters('input'),'ParentId'),empty(parameters('input').ParentId))]",
-            "type": "Microsoft.Management/managementGroups",
-            "apiVersion": "2020-02-01",
-            "name": "[parameters('input').Name]",
-            "properties": {
-                "displayName": "[parameters('input').DisplayName]"            
-            }
-        },   
+        },     
         {
 
             /*                
