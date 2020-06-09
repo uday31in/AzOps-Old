@@ -286,7 +286,7 @@
                             For each Subscription (i.e. Not management group), Start nested deployment
                         */
                         {
-                            "condition": "[not(contains(variables('Children')[copyIndex()].Id ,'Microsoft.Management/managementGroups'))]",
+                            "condition": "[and(contains(variables('Children')[copyIndex()],'Type'),contains(variables('Children')[copyIndex()],'DisplayName'),equals(variables('Children')[copyIndex()].Type ,'/subscriptions'),not(contains(variables('Children')[copyIndex()],'Id')))]",
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
