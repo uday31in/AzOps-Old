@@ -257,7 +257,7 @@
                             // creating a new subscription using a deterministic guid function
                             "condition": "[and(contains(variables('Children')[copyIndex()],'Type'),contains(variables('Children')[copyIndex()],'DisplayName'),equals(variables('Children')[copyIndex()].Type ,'/subscriptions'),not(contains(variables('Children')[copyIndex()],'Id')))]",
                             "type": "Microsoft.Subscription/subscriptions",
-                            "name": "[guid(variables('Children')[copyIndex()].DisplayName)]",
+                            "name": "[variables('Children')[copyIndex()].Name]",
                             "apiVersion": "2019-10-01-preview",
                             "properties": {
                                 "displayName": "[variables('Children')[copyIndex()].DisplayName]",
