@@ -17,29 +17,15 @@
         "Children": [
           {
             "Type": "/providers/Microsoft.Management/managementGroups",
-            "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-decomissioned",
-            "Name": "Tailspin-decomissioned",
-            "DisplayName": "Tailspin-decomissioned",
-            "Children": null
-          },
-          {
-            "Type": "/providers/Microsoft.Management/managementGroups",
-            "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-sandboxes",
-            "Name": "Tailspin-sandboxes",
-            "DisplayName": "Tailspin-sandboxes",
-            "Children": null
-          },
-          {
-            "Type": "/providers/Microsoft.Management/managementGroups",
             "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-platform",
             "Name": "Tailspin-platform",
             "DisplayName": "Tailspin-platform",
             "Children": [
               {
                 "Type": "/providers/Microsoft.Management/managementGroups",
-                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity",
-                "Name": "Tailspin-connectivity",
-                "DisplayName": "Tailspin-connectivity",
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-identity",
+                "Name": "Tailspin-identity",
+                "DisplayName": "Tailspin-identity",
                 "Children": null
               },
               {
@@ -51,9 +37,9 @@
               },
               {
                 "Type": "/providers/Microsoft.Management/managementGroups",
-                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-identity",
-                "Name": "Tailspin-identity",
-                "DisplayName": "Tailspin-identity",
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-connectivity",
+                "Name": "Tailspin-connectivity",
+                "DisplayName": "Tailspin-connectivity",
                 "Children": null
               }
             ]
@@ -64,6 +50,13 @@
             "Name": "Tailspin-landingzones",
             "DisplayName": "Tailspin-Landing Zones",
             "Children": [
+              {
+                "Type": "/providers/Microsoft.Management/managementGroups",
+                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-online",
+                "Name": "Tailspin-online",
+                "DisplayName": "Tailspin-online",
+                "Children": null
+              },
               {
                 "Type": "/providers/Microsoft.Management/managementGroups",
                 "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-sap",
@@ -77,30 +70,39 @@
                 "Name": "Tailspin-corp",
                 "DisplayName": "Tailspin-corp",
                 "Children": null
-              },
-              {
-                "Type": "/providers/Microsoft.Management/managementGroups",
-                "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-online",
-                "Name": "Tailspin-online",
-                "DisplayName": "Tailspin-online",
-                "Children": null
               }
             ]
+          },
+          {
+            "Type": "/providers/Microsoft.Management/managementGroups",
+            "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-decomissioned",
+            "Name": "Tailspin-decomissioned",
+            "DisplayName": "Tailspin-decomissioned",
+            "Children": null
+          },
+          {
+            "Type": "/providers/Microsoft.Management/managementGroups",
+            "Id": "/providers/Microsoft.Management/managementGroups/Tailspin-sandboxes",
+            "Name": "Tailspin-sandboxes",
+            "DisplayName": "Tailspin-sandboxes",
+            "Children": null
           }
         ],
         "properties": {
           "policyDefinitions": [
             {
               "Name": "Append-KV-SoftDelete",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Append-KV-SoftDelete",
+              "ResourceName": "Append-KV-SoftDelete",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Append-KV-SoftDelete",
               "Properties": {
-                "displayName": "Append-KV-SoftDelete",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "When a Key Vault is created with out soft delete enabled then this will add it.",
-                "parameters": {},
-                "policyRule": {
+                "Description": "When a Key Vault is created with out soft delete enabled then this will add it.",
+                "DisplayName": "Append-KV-SoftDelete",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "anyOf": [
                       {
@@ -131,14 +133,17 @@
             },
             {
               "Name": "Deny-AppGW-Without-WAF",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-AppGW-Without-WAF",
+              "ResourceName": "Deny-AppGW-Without-WAF",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-AppGW-Without-WAF",
               "Properties": {
-                "displayName": "Deny-AppGW-Without-WAF",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {},
-                "policyRule": {
+                "Description": null,
+                "DisplayName": "Deny-AppGW-Without-WAF",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -159,15 +164,17 @@
             },
             {
               "Name": "Deny-ERPeering",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-ERPeering",
+              "ResourceName": "Deny-ERPeering",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-ERPeering",
               "Properties": {
-                "displayName": "Deny-ERPeering",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Denies creation of ER Peerings under the assigned scope.",
-                "parameters": {},
-                "policyRule": {
+                "Description": "Denies creation of ER Peerings under the assigned scope.",
+                "DisplayName": "Deny-ERPeering",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/virtualNetworks/virtualNetworkPeerings"
@@ -180,14 +187,17 @@
             },
             {
               "Name": "Deny-PublicEndpoint-Aks",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Aks",
+              "ResourceName": "Deny-PublicEndpoint-Aks",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Aks",
               "Properties": {
-                "displayName": "Deny-PublicEndpoint-Aks",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy restricts creation of non-private AKS clusters",
-                "policyRule": {
+                "Description": "This policy restricts creation of non-private AKS clusters",
+                "DisplayName": "Deny-PublicEndpoint-Aks",
+                "Mode": "All",
+                "Parameters": null,
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -208,14 +218,17 @@
             },
             {
               "Name": "Deny-PublicEndpoint-CosmosDB",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-CosmosDB",
+              "ResourceName": "Deny-PublicEndpoint-CosmosDB",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-CosmosDB",
               "Properties": {
-                "displayName": "Deny-PublicEndpoint-CosmosDB",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy restrict creation of cosmos db accounts with exposed public endpoints",
-                "policyRule": {
+                "Description": "This policy restrict creation of cosmos db accounts with exposed public endpoints",
+                "DisplayName": "Deny-PublicEndpoint-CosmosDB",
+                "Mode": "All",
+                "Parameters": null,
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -236,14 +249,17 @@
             },
             {
               "Name": "Deny-PublicEndpoint-KeyVault",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-KeyVault",
+              "ResourceName": "Deny-PublicEndpoint-KeyVault",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-KeyVault",
               "Properties": {
-                "displayName": "Deny-PublicEndpoint-KeyVault",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy restrict creation of Key Vaults with IP Firewall exposed to all public endpoints",
-                "policyRule": {
+                "Description": "This policy restrict creation of Key Vaults with IP Firewall exposed to all public endpoints",
+                "DisplayName": "Deny-PublicEndpoint-KeyVault",
+                "Mode": "All",
+                "Parameters": null,
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -264,14 +280,17 @@
             },
             {
               "Name": "Deny-PublicEndpoint-MariaDB",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MariaDB",
+              "ResourceName": "Deny-PublicEndpoint-MariaDB",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MariaDB",
               "Properties": {
-                "displayName": "Deny-PublicEndpoint-MariaDB",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy restrict creation of Maria DB accounts with exposed public endpoints",
-                "policyRule": {
+                "Description": "This policy restrict creation of Maria DB accounts with exposed public endpoints",
+                "DisplayName": "Deny-PublicEndpoint-MariaDB",
+                "Mode": "All",
+                "Parameters": null,
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -292,14 +311,17 @@
             },
             {
               "Name": "Deny-PublicEndpoint-MySQL",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MySQL",
+              "ResourceName": "Deny-PublicEndpoint-MySQL",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-MySQL",
               "Properties": {
-                "displayName": "Deny-PublicEndpoint-MySQL",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy restrict creation of MySql DB accounts with exposed public endpoints",
-                "policyRule": {
+                "Description": "This policy restrict creation of MySql DB accounts with exposed public endpoints",
+                "DisplayName": "Deny-PublicEndpoint-MySQL",
+                "Mode": "All",
+                "Parameters": null,
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -320,14 +342,17 @@
             },
             {
               "Name": "Deny-PublicEndpoint-PostgreSql",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-PostgreSql",
+              "ResourceName": "Deny-PublicEndpoint-PostgreSql",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-PostgreSql",
               "Properties": {
-                "displayName": "Deny-PublicEndpoint-PostgreSql",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy restrict creation of Postgre SQL DB accounts with exposed public endpoints",
-                "policyRule": {
+                "Description": "This policy restrict creation of Postgre SQL DB accounts with exposed public endpoints",
+                "DisplayName": "Deny-PublicEndpoint-PostgreSql",
+                "Mode": "All",
+                "Parameters": null,
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -348,14 +373,17 @@
             },
             {
               "Name": "Deny-PublicEndpoint-Sql",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Sql",
+              "ResourceName": "Deny-PublicEndpoint-Sql",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Sql",
               "Properties": {
-                "displayName": "Deny-PublicEndpoint-Sql",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy restrict creation of Sql servers with exposed public endpoints",
-                "policyRule": {
+                "Description": "This policy restrict creation of Sql servers with exposed public endpoints",
+                "DisplayName": "Deny-PublicEndpoint-Sql",
+                "Mode": "All",
+                "Parameters": null,
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -376,14 +404,17 @@
             },
             {
               "Name": "Deny-PublicEndpoint-Storage",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Storage",
+              "ResourceName": "Deny-PublicEndpoint-Storage",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-Storage",
               "Properties": {
-                "displayName": "Deny-PublicEndpoint-Storage",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy restrict creation of storage accounts with IP Firewall exposed to all public endpoints",
-                "policyRule": {
+                "Description": "This policy restrict creation of storage accounts with IP Firewall exposed to all public endpoints",
+                "DisplayName": "Deny-PublicEndpoint-Storage",
+                "Mode": "All",
+                "Parameters": null,
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -404,15 +435,17 @@
             },
             {
               "Name": "Deny-PublicIP",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicIP",
+              "ResourceName": "Deny-PublicIP",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicIP",
               "Properties": {
-                "displayName": "Deny-PublicIP",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Denies creation of Public IPs under the assigned scope.",
-                "parameters": {},
-                "policyRule": {
+                "Description": "Denies creation of Public IPs under the assigned scope.",
+                "DisplayName": "Deny-PublicIP",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/publicIPAddresses"
@@ -425,14 +458,17 @@
             },
             {
               "Name": "Deny-Subnet-Without-Nsg",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-Subnet-Without-Nsg",
+              "ResourceName": "Deny-Subnet-Without-Nsg",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-Subnet-Without-Nsg",
               "Properties": {
-                "displayName": "Deny-Subnets-Without-NSG",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {},
-                "policyRule": {
+                "Description": null,
+                "DisplayName": "Deny-Subnets-Without-NSG",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -453,13 +489,16 @@
             },
             {
               "Name": "Deploy-ASC-CE",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-ASC-CE",
+              "ResourceName": "Deploy-ASC-CE",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-ASC-CE",
               "Properties": {
-                "displayName": "Deploy-ASC-ContinuousExportToWorkspace",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {
+                "Description": null,
+                "DisplayName": "Deploy-ASC-ContinuousExportToWorkspace",
+                "Mode": "All",
+                "Parameters": {
                   "resourceGroupLocation": {
                     "type": "String",
                     "metadata": {
@@ -534,7 +573,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Resources/subscriptions"
@@ -748,14 +787,16 @@
             },
             {
               "Name": "Deploy-ASC-Standard",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-ASC-Standard",
+              "ResourceName": "Deploy-ASC-Standard",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-ASC-Standard",
               "Properties": {
-                "displayName": "Deploy-ASC-Standard",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Ensures that subscriptions have Security Centre Standard enabled.",
-                "parameters": {
+                "Description": "Ensures that subscriptions have Security Centre Standard enabled.",
+                "DisplayName": "Deploy-ASC-Standard",
+                "Mode": "All",
+                "Parameters": {
                   "emailSecurityContact": {
                     "type": "String",
                     "metadata": {
@@ -855,7 +896,7 @@
                     "defaultValue": "Standard"
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -1076,451 +1117,17 @@
             },
             {
               "Name": "Deploy-AzureBackup-on-VM",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-AzureBackup-on-VM",
+              "ResourceName": "Deploy-AzureBackup-on-VM",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-AzureBackup-on-VM",
               "Properties": {
-                "displayName": "Deploy-AzureBackup-on-VMs",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {},
-                "policyRule": {
-                  "if": {
-                    "allOf": [
-                      {
-                        "field": "type",
-                        "equals": "Microsoft.Compute/virtualMachines"
-                      },
-                      {
-                        "anyOf": [
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftWindowsServer"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "WindowsServer"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageSKU",
-                                "in": [
-                                  "2008-R2-SP1",
-                                  "2008-R2-SP1-smalldisk",
-                                  "2012-Datacenter",
-                                  "2012-Datacenter-smalldisk",
-                                  "2012-R2-Datacenter",
-                                  "2012-R2-Datacenter-smalldisk",
-                                  "2016-Datacenter",
-                                  "2016-Datacenter-Server-Core",
-                                  "2016-Datacenter-Server-Core-smalldisk",
-                                  "2016-Datacenter-smalldisk",
-                                  "2016-Datacenter-with-Containers",
-                                  "2016-Datacenter-with-RDSH",
-                                  "2019-Datacenter",
-                                  "2019-Datacenter-Core",
-                                  "2019-Datacenter-Core-smalldisk",
-                                  "2019-Datacenter-Core-with-Containers",
-                                  "2019-Datacenter-Core-with-Containers-smalldisk",
-                                  "2019-Datacenter-smalldisk",
-                                  "2019-Datacenter-with-Containers",
-                                  "2019-Datacenter-with-Containers-smalldisk",
-                                  "2019-Datacenter-zhcn"
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftWindowsServer"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "WindowsServerSemiAnnual"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageSKU",
-                                "in": [
-                                  "Datacenter-Core-1709-smalldisk",
-                                  "Datacenter-Core-1709-with-Containers-smalldisk",
-                                  "Datacenter-Core-1803-with-Containers-smalldisk"
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftWindowsServerHPCPack"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "WindowsServerHPCPack"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftSQLServer"
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageOffer",
-                                    "like": "*-WS2016"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageOffer",
-                                    "like": "*-WS2016-BYOL"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageOffer",
-                                    "like": "*-WS2012R2"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageOffer",
-                                    "like": "*-WS2012R2-BYOL"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftRServer"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "MLServer-WS2016"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftVisualStudio"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "in": [
-                                  "VisualStudio",
-                                  "Windows"
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftDynamicsAX"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "Dynamics"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageSKU",
-                                "equals": "Pre-Req-AX7-Onebox-U8"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "microsoft-ads"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "windows-data-science-vm"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftWindowsDesktop"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "Windows-10"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "RedHat"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "in": [
-                                  "RHEL",
-                                  "RHEL-SAP-HANA"
-                                ]
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "6.*"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "7*"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "SUSE"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "in": [
-                                  "SLES",
-                                  "SLES-HPC",
-                                  "SLES-HPC-Priority",
-                                  "SLES-SAP",
-                                  "SLES-SAP-BYOS",
-                                  "SLES-Priority",
-                                  "SLES-BYOS",
-                                  "SLES-SAPCAL",
-                                  "SLES-Standard"
-                                ]
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "12*"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "Canonical"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "UbuntuServer"
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "14.04*LTS"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "16.04*LTS"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "18.04*LTS"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "Oracle"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "Oracle-Linux"
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "6.*"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "7.*"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "OpenLogic"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "in": [
-                                  "CentOS",
-                                  "Centos-LVM",
-                                  "CentOS-SRIOV"
-                                ]
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "6.*"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "7*"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "cloudera"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "cloudera-centos-os"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageSKU",
-                                "like": "7*"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "then": {
-                    "effect": "deployIfNotExists",
-                    "details": {
-                      "resourceGroupName": "[resourceGroup().name]",
-                      "type": "Microsoft.RecoveryServices/backupprotecteditems",
-                      "roleDefinitionIds": [
-                        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
-                      ],
-                      "existenceCondition": {
-                        "field": "name",
-                        "like": "*"
-                      },
-                      "deployment": {
-                        "properties": {
-                          "mode": "incremental",
-                          "template": {
-                            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                            "contentVersion": "1.0.0.0",
-                            "parameters": {
-                              "vmName": {
-                                "type": "string",
-                                "metadata": {
-                                  "description": "Name of Azure Virtual Machines"
-                                }
-                              },
-                              "vmRgName": {
-                                "type": "string",
-                                "metadata": {
-                                  "description": "Resource group containing the virtual machines."
-                                }
-                              },
-                              "location": {
-                                "type": "string",
-                                "metadata": {
-                                  "description": "Location for VM and Backup vault"
-                                }
-                              }
-                            },
-                            "variables": {
-                              "backupFabric": "Azure",
-                              "backupPolicy": "DefaultPolicy",
-                              "v2VmType": "Microsoft.Compute/virtualMachines",
-                              "v2VmContainer": "iaasvmcontainer;iaasvmcontainerv2;",
-                              "v2Vm": "vm;iaasvmcontainerv2;",
-                              "vaultName": "[concat(resourceGroup().name, '-backupvault')]"
-                            },
-                            "resources": [
-                              {
-                                "name": "[variables('vaultName')]",
-                                "type": "Microsoft.RecoveryServices/vaults",
-                                "apiVersion": "2016-06-01",
-                                "location": "[parameters('location')]",
-                                "properties": {},
-                                "sku": {
-                                  "name": "Standard"
-                                }
-                              },
-                              {
-                                "name": "[concat(variables('vaultName'), '/', variables('backupFabric'), '/', variables('v2VmContainer'), concat(parameters('vmRgName'),';',parameters('vmName')), '/', variables('v2Vm'), concat(parameters('vmRgName'),';',parameters('vmName')))]",
-                                "apiVersion": "2016-12-01",
-                                "location": "[parameters('location')]",
-                                "type": "Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems",
-                                "dependsOn": [
-                                  "[resourceId('Microsoft.RecoveryServices/vaults/', variables('vaultName'))]"
-                                ],
-                                "properties": {
-                                  "protectedItemType": "[variables('v2VmType')]",
-                                  "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', variables('vaultName'),variables('backupPolicy'))]",
-                                  "sourceResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', parameters('vmRgName'), '/providers/Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
-                                }
-                              }
-                            ],
-                            "outputs": {
-                              "status": {
-                                "type": "string",
-                                "value": "[concat('Backup enabled successfully for VM:', ' ', parameters('vmName'))]"
-                              }
-                            }
-                          },
-                          "parameters": {
-                            "vmName": {
-                              "value": "[field('name')]"
-                            },
-                            "location": {
-                              "value": "[field('location')]"
-                            },
-                            "vmRgName": {
-                              "value": "[resourceGroup().name]"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "Name": "Deploy-AzureBackup-on-VMs",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-              "Properties": {
-                "displayName": "Deploy-AzureBackup-on-VMs",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {},
-                "policyRule": {
+                "Description": null,
+                "DisplayName": "Deploy-AzureBackup-on-VMs",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -1950,14 +1557,16 @@
             },
             {
               "Name": "Deploy-DDoSProtection",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-DDoSProtection",
+              "ResourceName": "Deploy-DDoSProtection",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-DDoSProtection",
               "Properties": {
-                "displayName": "Deploy-DDoSProtection",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "This policy deploys an Azure DDoS Protection Standard plan",
-                "parameters": {
+                "Description": "This policy deploys an Azure DDoS Protection Standard plan",
+                "DisplayName": "Deploy-DDoSProtection",
+                "Mode": "All",
+                "Parameters": {
                   "ddosName": {
                     "type": "String",
                     "metadata": {
@@ -1981,7 +1590,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -2091,14 +1700,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-AA",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA",
+              "ResourceName": "Deploy-Diagnostics-AA",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AA",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-AA",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Automation Accounts - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Automation Accounts - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-AA",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -2108,7 +1719,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Automation/automationAccounts"
@@ -2214,14 +1825,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-ACI",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ACI",
+              "ResourceName": "Deploy-Diagnostics-ACI",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ACI",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-ACI",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Container Instances - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Container Instances - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-ACI",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -2231,7 +1844,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.ContainerInstance/containerGroups"
@@ -2320,14 +1933,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-ACR",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ACR",
+              "ResourceName": "Deploy-Diagnostics-ACR",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ACR",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-ACR",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Container Registries - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Container Registries - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-ACR",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -2337,7 +1952,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.ContainerRegistry/registries"
@@ -2426,14 +2041,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-ActivityLog",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ActivityLog",
+              "ResourceName": "Deploy-Diagnostics-ActivityLog",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ActivityLog",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-ActivityLog",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics",
-                "parameters": {
+                "Description": "Ensures that Activity Log Diagnostics settings are set to push logs into Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-ActivityLog",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -2443,7 +2060,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -2547,14 +2164,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-AKS",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AKS",
+              "ResourceName": "Deploy-Diagnostics-AKS",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AKS",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-AKS",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Kubernetes Service - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Kubernetes Service - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-AKS",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -2564,7 +2183,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.ContainerService/managedClusters"
@@ -2678,14 +2297,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-AnalysisService",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AnalysisService",
+              "ResourceName": "Deploy-Diagnostics-AnalysisService",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-AnalysisService",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-AnalysisService",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Analysis Services - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Analysis Services - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-AnalysisService",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -2695,7 +2316,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.AnalysisServices/servers"
@@ -2797,14 +2418,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-APIMgmt",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-APIMgmt",
+              "ResourceName": "Deploy-Diagnostics-APIMgmt",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-APIMgmt",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-APIMgmt",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for API Management services - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for API Management services - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-APIMgmt",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -2814,7 +2437,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.ApiManagement/service"
@@ -2930,14 +2553,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-ApplicationGateway",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ApplicationGateway",
+              "ResourceName": "Deploy-Diagnostics-ApplicationGateway",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ApplicationGateway",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-ApplicationGateway",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Application Gateways - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Application Gateways - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-ApplicationGateway",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -2947,7 +2572,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/applicationGateways"
@@ -3053,14 +2678,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-Batch",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Batch",
+              "ResourceName": "Deploy-Diagnostics-Batch",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Batch",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-Batch",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Batch accounts - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Batch accounts - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-Batch",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3070,7 +2697,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Batch/batchAccounts"
@@ -3168,14 +2795,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-CDNEndpoints",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CDNEndpoints",
+              "ResourceName": "Deploy-Diagnostics-CDNEndpoints",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CDNEndpoints",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-CDNEndpoints",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for CDN Endpoints - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for CDN Endpoints - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-CDNEndpoints",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3185,7 +2814,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Cdn/profiles/endpoints"
@@ -3269,14 +2898,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-CognitiveServices",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CognitiveServices",
+              "ResourceName": "Deploy-Diagnostics-CognitiveServices",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CognitiveServices",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-CognitiveServices",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Cognitive Services - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Cognitive Services - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-CognitiveServices",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3286,7 +2917,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.CognitiveServices/accounts"
@@ -3388,14 +3019,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-CosmosDB",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CosmosDB",
+              "ResourceName": "Deploy-Diagnostics-CosmosDB",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-CosmosDB",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-CosmosDB",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Cosmos DB - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Cosmos DB - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-CosmosDB",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3405,7 +3038,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.DocumentDB/databaseAccounts"
@@ -3511,14 +3144,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-DataFactory",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DataFactory",
+              "ResourceName": "Deploy-Diagnostics-DataFactory",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DataFactory",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-DataFactory",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Data Factory - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Data Factory - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-DataFactory",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3528,7 +3163,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.DataFactory/factories"
@@ -3634,14 +3269,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-DataLakeStore",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DataLakeStore",
+              "ResourceName": "Deploy-Diagnostics-DataLakeStore",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DataLakeStore",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-DataLakeStore",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Data Lake Storage - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Data Lake Storage - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-DataLakeStore",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3651,7 +3288,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.DataLakeStore/accounts"
@@ -3753,14 +3390,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-DLAnalytics",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DLAnalytics",
+              "ResourceName": "Deploy-Diagnostics-DLAnalytics",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-DLAnalytics",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-DLAnalytics",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Data Lake Analytics - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Data Lake Analytics - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-DLAnalytics",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3770,7 +3409,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.DataLakeAnalytics/accounts"
@@ -3872,14 +3511,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-EventGridSub",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventGridSub",
+              "ResourceName": "Deploy-Diagnostics-EventGridSub",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventGridSub",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-EventGridSub",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Event Grid Subscriptions - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Event Grid Subscriptions - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-EventGridSub",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3889,7 +3530,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.EventGrid/eventSubscriptions"
@@ -3978,14 +3619,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-EventGridTopic",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventGridTopic",
+              "ResourceName": "Deploy-Diagnostics-EventGridTopic",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventGridTopic",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-EventGridTopic",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Event Grid Topics - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Event Grid Topics - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-EventGridTopic",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -3995,7 +3638,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.EventGrid/topics"
@@ -4084,14 +3727,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-EventHub",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventHub",
+              "ResourceName": "Deploy-Diagnostics-EventHub",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-EventHub",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-EventHub",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Event Hub Namespaces - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Event Hub Namespaces - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-EventHub",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -4101,7 +3746,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.EventHub/namespaces"
@@ -4207,14 +3852,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-ExpressRoute",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ExpressRoute",
+              "ResourceName": "Deploy-Diagnostics-ExpressRoute",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ExpressRoute",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-ExpressRoute",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Express Routes Circuits - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Express Routes Circuits - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-ExpressRoute",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -4224,7 +3871,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/expressRouteCircuits"
@@ -4322,14 +3969,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-Firewall",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Firewall",
+              "ResourceName": "Deploy-Diagnostics-Firewall",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Firewall",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-Firewall",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Firewalls - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Firewalls - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-Firewall",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -4339,7 +3988,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/azureFirewalls"
@@ -4441,14 +4090,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-HDInsight",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-HDInsight",
+              "ResourceName": "Deploy-Diagnostics-HDInsight",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-HDInsight",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-HDInsight",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for HDInsight - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for HDInsight - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-HDInsight",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -4458,7 +4109,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.HDInsight/clusters"
@@ -4547,14 +4198,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-iotHub",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-iotHub",
+              "ResourceName": "Deploy-Diagnostics-iotHub",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-iotHub",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-iotHub",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for IoT Hubs - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for IoT Hubs - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-iotHub",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -4564,7 +4217,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Devices/IotHubs"
@@ -4710,14 +4363,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-KeyVault",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-KeyVault",
+              "ResourceName": "Deploy-Diagnostics-KeyVault",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-KeyVault",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-KeyVault",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Key Vaults - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Key Vaults - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-KeyVault",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -4727,7 +4382,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.KeyVault/vaults"
@@ -4825,14 +4480,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-LoadBalancer",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LoadBalancer",
+              "ResourceName": "Deploy-Diagnostics-LoadBalancer",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LoadBalancer",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-LoadBalancer",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Load Balancers - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Load Balancers - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-LoadBalancer",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -4842,7 +4499,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/loadBalancers"
@@ -4944,14 +4601,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-LogicAppsISE",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LogicAppsISE",
+              "ResourceName": "Deploy-Diagnostics-LogicAppsISE",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LogicAppsISE",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-LogicAppsISE",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Logic Apps Integration Accounts - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Logic Apps Integration Accounts - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-LogicAppsISE",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -4961,7 +4620,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Logic/integrationAccounts"
@@ -5045,14 +4704,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-LogicAppsWF",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LogicAppsWF",
+              "ResourceName": "Deploy-Diagnostics-LogicAppsWF",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-LogicAppsWF",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-LogicAppsWF",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Logic Apps workflows - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Logic Apps workflows - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-LogicAppsWF",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -5062,7 +4723,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Logic/workflows"
@@ -5160,14 +4821,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-MySQL",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-MySQL",
+              "ResourceName": "Deploy-Diagnostics-MySQL",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-MySQL",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-MySQL",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for MySQL Databases - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for MySQL Databases - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-MySQL",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -5177,7 +4840,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.DBforMySQL/servers"
@@ -5275,14 +4938,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-NetworkSecurityGroups",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NetworkSecurityGroups",
+              "ResourceName": "Deploy-Diagnostics-NetworkSecurityGroups",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NetworkSecurityGroups",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-NetworkSecurityGroups",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Network Security Groups - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Network Security Groups - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-NetworkSecurityGroups",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -5292,7 +4957,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/networkSecurityGroups"
@@ -5380,14 +5045,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-NIC",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NIC",
+              "ResourceName": "Deploy-Diagnostics-NIC",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NIC",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-NIC",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Network Interfaces - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Network Interfaces - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-NIC",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -5397,7 +5064,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/networkInterfaces"
@@ -5485,14 +5152,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-PostgreSQL",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PostgreSQL",
+              "ResourceName": "Deploy-Diagnostics-PostgreSQL",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PostgreSQL",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-PostgreSQL",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for PostgreSQL Databases - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for PostgreSQL Databases - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-PostgreSQL",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -5502,7 +5171,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.DBforPostgreSQL/servers"
@@ -5600,14 +5269,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-PowerBIEmbedded",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PowerBIEmbedded",
+              "ResourceName": "Deploy-Diagnostics-PowerBIEmbedded",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PowerBIEmbedded",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-PowerBIEmbedded",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Power BI Embedded - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Power BI Embedded - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-PowerBIEmbedded",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -5617,7 +5288,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.PowerBIDedicated/capacities"
@@ -5715,14 +5386,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-PublicIP",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PublicIP",
+              "ResourceName": "Deploy-Diagnostics-PublicIP",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-PublicIP",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-PublicIP",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Public IPs - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Public IPs - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-PublicIP",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -5732,7 +5405,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/publicIPAddresses"
@@ -5838,14 +5511,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-RecoveryVault",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-RecoveryVault",
+              "ResourceName": "Deploy-Diagnostics-RecoveryVault",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-RecoveryVault",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-RecoveryVault",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Recovery Vaults - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Recovery Vaults - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-RecoveryVault",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -5855,7 +5530,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.RecoveryServices/vaults"
@@ -5984,14 +5659,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-RedisCache",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-RedisCache",
+              "ResourceName": "Deploy-Diagnostics-RedisCache",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-RedisCache",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-RedisCache",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Redis Cache - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Redis Cache - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-RedisCache",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6001,7 +5678,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Cache/redis"
@@ -6090,14 +5767,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-Relay",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Relay",
+              "ResourceName": "Deploy-Diagnostics-Relay",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Relay",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-Relay",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Relay - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Relay - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-Relay",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6107,7 +5786,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Relay/namespaces"
@@ -6196,14 +5875,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-SearchServices",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SearchServices",
+              "ResourceName": "Deploy-Diagnostics-SearchServices",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SearchServices",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-SearchServices",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Search Services - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Search Services - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-SearchServices",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6213,7 +5894,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Search/searchServices"
@@ -6311,14 +5992,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-ServiceBus",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ServiceBus",
+              "ResourceName": "Deploy-Diagnostics-ServiceBus",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-ServiceBus",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-ServiceBus",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Service Bus namespaces - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Service Bus namespaces - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-ServiceBus",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6328,7 +6011,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.ServiceBus/namespaces"
@@ -6426,14 +6109,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-SignalR",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SignalR",
+              "ResourceName": "Deploy-Diagnostics-SignalR",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SignalR",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-SignalR",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for SignalR - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for SignalR - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-SignalR",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6443,7 +6128,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.SignalRService/SignalR"
@@ -6532,14 +6217,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-SQLDBs",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLDBs",
+              "ResourceName": "Deploy-Diagnostics-SQLDBs",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLDBs",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-SQLDBs",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for SQL Databases - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for SQL Databases - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-SQLDBs",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6549,7 +6236,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Sql/servers/databases"
@@ -6683,14 +6370,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-SQLElasticPools",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLElasticPools",
+              "ResourceName": "Deploy-Diagnostics-SQLElasticPools",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLElasticPools",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-SQLElasticPools",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for SQL Elastic Pools - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for SQL Elastic Pools - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-SQLElasticPools",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6700,7 +6389,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Sql/servers/elasticPools"
@@ -6789,14 +6478,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-SQLMI",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLMI",
+              "ResourceName": "Deploy-Diagnostics-SQLMI",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-SQLMI",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-SQLMI",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for SQL Managed Instances - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for SQL Managed Instances - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-SQLMI",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6806,7 +6497,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Sql/managedInstances"
@@ -6893,14 +6584,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-StreamAnalytics",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-StreamAnalytics",
+              "ResourceName": "Deploy-Diagnostics-StreamAnalytics",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-StreamAnalytics",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-StreamAnalytics",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Stream Analytics - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Stream Analytics - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-StreamAnalytics",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -6910,7 +6603,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.StreamAnalytics/streamingjobs"
@@ -7012,14 +6705,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-TimeSeriesInsights",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-TimeSeriesInsights",
+              "ResourceName": "Deploy-Diagnostics-TimeSeriesInsights",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-TimeSeriesInsights",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-TimeSeriesInsights",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Time Series Insights - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Time Series Insights - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-TimeSeriesInsights",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -7029,7 +6724,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.TimeSeriesInsights/environments"
@@ -7118,14 +6813,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-TrafficManager",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-TrafficManager",
+              "ResourceName": "Deploy-Diagnostics-TrafficManager",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-TrafficManager",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-TrafficManager",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Traffic Manager - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Traffic Manager - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-TrafficManager",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -7135,7 +6832,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/trafficManagerProfiles"
@@ -7233,14 +6930,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-VirtualNetwork",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VirtualNetwork",
+              "ResourceName": "Deploy-Diagnostics-VirtualNetwork",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VirtualNetwork",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-VirtualNetwork",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Virtual Networks - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Virtual Networks - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-VirtualNetwork",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -7250,7 +6949,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/virtualNetworks"
@@ -7347,14 +7046,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-VM",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VM",
+              "ResourceName": "Deploy-Diagnostics-VM",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VM",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-VM",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Virtual Machines - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Virtual Machines - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-VM",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -7364,7 +7065,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Compute/virtualMachines"
@@ -7452,14 +7153,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-VMSS",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VMSS",
+              "ResourceName": "Deploy-Diagnostics-VMSS",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VMSS",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-VMSS",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Virtual Machine Scale Sets - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Virtual Machine Scale Sets - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-VMSS",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -7469,7 +7172,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Compute/virtualMachineScaleSets"
@@ -7557,14 +7260,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-VNetGW",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VNetGW",
+              "ResourceName": "Deploy-Diagnostics-VNetGW",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-VNetGW",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-VNetGW",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Virtual Network Gateways - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Virtual Network Gateways - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-VNetGW",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -7574,7 +7279,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/virtualNetworkGateways"
@@ -7692,14 +7397,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-WebServerFarm",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-WebServerFarm",
+              "ResourceName": "Deploy-Diagnostics-WebServerFarm",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-WebServerFarm",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-WebServerFarm",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure App Service Plans - Log Analytics",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure App Service Plans - Log Analytics",
+                "DisplayName": "Deploy-Diagnostics-WebServerFarm",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -7709,7 +7416,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Web/serverfarms"
@@ -7798,14 +7505,16 @@
             },
             {
               "Name": "Deploy-Diagnostics-Website",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Website",
+              "ResourceName": "Deploy-Diagnostics-Website",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-Website",
               "Properties": {
-                "displayName": "Deploy-Diagnostics-Website",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Apply diagnostic settings for Azure Web Sites",
-                "parameters": {
+                "Description": "Apply diagnostic settings for Azure Web Sites",
+                "DisplayName": "Deploy-Diagnostics-Website",
+                "Mode": "All",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -7815,7 +7524,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Web/sites"
@@ -7904,14 +7613,16 @@
             },
             {
               "Name": "Deploy-FirewallPolicy",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-FirewallPolicy",
+              "ResourceName": "Deploy-FirewallPolicy",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-FirewallPolicy",
               "Properties": {
-                "displayName": "Deploy-FirewallPolicy",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Deploys Azure Firewall Policy/Manager",
-                "parameters": {
+                "Description": "Deploys Azure Firewall Policy/Manager",
+                "DisplayName": "Deploy-FirewallPolicy",
+                "Mode": "All",
+                "Parameters": {
                   "fwpolicy": {
                     "type": "Object",
                     "metadata": {
@@ -7936,7 +7647,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -8048,13 +7759,16 @@
             },
             {
               "Name": "Deploy-LA-Config",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-LA-Config",
+              "ResourceName": "Deploy-LA-Config",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-LA-Config",
               "Properties": {
-                "displayName": "Deploy-LA-Config",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {
+                "Description": null,
+                "DisplayName": "Deploy-LA-Config",
+                "Mode": "All",
+                "Parameters": {
                   "workspaceName": {
                     "type": "String",
                     "metadata": {
@@ -8070,7 +7784,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -8441,13 +8155,16 @@
             },
             {
               "Name": "Deploy-Log-Analytics",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Log-Analytics",
+              "ResourceName": "Deploy-Log-Analytics",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Log-Analytics",
               "Properties": {
-                "displayName": "Deploy-LogAnalytics",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {
+                "Description": null,
+                "DisplayName": "Deploy-LogAnalytics",
+                "Mode": "All",
+                "Parameters": {
                   "workspaceName": {
                     "type": "String",
                     "metadata": {
@@ -8484,7 +8201,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -8631,13 +8348,16 @@
             },
             {
               "Name": "Deploy-Nsg-FlowLogs",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Nsg-FlowLogs",
+              "ResourceName": "Deploy-Nsg-FlowLogs",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Nsg-FlowLogs",
               "Properties": {
-                "displayName": "Deploy-Nsg-FlowLogs",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {
+                "Description": null,
+                "DisplayName": "Deploy-Nsg-FlowLogs",
+                "Mode": "All",
+                "Parameters": {
                   "retention": {
                     "type": "Integer",
                     "metadata": {
@@ -8651,7 +8371,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Network/networkSecurityGroups"
@@ -8743,15 +8463,17 @@
             },
             {
               "Name": "Deploy-Sql-AuditingSettings",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-AuditingSettings",
+              "ResourceName": "Deploy-Sql-AuditingSettings",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-AuditingSettings",
               "Properties": {
-                "displayName": "Deploy-Sql-AuditingSettings",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Configures SQL Server",
-                "parameters": {},
-                "policyRule": {
+                "Description": "Configures SQL Server",
+                "DisplayName": "Deploy-Sql-AuditingSettings",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Sql/servers/databases"
@@ -8844,15 +8566,17 @@
             },
             {
               "Name": "Deploy-Sql-SecurityAlertPolicies",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-SecurityAlertPolicies",
+              "ResourceName": "Deploy-Sql-SecurityAlertPolicies",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-SecurityAlertPolicies",
               "Properties": {
-                "displayName": "Deploy-Sql-SecurityAlertPolicies",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Configures SQL DataBases",
-                "parameters": {},
-                "policyRule": {
+                "Description": "Configures SQL DataBases",
+                "DisplayName": "Deploy-Sql-SecurityAlertPolicies",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Sql/servers/databases"
@@ -8932,15 +8656,17 @@
             },
             {
               "Name": "Deploy-Sql-Tde",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-Tde",
+              "ResourceName": "Deploy-Sql-Tde",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-Tde",
               "Properties": {
-                "displayName": "Deploy-Sql-Tde",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Configures SQL DataBases",
-                "parameters": {},
-                "policyRule": {
+                "Description": "Configures SQL DataBases",
+                "DisplayName": "Deploy-Sql-Tde",
+                "Mode": "All",
+                "Parameters": {},
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Sql/servers/databases"
@@ -9010,14 +8736,16 @@
             },
             {
               "Name": "Deploy-Sql-vulnerabilityAssessments",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-vulnerabilityAssessments",
+              "ResourceName": "Deploy-Sql-vulnerabilityAssessments",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-vulnerabilityAssessments",
               "Properties": {
-                "displayName": "Deploy-Sql-vulnerabilityAssessments",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Configures SQL DataBases",
-                "parameters": {
+                "Description": "Configures SQL DataBases",
+                "DisplayName": "Deploy-Sql-vulnerabilityAssessments",
+                "Mode": "All",
+                "Parameters": {
                   "vulnerabilityAssessmentsEmail": {
                     "type": "String",
                     "metadata": {
@@ -9033,7 +8761,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "field": "type",
                     "equals": "Microsoft.Sql/servers/databases"
@@ -9127,14 +8855,16 @@
             },
             {
               "Name": "Deploy-vHUB",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vHUB",
+              "ResourceName": "Deploy-vHUB",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vHUB",
               "Properties": {
-                "displayName": "Deploy-vHUB",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Deploys Azure Virtual WAN vHUB in desired regions",
-                "parameters": {
+                "Description": "Deploys Azure Virtual WAN vHUB in desired regions",
+                "DisplayName": "Deploy-vHUB",
+                "Mode": "All",
+                "Parameters": {
                   "vwanname": {
                     "type": "String",
                     "metadata": {
@@ -9189,7 +8919,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -9449,452 +9179,17 @@
               }
             },
             {
-              "Name": "Deploy-VM-Backup",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
-              "Properties": {
-                "displayName": "Deploy-AzureBackup-on-VMs",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {},
-                "policyRule": {
-                  "if": {
-                    "allOf": [
-                      {
-                        "field": "type",
-                        "equals": "Microsoft.Compute/virtualMachines"
-                      },
-                      {
-                        "anyOf": [
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftWindowsServer"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "WindowsServer"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageSKU",
-                                "in": [
-                                  "2008-R2-SP1",
-                                  "2008-R2-SP1-smalldisk",
-                                  "2012-Datacenter",
-                                  "2012-Datacenter-smalldisk",
-                                  "2012-R2-Datacenter",
-                                  "2012-R2-Datacenter-smalldisk",
-                                  "2016-Datacenter",
-                                  "2016-Datacenter-Server-Core",
-                                  "2016-Datacenter-Server-Core-smalldisk",
-                                  "2016-Datacenter-smalldisk",
-                                  "2016-Datacenter-with-Containers",
-                                  "2016-Datacenter-with-RDSH",
-                                  "2019-Datacenter",
-                                  "2019-Datacenter-Core",
-                                  "2019-Datacenter-Core-smalldisk",
-                                  "2019-Datacenter-Core-with-Containers",
-                                  "2019-Datacenter-Core-with-Containers-smalldisk",
-                                  "2019-Datacenter-smalldisk",
-                                  "2019-Datacenter-with-Containers",
-                                  "2019-Datacenter-with-Containers-smalldisk",
-                                  "2019-Datacenter-zhcn"
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftWindowsServer"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "WindowsServerSemiAnnual"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageSKU",
-                                "in": [
-                                  "Datacenter-Core-1709-smalldisk",
-                                  "Datacenter-Core-1709-with-Containers-smalldisk",
-                                  "Datacenter-Core-1803-with-Containers-smalldisk"
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftWindowsServerHPCPack"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "WindowsServerHPCPack"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftSQLServer"
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageOffer",
-                                    "like": "*-WS2016"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageOffer",
-                                    "like": "*-WS2016-BYOL"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageOffer",
-                                    "like": "*-WS2012R2"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageOffer",
-                                    "like": "*-WS2012R2-BYOL"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftRServer"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "MLServer-WS2016"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftVisualStudio"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "in": [
-                                  "VisualStudio",
-                                  "Windows"
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftDynamicsAX"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "Dynamics"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageSKU",
-                                "equals": "Pre-Req-AX7-Onebox-U8"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "microsoft-ads"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "windows-data-science-vm"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "MicrosoftWindowsDesktop"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "Windows-10"
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "RedHat"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "in": [
-                                  "RHEL",
-                                  "RHEL-SAP-HANA"
-                                ]
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "6.*"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "7*"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "SUSE"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "in": [
-                                  "SLES",
-                                  "SLES-HPC",
-                                  "SLES-HPC-Priority",
-                                  "SLES-SAP",
-                                  "SLES-SAP-BYOS",
-                                  "SLES-Priority",
-                                  "SLES-BYOS",
-                                  "SLES-SAPCAL",
-                                  "SLES-Standard"
-                                ]
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "12*"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "Canonical"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "UbuntuServer"
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "14.04*LTS"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "16.04*LTS"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "18.04*LTS"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "Oracle"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "Oracle-Linux"
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "6.*"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "7.*"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "OpenLogic"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "in": [
-                                  "CentOS",
-                                  "Centos-LVM",
-                                  "CentOS-SRIOV"
-                                ]
-                              },
-                              {
-                                "anyOf": [
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "6.*"
-                                  },
-                                  {
-                                    "field": "Microsoft.Compute/imageSKU",
-                                    "like": "7*"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "allOf": [
-                              {
-                                "field": "Microsoft.Compute/imagePublisher",
-                                "equals": "cloudera"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageOffer",
-                                "equals": "cloudera-centos-os"
-                              },
-                              {
-                                "field": "Microsoft.Compute/imageSKU",
-                                "like": "7*"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "then": {
-                    "effect": "deployIfNotExists",
-                    "details": {
-                      "resourceGroupName": "[resourceGroup().name]",
-                      "type": "Microsoft.RecoveryServices/backupprotecteditems",
-                      "roleDefinitionIds": [
-                        "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
-                      ],
-                      "existenceCondition": {
-                        "field": "name",
-                        "like": "*"
-                      },
-                      "deployment": {
-                        "properties": {
-                          "mode": "incremental",
-                          "template": {
-                            "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-                            "contentVersion": "1.0.0.0",
-                            "parameters": {
-                              "vmName": {
-                                "type": "string",
-                                "metadata": {
-                                  "description": "Name of Azure Virtual Machines"
-                                }
-                              },
-                              "vmRgName": {
-                                "type": "string",
-                                "metadata": {
-                                  "description": "Resource group containing the virtual machines."
-                                }
-                              },
-                              "location": {
-                                "type": "string",
-                                "metadata": {
-                                  "description": "Location for VM and Backup vault"
-                                }
-                              }
-                            },
-                            "variables": {
-                              "backupFabric": "Azure",
-                              "backupPolicy": "DefaultPolicy",
-                              "v2VmType": "Microsoft.Compute/virtualMachines",
-                              "v2VmContainer": "iaasvmcontainer;iaasvmcontainerv2;",
-                              "v2Vm": "vm;iaasvmcontainerv2;",
-                              "vaultName": "[concat(resourceGroup().name, '-backupvault')]"
-                            },
-                            "resources": [
-                              {
-                                "name": "[variables('vaultName')]",
-                                "type": "Microsoft.RecoveryServices/vaults",
-                                "apiVersion": "2016-06-01",
-                                "location": "[parameters('location')]",
-                                "properties": {},
-                                "sku": {
-                                  "name": "Standard"
-                                }
-                              },
-                              {
-                                "name": "[concat(variables('vaultName'), '/', variables('backupFabric'), '/', variables('v2VmContainer'), concat(parameters('vmRgName'),';',parameters('vmName')), '/', variables('v2Vm'), concat(parameters('vmRgName'),';',parameters('vmName')))]",
-                                "apiVersion": "2016-12-01",
-                                "location": "[parameters('location')]",
-                                "type": "Microsoft.RecoveryServices/vaults/backupFabrics/protectionContainers/protectedItems",
-                                "dependsOn": [
-                                  "[resourceId('Microsoft.RecoveryServices/vaults/', variables('vaultName'))]"
-                                ],
-                                "properties": {
-                                  "protectedItemType": "[variables('v2VmType')]",
-                                  "policyId": "[resourceId('Microsoft.RecoveryServices/vaults/backupPolicies', variables('vaultName'),variables('backupPolicy'))]",
-                                  "sourceResourceId": "[concat('/subscriptions/', subscription().subscriptionId, '/resourceGroups/', parameters('vmRgName'), '/providers/Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
-                                }
-                              }
-                            ],
-                            "outputs": {
-                              "status": {
-                                "type": "string",
-                                "value": "[concat('Backup enabled successfully for VM:', ' ', parameters('vmName'))]"
-                              }
-                            }
-                          },
-                          "parameters": {
-                            "vmName": {
-                              "value": "[field('name')]"
-                            },
-                            "location": {
-                              "value": "[field('location')]"
-                            },
-                            "vmRgName": {
-                              "value": "[resourceGroup().name]"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            {
               "Name": "Deploy-vNet",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vNet",
+              "ResourceName": "Deploy-vNet",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vNet",
               "Properties": {
-                "displayName": "Deploy-vNet",
-                "policyType": "Custom",
-                "mode": "All",
-                "description": "Deploy-vNet",
-                "parameters": {
+                "Description": "Deploy-vNet",
+                "DisplayName": "Deploy-vNet",
+                "Mode": "All",
+                "Parameters": {
                   "ipam": {
                     "type": "Array",
                     "metadata": {
@@ -9904,7 +9199,7 @@
                     "defaultValue": []
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -10069,7 +9364,7 @@
                                       {
                                         "condition": "[contains(parameters('ipam')[copyIndex()],'virtualNetworks')]",
                                         "type": "Microsoft.Network/virtualNetworks",
-                                        "apiVersion": "2018-10-01",
+                                        "apiVersion": "2020-04-01",
                                         "name": "[concat(subscription().displayName, '-vnet')]",
                                         "location": "[parameters('ipam')[copyIndex()].location]",
                                         "dependsOn": [
@@ -10177,13 +9472,16 @@
             },
             {
               "Name": "Deploy-vWAN",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vWAN",
+              "ResourceName": "Deploy-vWAN",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-vWAN",
               "Properties": {
-                "displayName": "Deploy-vWAN",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {
+                "Description": null,
+                "DisplayName": "Deploy-vWAN",
+                "Mode": "All",
+                "Parameters": {
                   "vwanname": {
                     "type": "String",
                     "metadata": {
@@ -10207,7 +9505,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -10310,13 +9608,16 @@
             },
             {
               "Name": "Deploy-Windows-DomainJoin",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policyDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Windows-DomainJoin",
+              "ResourceName": "Deploy-Windows-DomainJoin",
+              "ResourceType": "Microsoft.Authorization/policyDefinitions",
+              "SubscriptionId": null,
+              "PolicyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Windows-DomainJoin",
               "Properties": {
-                "displayName": "Deploy-Windows-DomainJoin",
-                "policyType": "Custom",
-                "mode": "All",
-                "parameters": {
+                "Description": null,
+                "DisplayName": "Deploy-Windows-DomainJoin",
+                "Mode": "All",
+                "Parameters": {
                   "domainUsername": {
                     "type": "String",
                     "metadata": {
@@ -10353,7 +9654,7 @@
                     }
                   }
                 },
-                "policyRule": {
+                "PolicyRule": {
                   "if": {
                     "allOf": [
                       {
@@ -10554,13 +9855,17 @@
           "policySetDefinitions": [
             {
               "Name": "Deny-PublicEndpoints",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policySetDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deny-PublicEndpoints",
+              "ResourceName": "Deny-PublicEndpoints",
+              "ResourceType": "Microsoft.Authorization/policySetDefinitions",
+              "SubscriptionId": null,
+              "PolicySetDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deny-PublicEndpoints",
               "Properties": {
-                "displayName": "Deny-Public-Endpoints-for-PaaS-Services",
-                "policyType": "Custom",
-                "parameters": {},
-                "policyDefinitions": [
+                "Description": null,
+                "DisplayName": "Deny-Public-Endpoints-for-PaaS-Services",
+                "Parameters": {},
+                "PolicyDefinitionGroups": null,
+                "PolicyDefinitions": [
                   {
                     "policyDefinitionReferenceId": "2305471075076999555",
                     "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deny-PublicEndpoint-CosmosDB",
@@ -10606,13 +9911,15 @@
             },
             {
               "Name": "Deploy-Diag-LogAnalytics",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policySetDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Diag-LogAnalytics",
+              "ResourceName": "Deploy-Diag-LogAnalytics",
+              "ResourceType": "Microsoft.Authorization/policySetDefinitions",
+              "SubscriptionId": null,
+              "PolicySetDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Diag-LogAnalytics",
               "Properties": {
-                "displayName": "Deploy-Diag-LogAnalytics",
-                "policyType": "Custom",
-                "description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace.",
-                "parameters": {
+                "Description": "This initiative configures application Azure resources to forward diagnostic logs and metrics to an Azure Log Analytics workspace.",
+                "DisplayName": "Deploy-Diag-LogAnalytics",
+                "Parameters": {
                   "logAnalytics": {
                     "type": "String",
                     "metadata": {
@@ -10622,7 +9929,8 @@
                     }
                   }
                 },
-                "policyDefinitions": [
+                "PolicyDefinitionGroups": null,
+                "PolicyDefinitions": [
                   {
                     "policyDefinitionReferenceId": "7236125568528343678",
                     "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Diagnostics-NIC",
@@ -11069,13 +10377,15 @@
             },
             {
               "Name": "Deploy-Sql-Security",
-              "ResourceType": "Microsoft.Management/managementGroups",
-              "ExtensionResourceType": "Microsoft.Authorization/policySetDefinitions",
+              "ResourceId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Sql-Security",
+              "ResourceName": "Deploy-Sql-Security",
+              "ResourceType": "Microsoft.Authorization/policySetDefinitions",
+              "SubscriptionId": null,
+              "PolicySetDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policySetDefinitions/Deploy-Sql-Security",
               "Properties": {
-                "displayName": "Deploy-Sql-Security",
-                "policyType": "Custom",
-                "description": "Recommended built-in security policies for the North Star architecture",
-                "parameters": {
+                "Description": "Recommended built-in security policies for the North Star architecture",
+                "DisplayName": "Deploy-Sql-Security",
+                "Parameters": {
                   "vulnerabilityAssessmentsEmail": {
                     "type": "String",
                     "metadata": {
@@ -11091,7 +10401,8 @@
                     }
                   }
                 },
-                "policyDefinitions": [
+                "PolicyDefinitionGroups": null,
+                "PolicyDefinitions": [
                   {
                     "policyDefinitionReferenceId": "Deploy-Sql-Tde",
                     "policyDefinitionId": "/providers/Microsoft.Management/managementGroups/Tailspin/providers/Microsoft.Authorization/policyDefinitions/Deploy-Sql-Tde",
