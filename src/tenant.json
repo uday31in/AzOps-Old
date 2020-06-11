@@ -65,6 +65,7 @@
         
 
         "input": "[union(parameters('hobo'),parameters('input'))]",
+        "billingScope": "/providers/Microsoft.Billing/billingAccounts/92f5c6b0-4987-58f6-9e20-461987588a3f:d3c53d42-a2fd-4c7c-8d0c-cf0f94f4f62b_2019-05-31/billingProfiles/BFYK-I5PY-BG7-TGB/invoiceSections/FA5J-7JQY-PJA-TGB",
         /*
             If Id property is present, use one and replace providers prefix, otherwise assume management group.
         */
@@ -245,6 +246,25 @@
                                 }
                             }
                         },
+
+                        /*
+                            Create new subscription only if Id property is missing.
+                            Required Parameters:
+                                1. Type: "/subscriptions"
+                                2. DisplayName: Subscription Display Name
+                        */
+                        {
+                            // creating a new subscription using a deterministic guid function
+                            "condition": "[and(contains(variables('Children')[copyIndex()],'Type'),contains(variables('Children')[copyIndex()],'DisplayName'),equals(variables('Children')[copyIndex()].Type ,'/subscriptions'),not(contains(variables('Children')[copyIndex()],'Id')))]",
+                            "type": "Microsoft.Subscription/subscriptions",
+                            "name": "[variables('Children')[copyIndex()].Name]",
+                            "apiVersion": "2019-10-01-preview",
+                            "properties": {
+                                "displayName": "[variables('Children')[copyIndex()].DisplayName]",
+                                "billingScope": "[variables('billingScope')]",
+                                "skuId": "0001"
+                            }
+                        },                        
                         /*
                             Ensure Subscription is under parent management group
                             This is commented out until platform supports capability.
@@ -252,6 +272,9 @@
                         /*
                         {
                             "condition": "[not(contains(if(contains(variables('Children')[copyIndex()], 'Id'),variables('Children')[copyIndex()].Id, concat('Microsoft.Management/managementGroups/',variables('Children')[copyIndex()].Name)),'Microsoft.Management/managementGroups'))]",
+                            "dependsOn": [
+                                "[guid(variables('Children')[copyIndex()].DisplayName)]"               
+                            ],
                             "type": "Microsoft.Management/managementGroups/subscriptions",
                             "apiVersion": "2019-11-01",
                             "name": "[concat(parameters('input').Name,'/',variables('Children')[copyIndex()].Name)]",
@@ -263,7 +286,7 @@
                             For each Subscription (i.e. Not management group), Start nested deployment
                         */
                         {
-                            "condition": "[not(contains(variables('Children')[copyIndex()].Id ,'Microsoft.Management/managementGroups'))]",
+                            "condition": "[and(contains(variables('Children')[copyIndex()],'Type'),contains(variables('Children')[copyIndex()],'DisplayName'),equals(variables('Children')[copyIndex()].Type ,'/subscriptions'),not(contains(variables('Children')[copyIndex()],'Id')))]",
                             "type": "Microsoft.Resources/deployments",
                             "apiVersion": "2019-10-01",
                             "location": "[deployment().location]",
